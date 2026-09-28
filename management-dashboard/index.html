@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Management Dashboard — Hướng dẫn sử dụng | iMED ERP</title>
+  <meta name="description" content="Hướng dẫn sử dụng Management Dashboard cho Sales Manager và BU Manager — lọc pipeline, KPI và biểu đồ team.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,420;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font: "Inter", system-ui, sans-serif;
+      --surface: #fff;
+      --bg: #f8fafc;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --blue: #2490ef;
+      --amber-soft: #fffbeb;
+      --amber: #b45309;
+      --radius: 8px;
+      --max: 820px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font: 420 15px/1.6 var(--font); color: var(--text); background: var(--bg); }
+    a { color: var(--blue); }
+    .shell { max-width: var(--max); margin: 0 auto; padding: 0 20px 64px; }
+    header.page-header {
+      position: sticky; top: 0; z-index: 5;
+      background: rgba(248,250,252,.92); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0; margin-bottom: 28px;
+    }
+    .back { font-size: 13px; color: var(--muted); }
+    h1 { margin: 8px 0 0; font-size: 28px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 12px; font-size: 13px; color: var(--muted); }
+    .meta strong { color: var(--text); font-weight: 600; }
+    section { margin-top: 36px; scroll-margin-top: 80px; }
+    h2 { margin: 0 0 12px; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+    h3 { margin: 28px 0 8px; font-size: 17px; font-weight: 600; }
+    p { margin: 0 0 12px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.25rem; }
+    li { margin-bottom: 6px; }
+    .checklist { list-style: none; padding: 0; }
+    .checklist li::before { content: "☐ "; color: var(--muted); }
+    figure {
+      margin: 16px 0 24px; padding: 12px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: 0 1px 3px rgba(0,0,0,.04);
+    }
+    figure img { display: block; width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border); }
+    figcaption { margin-top: 10px; font-size: 13px; color: var(--muted); text-align: center; }
+    .note {
+      margin: 12px 0 20px; padding: 12px 14px;
+      background: var(--amber-soft); border-left: 4px solid var(--amber);
+      border-radius: 0 var(--radius) var(--radius) 0; font-size: 14px;
+    }
+    .note strong { color: var(--amber); }
+    table {
+      width: 100%; border-collapse: collapse; font-size: 14px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden; margin: 12px 0 20px;
+    }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: #f1f5f9; font-weight: 600; font-size: 13px; }
+    tr:last-child td { border-bottom: none; }
+    .ui-label { font-family: ui-monospace, monospace; font-size: 0.92em; background: #f1f5f9; padding: 1px 6px; border-radius: 4px; }
+    footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+    nav.toc { margin: 20px 0; padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+    nav.toc ol { margin: 8px 0 0; }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="page-header">
+      <a class="back" href="../index.html">← Tài liệu hướng dẫn iMED ERP</a>
+      <h1>Management Dashboard — Hướng dẫn sử dụng</h1>
+      <div class="meta">
+        <span><strong>Dành cho:</strong> iMED Sales Manager, iMED BU Manager, iMED Sales Admin</span>
+        <span><strong>Môi trường:</strong> dev-erp.smartr.co</span>
+        <span><strong>Cập nhật:</strong> 2026-09-28</span>
+      </div>
+    </header>
+
+    <nav class="toc" aria-label="Mục lục">
+      <strong>Mục lục</strong>
+      <ol>
+        <li><a href="#purpose">Mục đích</a></li>
+        <li><a href="#prerequisites">Trước khi bắt đầu</a></li>
+        <li><a href="#steps">Các bước thực hiện</a></li>
+        <li><a href="#roles">Phân quyền theo vai trò</a></li>
+        <li><a href="#outcome">Kết quả mong đợi</a></li>
+        <li><a href="#troubleshooting">Xử lý sự cố</a></li>
+      </ol>
+    </nav>
+
+    <section id="purpose">
+      <h2>Mục đích</h2>
+      <p><strong>Management Dashboard</strong> giúp lãnh đạo kinh doanh theo dõi <strong>toàn bộ pipeline cơ hội (Opportunity)</strong> của team: tổng số cơ hội, doanh số, phân bổ theo khách hàng, khu vực, nhân viên kinh doanh, thương hiệu và Business Unit.</p>
+      <p>Trang gồm hai chế độ xem — <strong>Overview</strong> (tổng quan) và <strong>Detail</strong> (phân tích chi tiết theo trạng thái, giai đoạn bán hàng và người phụ trách).</p>
+      <div class="note"><strong>Lưu ý:</strong> Nhân viên kinh doanh thông thường (<strong>iMED Sales</strong>) không được mở trang này; họ dùng <strong>My Sales Dashboard</strong> để xem pipeline cá nhân.</div>
+    </section>
+
+    <section id="prerequisites">
+      <h2>Trước khi bắt đầu</h2>
+      <ul class="checklist">
+        <li>Bạn đã đăng nhập ERP</li>
+        <li>Tài khoản có vai trò <strong>iMED Sales Manager</strong>, <strong>iMED BU Manager</strong> hoặc <strong>iMED Sales Admin</strong></li>
+        <li>Dữ liệu Opportunity đã được nhập trên hệ thống</li>
+      </ul>
+    </section>
+
+    <section id="steps">
+      <h2>Các bước thực hiện</h2>
+
+      <h3>Bước 1: Mở Management Dashboard</h3>
+      <p>Từ thanh tìm kiếm Desk, gõ <em>Management Dashboard</em> hoặc vào menu <strong>CRM → Management Dashboard</strong>.</p>
+      <figure>
+        <img src="images/01-open-page.png" alt="Toàn cảnh trang Management Dashboard với bộ lọc, tab Overview và biểu đồ KPI" loading="lazy">
+        <figcaption>Bước 1 — Mở trang Management Dashboard</figcaption>
+      </figure>
+      <div class="note"><strong>Lưu ý:</strong> Nếu thấy thông báo <em>Not permitted to access Management Dashboard</em>, liên hệ quản trị để được gán đúng vai trò.</div>
+
+      <h3>Bước 2: Thiết lập bộ lọc</h3>
+      <p>Phần <strong>Filters</strong> nằm phía trên, áp dụng chung cho cả tab Overview và Detail.</p>
+      <figure>
+        <img src="images/02-filters.png" alt="Khu vực bộ lọc với Period, Closing From, Closing To, Status và nút Apply" loading="lazy">
+        <figcaption>Bước 2 — Khu vực bộ lọc và nút Apply</figcaption>
+      </figure>
+      <table>
+        <thead><tr><th>Thành phần</th><th>Mô tả</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ui-label">This Month</span> / <span class="ui-label">This Quarter</span> / <span class="ui-label">This Year</span></td><td>Chọn nhanh khoảng ngày dự kiến chốt deal</td></tr>
+          <tr><td><span class="ui-label">Closing From</span> / <span class="ui-label">Closing To</span></td><td>Lọc theo ngày dự kiến chốt (<code>expected_closing</code>)</td></tr>
+          <tr><td><span class="ui-label">Status</span></td><td>Open, Quotation, Converted, Replied, Lost, Closed…</td></tr>
+          <tr><td><span class="ui-label">Sales Stage</span></td><td>Giai đoạn bán hàng iMED</td></tr>
+          <tr><td><span class="ui-label">Business Unit</span> / <span class="ui-label">Brand</span></td><td>Lọc theo BU và thương hiệu trên dòng hàng</td></tr>
+          <tr><td><span class="ui-label">Territory</span> / <span class="ui-label">Assigned User</span> / <span class="ui-label">Customer</span></td><td>Lọc theo khu vực, nhân viên phụ trách, khách hàng</td></tr>
+          <tr><td><span class="ui-label">Apply</span></td><td>Làm mới <strong>toàn bộ</strong> KPI và biểu đồ</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Bước 3: Nhấn Apply</h3>
+      <p>Sau khi chọn bộ lọc, nhấn <span class="ui-label">Apply</span> — tất cả KPI và biểu đồ sẽ được làm mới theo cùng một tập dữ liệu.</p>
+      <figure>
+        <img src="images/07-apply-filters.png" alt="Nhấn nút Apply sau khi thiết lập bộ lọc" loading="lazy">
+        <figcaption>Bước 3 — Nhấn Apply để áp dụng bộ lọc</figcaption>
+      </figure>
+      <div class="note"><strong>Lưu ý (BU Manager):</strong> Trường <span class="ui-label">Business Unit</span> bị khóa theo BU của bạn; tab <span class="ui-label">Overview</span> có thể bị ẩn — chỉ xem tab <span class="ui-label">Detail</span>.</div>
+
+      <h3>Bước 4: Xem tab Overview</h3>
+      <p>Nhấn tab <span class="ui-label">Overview</span> để xem tổng quan team.</p>
+      <figure>
+        <img src="images/03-overview-tab.png" alt="Tab Overview với KPI và biểu đồ Top 10" loading="lazy">
+        <figcaption>Bước 4 — Tab Overview</figcaption>
+      </figure>
+
+      <h4 style="margin:16px 0 8px;font-size:15px;font-weight:600;">KPI tổng hợp</h4>
+      <figure>
+        <img src="images/04-overview-kpis.png" alt="Lưới KPI Overview gồm Total Opportunities, Total Amount, Expected Amount" loading="lazy">
+        <figcaption>Bước 4b — Lưới KPI Overview</figcaption>
+      </figure>
+      <table>
+        <thead><tr><th>KPI</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ui-label">Total Opportunities</span></td><td>Tổng số cơ hội sau lọc</td></tr>
+          <tr><td><span class="ui-label">Total Amount (VND)</span></td><td>Tổng giá trị cơ hội</td></tr>
+          <tr><td><span class="ui-label">Expected Amount (VND)</span></td><td>Giá trị kỳ vọng (theo xác suất)</td></tr>
+          <tr><td><span class="ui-label">Customers</span></td><td>Số khách hàng phân biệt</td></tr>
+          <tr><td><span class="ui-label">Sales Reps</span></td><td>Số nhân viên kinh doanh có cơ hội</td></tr>
+        </tbody>
+      </table>
+      <p>Biểu đồ Overview gồm <strong>Top 10 Customers</strong>, <strong>Top 10 BU</strong>, <strong>Top 10 Territories</strong>, <strong>Top 10 Sales Persons</strong>, <strong>Amount by Brand</strong> và <strong>Amount by BU</strong>. Nhấn biểu tượng mở rộng trên biểu đồ để xem fullscreen kèm tóm tắt bộ lọc.</p>
+
+      <h3>Bước 5: Xem tab Detail</h3>
+      <p>Nhấn tab <span class="ui-label">Detail</span> để phân tích sâu từng cơ hội.</p>
+      <figure>
+        <img src="images/05-detail-tab.png" alt="Tab Detail với biểu đồ Amount by Status và Amount by Sales Stage" loading="lazy">
+        <figcaption>Bước 5 — Tab Detail</figcaption>
+      </figure>
+
+      <h4 style="margin:16px 0 8px;font-size:15px;font-weight:600;">Biểu đồ Detail</h4>
+      <figure>
+        <img src="images/06-detail-charts.png" alt="Biểu đồ Detail pipeline theo trạng thái và giai đoạn" loading="lazy">
+        <figcaption>Bước 5b — Biểu đồ Detail</figcaption>
+      </figure>
+      <ul>
+        <li><strong>Amount by Status</strong> — biểu đồ tròn; chuyển <span class="ui-label">No. of Opportunities</span> / <span class="ui-label">Total Value (VND)</span></li>
+        <li><strong>Amount by Sales Stage</strong> — funnel lồng Status → Sales Stage; chuyển count/value</li>
+        <li><strong>Amount by Expected Closing Month</strong> — biểu đồ đường; <span class="ui-label">Monthly</span> / <span class="ui-label">Accumulated</span></li>
+        <li><strong>Amount by Assigned User</strong> — bảng tổng hợp; mở rộng từng dòng để xem danh sách cơ hội</li>
+      </ul>
+      <div class="note"><strong>Mẹo:</strong> Cuộn xuống dưới tab Detail để xem biểu đồ Expected Closing Month và bảng Assigned User nếu không hiển thị trong một màn hình.</div>
+    </section>
+
+    <section id="roles">
+      <h2>Phụ lục — Vai trò và phạm vi dữ liệu</h2>
+      <table>
+        <thead><tr><th>Vai trò</th><th>Tab</th><th>Phạm vi</th></tr></thead>
+        <tbody>
+          <tr><td>iMED Sales Manager</td><td>Overview + Detail</td><td>Toàn bộ cơ hội (theo bộ lọc)</td></tr>
+          <tr><td>iMED BU Manager</td><td>Detail</td><td>Chỉ BU được gán từ Position</td></tr>
+          <tr><td>iMED Sales Admin</td><td>Overview + Detail</td><td>Toàn bộ cơ hội</td></tr>
+          <tr><td>iMED Sales</td><td>—</td><td>Không truy cập — dùng My Sales Dashboard</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="outcome">
+      <h2>Kết quả mong đợi</h2>
+      <p>Sau khi nhấn <span class="ui-label">Apply</span>:</p>
+      <ul>
+        <li>KPI và mọi biểu đồ phản ánh <strong>cùng một bộ lọc</strong></li>
+        <li>Không còn dữ liệu cũ trước khi Apply</li>
+        <li>Nếu không có dữ liệu: KPI = 0; biểu đồ hiển thị trạng thái trống (<em>No data</em>)</li>
+      </ul>
+    </section>
+
+    <section id="troubleshooting">
+      <h2>Xử lý sự cố thường gặp</h2>
+      <table>
+        <thead><tr><th>Triệu chứng</th><th>Nguyên nhân có thể</th><th>Cách xử lý</th></tr></thead>
+        <tbody>
+          <tr><td>Không mở được trang</td><td>Thiếu quyền (ví dụ iMED Sales)</td><td>Dùng <strong>My Sales Dashboard</strong> hoặc liên hệ admin</td></tr>
+          <tr><td>Không thấy tab <span class="ui-label">Overview</span></td><td>Đăng nhập với vai trò BU Manager</td><td>Bình thường — chỉ xem tab <span class="ui-label">Detail</span></td></tr>
+          <tr><td>Biểu đồ không đổi</td><td>Chưa nhấn <span class="ui-label">Apply</span></td><td>Nhấn Apply và đợi tải xong</td></tr>
+          <tr><td>Số liệu = 0</td><td>Bộ lọc quá hẹp</td><td>Nới rộng Closing From/To hoặc bỏ bớt điều kiện</td></tr>
+          <tr><td>Không mở rộng biểu đồ</td><td>Lỗi tải dữ liệu</td><td>Nhấn Apply lại hoặc tải lại trang</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer>
+      Captured: 2026-09-28 · Environment: dev-erp.smartr.co · Screenshot account: demo@smartr.co
+    </footer>
+  </div>
+</body>
+</html>

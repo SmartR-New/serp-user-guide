@@ -1,0 +1,52 @@
+{
+  "scenario": "E:\\smartr-workspace\\imed-project\\.cursor\\skills\\serp-user-guide\\scripts\\scenarios\\management-dashboard.yaml",
+  "title": "Management Dashboard — overview, filters, and detail",
+  "output_dir": "e:\\smartr-workspace\\imed-project\\serp-user-guide\\management-dashboard\\images",
+  "captured": [
+    {
+      "id": "01-open-page",
+      "file": "01-open-page.png",
+      "caption": "Mở trang Management Dashboard",
+      "url": "https://dev-erp.smartr.co/app/management_dashboard"
+    },
+    {
+      "id": "02-filters",
+      "file": "02-filters.png",
+      "caption": "Khu vực bộ lọc và nút Apply",
+      "url": "https://dev-erp.smartr.co/app/management_dashboard"
+    },
+    {
+      "id": "03-overview-tab",
+      "file": "03-overview-tab.png",
+      "caption": "Tab Overview — tổng quan KPI và biểu đồ",
+      "url": "https://dev-erp.smartr.co/app/management_dashboard"
+    },
+    {
+      "id": "04-overview-kpis",
+      "file": "04-overview-kpis.png",
+      "caption": "Lưới KPI Overview (cơ hội, doanh số, khách hàng…)",
+      "url": "https://dev-erp.smartr.co/app/management_dashboard"
+    },
+    {
+      "id": "05-detail-tab",
+      "file": "05-detail-tab.png",
+      "caption": "Tab Detail — phân tích cơ hội theo trạng thái và giai đoạn",
+      "url": "https://dev-erp.smartr.co/app/management_dashboard"
+    },
+    {
+      "id": "06-detail-charts",
+      "file": "06-detail-charts.png",
+      "caption": "Biểu đồ Detail (Status, Sales Stage, Closing Month)",
+      "url": "https://dev-erp.smartr.co/app/management_dashboard"
+    },
+    {
+      "id": "07-apply-filters",
+      "file": "07-apply-filters.png",
+      "caption": "Nhấn Apply để áp dụng bộ lọc cho toàn bộ biểu đồ",
+      "url": "https://dev-erp.smartr.co/app/management_dashboard"
+    }
+  ],
+  "timestamp": "2026-09-28T04:17:42.301Z",
+  "status": "success",
+  "summary": "Captured 7 screenshots"
+}
