@@ -187,17 +187,30 @@
       </figure>
 
       <h4 style="margin:16px 0 8px;font-size:15px;font-weight:600;">Biểu đồ Detail</h4>
-      <figure>
-        <img src="images/06-detail-charts.png" alt="Biểu đồ Detail pipeline theo trạng thái và giai đoạn" loading="lazy">
-        <figcaption>Bước 5b — Biểu đồ Detail</figcaption>
+
+      <p><strong>Amount by Status</strong> — biểu đồ tròn; chuyển <span class="ui-label">No. of Opportunities</span> / <span class="ui-label">Total Value (VND)</span>.</p>
+      <figure class="figure-focus">
+        <img src="images/06-detail-chart-status.png" alt="Biểu đồ tròn Amount by Status với legend trạng thái Open, Quotation, Converted" loading="lazy">
+        <figcaption>Bước 5a — Amount by Status</figcaption>
       </figure>
-      <ul>
-        <li><strong>Amount by Status</strong> — biểu đồ tròn; chuyển <span class="ui-label">No. of Opportunities</span> / <span class="ui-label">Total Value (VND)</span></li>
-        <li><strong>Amount by Sales Stage</strong> — funnel lồng Status → Sales Stage; chuyển count/value</li>
-        <li><strong>Amount by Expected Closing Month</strong> — biểu đồ đường; <span class="ui-label">Monthly</span> / <span class="ui-label">Accumulated</span></li>
-        <li><strong>Amount by Assigned User</strong> — bảng tổng hợp; mở rộng từng dòng để xem danh sách cơ hội</li>
-      </ul>
-      <div class="note"><strong>Mẹo:</strong> Cuộn xuống dưới tab Detail để xem biểu đồ Expected Closing Month và bảng Assigned User nếu không hiển thị trong một màn hình.</div>
+
+      <p><strong>Amount by Sales Stage</strong> — funnel lồng Status → Sales Stage; chuyển count/value.</p>
+      <figure class="figure-focus">
+        <img src="images/08-detail-chart-stage.png" alt="Funnel Amount by Sales Stage theo từng giai đoạn bán hàng" loading="lazy">
+        <figcaption>Bước 5b — Amount by Sales Stage</figcaption>
+      </figure>
+
+      <p><strong>Amount by Expected Closing Month</strong> — biểu đồ đường; chuyển <span class="ui-label">Monthly</span> / <span class="ui-label">Accumulated</span>.</p>
+      <figure class="figure-focus">
+        <img src="images/09-detail-chart-closing.png" alt="Biểu đồ đường Amount by Expected Closing Month theo tháng" loading="lazy">
+        <figcaption>Bước 5c — Amount by Expected Closing Month</figcaption>
+      </figure>
+
+      <p><strong>Amount by Assigned User</strong> — bảng tổng hợp; mở rộng từng dòng để xem danh sách cơ hội.</p>
+      <figure class="figure-focus">
+        <img src="images/10-detail-chart-assigned-user.png" alt="Bảng Amount by Assigned User với cột Total Opportunity, Total Amount, Expected Amount" loading="lazy">
+        <figcaption>Bước 5d — Amount by Assigned User</figcaption>
+      </figure>
     </section>
 
     <section id="roles">
@@ -238,7 +251,7 @@
     </section>
 
     <footer>
-      Captured: 2026-09-28 (step 2 updated) · Environment: dev-erp.smartr.co · Screenshot account: demo@smartr.co
+      Captured: 2026-09-28 (step 5 charts updated) · Environment: dev-erp.smartr.co · Screenshot account: demo@smartr.co
     </footer>
   </div>
 </body>

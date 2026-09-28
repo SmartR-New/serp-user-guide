@@ -12,15 +12,47 @@
       "highlight": false
     },
     {
-      "id": "02-filters",
-      "file": "02-filters.png",
-      "caption": "Khu vực bộ lọc và nút Apply",
+      "id": "05-detail-tab",
+      "file": "05-detail-tab.png",
+      "caption": "Tab Detail — phân tích cơ hội theo trạng thái và giai đoạn",
+      "url": "https://dev-erp.smartr.co/app/management_dashboard",
+      "focus": false,
+      "highlight": false
+    },
+    {
+      "id": "06-detail-chart-status",
+      "file": "06-detail-chart-status.png",
+      "caption": "Amount by Status — biểu đồ tròn theo trạng thái",
+      "url": "https://dev-erp.smartr.co/app/management_dashboard",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "08-detail-chart-stage",
+      "file": "08-detail-chart-stage.png",
+      "caption": "Amount by Sales Stage — funnel theo giai đoạn",
+      "url": "https://dev-erp.smartr.co/app/management_dashboard",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "09-detail-chart-closing",
+      "file": "09-detail-chart-closing.png",
+      "caption": "Amount by Expected Closing Month — biểu đồ đường",
+      "url": "https://dev-erp.smartr.co/app/management_dashboard",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "10-detail-chart-assigned-user",
+      "file": "10-detail-chart-assigned-user.png",
+      "caption": "Amount by Assigned User — bảng tổng hợp theo nhân viên",
       "url": "https://dev-erp.smartr.co/app/management_dashboard",
       "focus": true,
       "highlight": false
     }
   ],
-  "timestamp": "2026-09-28T04:29:07.674Z",
+  "timestamp": "2026-09-28T07:02:17.462Z",
   "status": "success",
-  "summary": "Captured 2 screenshot(s)"
+  "summary": "Captured 6 screenshot(s)"
 }
