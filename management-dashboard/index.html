@@ -49,6 +49,14 @@
     }
     figure img { display: block; width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border); }
     figcaption { margin-top: 10px; font-size: 13px; color: var(--muted); text-align: center; }
+    figure.figure-focus img {
+      box-shadow: 0 0 0 2px #e53935, 0 8px 24px rgba(15,23,42,.15);
+    }
+    figure.figure-focus figcaption::before {
+      content: "Focus · ";
+      color: #e53935;
+      font-weight: 600;
+    }
     .note {
       margin: 12px 0 20px; padding: 12px 14px;
       background: var(--amber-soft); border-left: 4px solid var(--amber);
@@ -122,8 +130,8 @@
 
       <h3>Bước 2: Thiết lập bộ lọc</h3>
       <p>Phần <strong>Filters</strong> nằm phía trên, áp dụng chung cho cả tab Overview và Detail.</p>
-      <figure>
-        <img src="images/02-filters.png" alt="Khu vực bộ lọc với Period, Closing From, Closing To, Status và nút Apply" loading="lazy">
+      <figure class="figure-focus">
+        <img src="images/02-filters.png" alt="Khu vực bộ lọc — Period, Closing From/To, Status, Sales Stage, BU, Brand, Territory, Assigned User, Customer và nút Apply" loading="lazy">
         <figcaption>Bước 2 — Khu vực bộ lọc và nút Apply</figcaption>
       </figure>
       <table>
@@ -230,7 +238,7 @@
     </section>
 
     <footer>
-      Captured: 2026-09-28 · Environment: dev-erp.smartr.co · Screenshot account: demo@smartr.co
+      Captured: 2026-09-28 (step 2 updated) · Environment: dev-erp.smartr.co · Screenshot account: demo@smartr.co
     </footer>
   </div>
 </body>
