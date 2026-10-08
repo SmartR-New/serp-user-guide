@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Sales Dashboard — Hướng dẫn sử dụng | iMED ERP</title>
+  <meta name="description" content="Hướng dẫn My Sales Dashboard cho nhân viên kinh doanh — lọc kỳ chốt, chỉ tiêu, KPI và pipeline cơ hội của chính bạn.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,420;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font: "Inter", system-ui, sans-serif;
+      --surface: #fff;
+      --bg: #f8fafc;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --blue: #2490ef;
+      --amber-soft: #fffbeb;
+      --amber: #b45309;
+      --radius: 8px;
+      --max: 1080px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font: 420 15px/1.6 var(--font); color: var(--text); background: var(--bg); }
+    a { color: var(--blue); }
+    .shell { max-width: var(--max); margin: 0 auto; padding: 0 20px 64px; }
+    .page {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 210px;
+      grid-template-areas: "header rail" "content rail";
+      column-gap: 48px;
+      align-items: start;
+    }
+    header.page-header {
+      grid-area: header;
+      position: sticky; top: 0; z-index: 5;
+      background: rgba(248,250,252,.92); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0; margin-bottom: 28px;
+    }
+    .content { grid-area: content; min-width: 0; }
+    .back { font-size: 13px; color: var(--muted); }
+    h1 { margin: 8px 0 0; font-size: 28px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 12px; font-size: 13px; color: var(--muted); }
+    .meta strong { color: var(--text); font-weight: 600; }
+    section { margin-top: 36px; scroll-margin-top: 168px; }
+    h2 { margin: 0 0 12px; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+    h3 { margin: 28px 0 8px; font-size: 17px; font-weight: 600; }
+    p { margin: 0 0 12px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.25rem; }
+    li { margin-bottom: 6px; }
+    .checklist { list-style: none; padding: 0; }
+    .checklist li::before { content: "☐ "; color: var(--muted); }
+    figure {
+      margin: 16px 0 24px; padding: 12px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: 0 1px 3px rgba(0,0,0,.04);
+    }
+    figure img { display: block; width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border); }
+    figcaption { margin-top: 10px; font-size: 13px; color: var(--muted); text-align: center; }
+    figure.figure-focus img {
+      box-shadow: 0 0 0 2px #e53935, 0 8px 24px rgba(15,23,42,.15);
+    }
+    figure.figure-focus figcaption::before {
+      content: "Focus · ";
+      color: #e53935;
+      font-weight: 600;
+    }
+    .note {
+      margin: 12px 0 20px; padding: 12px 14px;
+      background: var(--amber-soft); border-left: 4px solid var(--amber);
+      border-radius: 0 var(--radius) var(--radius) 0; font-size: 14px;
+    }
+    .note strong { color: var(--amber); }
+    table {
+      width: 100%; border-collapse: collapse; font-size: 14px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden; margin: 12px 0 20px;
+    }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: #f1f5f9; font-weight: 600; font-size: 13px; }
+    tr:last-child td { border-bottom: none; }
+    .ui-label { font-family: ui-monospace, monospace; font-size: 0.92em; background: #f1f5f9; padding: 1px 6px; border-radius: 4px; }
+    footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+    .on-this-page {
+      grid-area: rail;
+      position: sticky;
+      top: 24px;
+      max-height: calc(100vh - 40px);
+      overflow: auto;
+      padding-top: 8px;
+    }
+    .on-this-page p {
+      margin: 0 0 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .on-this-page nav {
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid var(--border);
+    }
+    .on-this-page a {
+      display: block;
+      margin-left: -1px;
+      padding: 6px 8px 6px 14px;
+      border-left: 2px solid transparent;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+      text-decoration: none;
+    }
+    .on-this-page a:hover { color: var(--text); }
+    .on-this-page a.active {
+      border-left-color: #171717;
+      color: #171717;
+      font-weight: 600;
+      background: #f3f3f3;
+    }
+    @media (max-width: 860px) {
+      .page {
+        grid-template-columns: 1fr;
+        grid-template-areas: "header" "rail" "content";
+      }
+      .on-this-page { position: static; max-height: none; margin-bottom: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="page">
+    <header class="page-header">
+      <a class="back" href="../index.html">← Tài liệu hướng dẫn iMED ERP</a>
+      <h1>My Sales Dashboard — Hướng dẫn sử dụng</h1>
+      <div class="meta">
+        <span><strong>Dành cho:</strong> iMED Sales</span>
+        <span><strong>Môi trường:</strong> dev-erp.smartr.co</span>
+        <span><strong>Cập nhật:</strong> 2026-10-08</span>
+      </div>
+    </header>
+
+    <aside class="on-this-page">
+      <p>Trên trang này</p>
+      <nav aria-label="Trên trang này">
+        <a href="#purpose">Mục đích</a>
+        <a href="#prerequisites">Trước khi bắt đầu</a>
+        <a href="#steps">Các bước thực hiện</a>
+        <a href="#outcome">Kết quả mong đợi</a>
+        <a href="#troubleshooting">Xử lý sự cố</a>
+      </nav>
+    </aside>
+
+    <div class="content">
+
+    <section id="purpose">
+      <h2>Mục đích</h2>
+      <p><strong>My Sales Dashboard</strong> là trang theo dõi pipeline <strong>của chính bạn</strong>: chỉ tiêu bán hàng, khách hàng, cơ hội, deal sắp chốt, cơ sở y tế theo khu vực, và danh sách cơ hội theo ngày dự kiến chốt.</p>
+      <p>Mọi khối trên trang dùng <strong>cùng một bộ lọc</strong> sau khi bạn nhấn <span class="ui-label">Apply</span>. Trang này không phải báo cáo cả team — báo cáo team nằm ở <strong>Management Dashboard</strong>.</p>
+    </section>
+
+    <section id="prerequisites">
+      <h2>Trước khi bắt đầu</h2>
+      <ul class="checklist">
+        <li>Bạn đã đăng nhập ERP</li>
+        <li>Tài khoản có vai trò <strong>iMED Sales</strong>, <strong>iMED Sales Manager</strong> hoặc <strong>iMED Sales Admin</strong></li>
+        <li>Cơ hội được gán cho bạn (chủ sở hữu, đồng phụ trách, hoặc Assign To)</li>
+        <li>Muốn thấy chỉ tiêu: quản lý đã khai báo target trên hồ sơ Sales Person của bạn</li>
+      </ul>
+    </section>
+
+    <section id="steps">
+      <h2>Các bước thực hiện</h2>
+
+      <h3>Bước 1: Mở My Sales Dashboard</h3>
+      <p>Trên thanh tìm kiếm Desk, gõ <em>My Sales Dashboard</em>. Hoặc vào workspace <strong>CRM</strong> và chọn shortcut <span class="ui-label">My Dashboard</span>.</p>
+      <figure>
+        <img src="images/01-open-page.png" alt="Toàn cảnh My Sales Dashboard với bộ lọc This Year, chỉ tiêu, KPI và các biểu đồ" loading="lazy">
+        <figcaption>Bước 1 — Mở trang My Sales Dashboard</figcaption>
+      </figure>
+      <div class="note"><strong>Lưu ý:</strong> Lần mở trang, kỳ mặc định là <span class="ui-label">This Year</span> (1/1 đến 31/12 năm hiện tại). Ảnh minh họa dùng các cơ hội mẫu tên bắt đầu bằng <em>Sample</em> của chính người đang đăng nhập.</div>
+
+      <h3>Bước 2: Xem bộ lọc</h3>
+      <p>Khối <span class="ui-label">Filters</span> nằm trên cùng. Chọn điều kiện trước, rồi nhấn <span class="ui-label">Apply</span> để cả trang cập nhật.</p>
+      <figure class="figure-focus">
+        <img src="images/02-filters.png" alt="Khối Filters với Period, Closing From, Closing To, Status, Sales Stage, Business Unit, Brand và nút Apply" loading="lazy">
+        <figcaption>Bước 2 — Bộ lọc kỳ chốt và nút Apply</figcaption>
+      </figure>
+      <table>
+        <thead><tr><th>Thành phần</th><th>Cách dùng</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ui-label">This Month</span> / <span class="ui-label">This Quarter</span> / <span class="ui-label">This Year</span></td><td>Điền nhanh <span class="ui-label">Closing From</span> và <span class="ui-label">Closing To</span>. Chưa làm mới số liệu cho đến khi nhấn Apply.</td></tr>
+          <tr><td><span class="ui-label">Closing From</span> / <span class="ui-label">Closing To</span></td><td>Lọc theo ngày dự kiến chốt. Sửa tay một trong hai ô sẽ tắt nút kỳ đang sáng nếu khoảng ngày không còn khớp Tháng / Quý / Năm.</td></tr>
+          <tr><td><span class="ui-label">Status</span></td><td>Mặc định: Open, Quotation, Converted, Replied. Để trống một ô lọc nghĩa là lấy tất cả giá trị của ô đó.</td></tr>
+          <tr><td><span class="ui-label">Sales Stage</span></td><td>Giai đoạn bán hàng iMED. Để trống = mọi giai đoạn.</td></tr>
+          <tr><td><span class="ui-label">Business Unit</span> / <span class="ui-label">Brand</span></td><td>Lọc theo đơn vị kinh doanh và thương hiệu trên dòng hàng của cơ hội.</td></tr>
+          <tr><td><span class="ui-label">Apply</span></td><td>Làm mới chỉ tiêu, KPI, danh sách deal, biểu đồ và bảng cơ hội theo cùng một bộ lọc.</td></tr>
+        </tbody>
+      </table>
+      <div class="note"><strong>Lưu ý:</strong> <span class="ui-label">Lost</span> và <span class="ui-label">Closed</span> không nằm trong Status mặc định. Muốn xem các deal đó, thêm chúng vào <span class="ui-label">Status</span> rồi nhấn <span class="ui-label">Apply</span>.</div>
+
+      <h3>Bước 3: Chọn kỳ</h3>
+      <p>Nhấn <span class="ui-label">This Month</span>, <span class="ui-label">This Quarter</span> hoặc <span class="ui-label">This Year</span>. Ví dụ dưới đây chọn <span class="ui-label">This Quarter</span> — hai ô ngày đổi thành đầu quý và cuối quý (01-10-2026 đến 31-12-2026).</p>
+      <figure class="figure-focus">
+        <img src="images/03-period-quarter.png" alt="Nút This Quarter được chọn và Closing From, Closing To đổi theo quý hiện tại" loading="lazy">
+        <figcaption>Bước 3 — Chọn kỳ This Quarter</figcaption>
+      </figure>
+
+      <h3>Bước 4: Nhấn Apply</h3>
+      <p>Nhấn <span class="ui-label">Apply</span> và đợi trang tải xong. Dòng phụ dưới <span class="ui-label">My Sales Target</span> đổi theo khoảng ngày vừa chọn (ví dụ Oct 2026 → Dec 2026).</p>
+      <figure class="figure-focus">
+        <img src="images/04-apply.png" alt="Nút Apply được khoanh, kỳ This Quarter đã áp dụng, dòng phụ chỉ tiêu hiện Oct 2026 đến Dec 2026" loading="lazy">
+        <figcaption>Bước 4 — Nhấn Apply để làm mới toàn bộ trang</figcaption>
+      </figure>
+      <div class="note"><strong>Lưu ý:</strong> Nút đếm / giá trị trên từng biểu đồ (<span class="ui-label">No. of Opportunities</span> và <span class="ui-label">Total Value (VNĐ)</span>, hoặc <span class="ui-label">Monthly</span> / <span class="ui-label">Accumulated</span>) chỉ đổi cách hiển thị. Không cần nhấn Apply lại.</div>
+
+      <h3>Bước 5: Đọc My Sales Target</h3>
+      <p>Khối xanh cho biết bạn đang ở đâu so với chỉ tiêu trong khoảng ngày đã lọc. Di chuột lên từng ô để xem định nghĩa.</p>
+      <figure class="figure-focus">
+        <img src="images/05-target.png" alt="Khối My Sales Target với Target, Achieved, Pipeline, Gap to Target và thanh Progress" loading="lazy">
+        <figcaption>Bước 5 — My Sales Target</figcaption>
+      </figure>
+      <table>
+        <thead><tr><th>Chỉ số</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ui-label">Target</span></td><td>Chỉ tiêu VNĐ được chia theo tháng, trùng với khoảng ngày đang lọc</td></tr>
+          <tr><td><span class="ui-label">Achieved</span></td><td>Tổng giá trị cơ hội đã chuyển đổi / thắng trong tập đã lọc</td></tr>
+          <tr><td><span class="ui-label">Pipeline</span></td><td>Tổng giá trị cơ hội đang mở (Open, Quotation, Replied). Không gồm Converted, Lost, Closed</td></tr>
+          <tr><td><span class="ui-label">Gap to Target</span></td><td>Target trừ Achieved; nhỏ nhất là 0</td></tr>
+          <tr><td><span class="ui-label">Progress</span></td><td>Achieved chia Target</td></tr>
+        </tbody>
+      </table>
+      <div class="note"><strong>Lưu ý:</strong> Nếu thấy <em>No sales target configured</em>, nhờ quản lý khai báo target trên hồ sơ Sales Person. Khi đó Target và Gap to Target hiện dấu gạch.</div>
+
+      <h3>Bước 6: Đọc My Overview</h3>
+      <p>Sáu thẻ tóm tắt. Bốn thẻ đầu mở danh sách khi nhấn: <span class="ui-label">Assigned Customer</span>, <span class="ui-label">Active Customer</span>, <span class="ui-label">Assigned Facility</span>, <span class="ui-label">My Opportunities</span>.</p>
+      <figure class="figure-focus">
+        <img src="images/06-overview.png" alt="Lưới My Overview gồm Assigned Customer, Active Customer, Assigned Facility, My Opportunities, Total Amount và Expected Amount" loading="lazy">
+        <figcaption>Bước 6 — My Overview</figcaption>
+      </figure>
+      <table>
+        <thead><tr><th>Thẻ</th><th>Ý nghĩa</th><th>Theo bộ lọc?</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ui-label">Assigned Customer</span></td><td>Khách hàng mà bạn là Account Manager</td><td>Không</td></tr>
+          <tr><td><span class="ui-label">Active Customer</span></td><td>Số khách hàng phân biệt trên các cơ hội đã lọc. Một khách nhiều deal chỉ tính một lần</td><td>Có</td></tr>
+          <tr><td><span class="ui-label">Assigned Facility</span></td><td>Cơ sở y tế mà bạn là Assigned User hoặc Co-assigned To</td><td>Không</td></tr>
+          <tr><td><span class="ui-label">My Opportunities</span></td><td>Số cơ hội của bạn trong bộ lọc và khoảng ngày chốt</td><td>Có</td></tr>
+          <tr><td><span class="ui-label">Total Amount (VNĐ)</span></td><td>Tổng giá trị cơ hội đã lọc</td><td>Có</td></tr>
+          <tr><td><span class="ui-label">Expected Amount</span></td><td>Tổng giá trị × xác suất ÷ 100</td><td>Có</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Bước 7: Xem deal cần chú ý</h3>
+      <p>Hai danh sách ngắn, tối đa 5 dòng, cùng tuân theo bộ lọc. Nhấn một dòng để mở cơ hội.</p>
+      <figure class="figure-focus">
+        <img src="images/07-deals.png" alt="Hai danh sách Closing Soon (30 days) và Top Open Deals, cả hai hiện No deals to show" loading="lazy">
+        <figcaption>Bước 7 — Closing Soon và Top Open Deals</figcaption>
+      </figure>
+      <table>
+        <thead><tr><th>Danh sách</th><th>Gồm những deal nào</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ui-label">Closing Soon (30 days)</span></td><td>Cơ hội đang mở (Open, Quotation, Replied), ngày chốt từ hôm nay đến 30 ngày tới, sắp theo ngày chốt gần nhất</td></tr>
+          <tr><td><span class="ui-label">Top Open Deals</span></td><td>Cơ hội đang mở, sắp theo giá trị giảm dần</td></tr>
+        </tbody>
+      </table>
+      <p>Không có dòng phù hợp thì hiện <em>No deals to show</em>.</p>
+
+      <h3>Bước 8: Health Facilities by Territory</h3>
+      <p>Cơ hội bạn sở hữu, nhóm theo khu vực rồi theo cơ sở y tế. Chuyển <span class="ui-label">No. of Opportunities</span> (mặc định) hoặc <span class="ui-label">Total Value (VNĐ)</span>. Nhấn biểu tượng góc phải để xem toàn màn hình.</p>
+      <figure class="figure-focus">
+        <img src="images/08-facilities.png" alt="Biểu đồ Health Facilities by Territory với nút No. of Opportunities đang bật và dòng chú thích Owned opportunities only" loading="lazy">
+        <figcaption>Bước 8 — Health Facilities by Territory</figcaption>
+      </figure>
+      <div class="note"><strong>Lưu ý:</strong> Dòng cuối ghi <em>Owned opportunities only · Opportunity territory</em>. Biểu đồ này chỉ lấy cơ hội bạn là chủ sở hữu, hẹp hơn các khối còn lại (vốn gồm cả đồng phụ trách và Assign To).</div>
+
+      <h3>Bước 9: Amount by Status</h3>
+      <p>Biểu đồ tròn theo trạng thái. Mặc định là <span class="ui-label">Total Value (VNĐ)</span>. Chuyển <span class="ui-label">No. of Opportunities</span> để xem số lượng.</p>
+      <figure class="figure-focus">
+        <img src="images/09-status.png" alt="Thẻ Amount by Status với nút Total Value (VNĐ) đang bật và thông báo No data available" loading="lazy">
+        <figcaption>Bước 9 — Amount by Status</figcaption>
+      </figure>
+      <p>Khi có dữ liệu, chú giải dùng các nhãn:</p>
+      <table>
+        <thead><tr><th>Trạng thái</th><th>Nhãn trên chú giải</th></tr></thead>
+        <tbody>
+          <tr><td>Open</td><td>Open (Warn)</td></tr>
+          <tr><td>Quotation</td><td>Quotation (Hot)</td></tr>
+          <tr><td>Converted</td><td>Converted (Win)</td></tr>
+          <tr><td>Replied</td><td>Replied (Cool)</td></tr>
+          <tr><td>Closed</td><td>Closed (Cold)</td></tr>
+          <tr><td>Lost</td><td>Lost</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Bước 10: Sales Stage Funnel</h3>
+      <p>Funnel lồng trạng thái và giai đoạn bán hàng iMED — số cơ hội <strong>đang đứng</strong> ở từng giai đoạn, không phải lịch sử chuyển giai đoạn. Cùng hai nút đếm / giá trị; mặc định <span class="ui-label">Total Value (VNĐ)</span>.</p>
+      <figure class="figure-focus">
+        <img src="images/10-funnel.png" alt="Thẻ Sales Stage Funnel với nút Total Value (VNĐ) đang bật và thông báo No data available" loading="lazy">
+        <figcaption>Bước 10 — Sales Stage Funnel</figcaption>
+      </figure>
+      <p>Giai đoạn không có số liệu được ẩn. Cột trạng thái nhóm các giai đoạn: Open, Quotation, Converted, Replied, Closed, Lost.</p>
+
+      <h3>Bước 11: Amount by Expected Closing</h3>
+      <p>Biểu đồ theo tháng chốt trong khoảng ngày đã lọc.</p>
+      <figure class="figure-focus">
+        <img src="images/11-closing.png" alt="Biểu đồ Amount by Expected Closing theo tháng 2026-10 đến 2026-12, chế độ Total Value và Accumulated" loading="lazy">
+        <figcaption>Bước 11 — Amount by Expected Closing</figcaption>
+      </figure>
+      <table>
+        <thead><tr><th>Nút</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ui-label">No. of Opportunities</span> / <span class="ui-label">Total Value (VNĐ)</span></td><td>Đếm số cơ hội hoặc xem giá trị. Mặc định là giá trị.</td></tr>
+          <tr><td><span class="ui-label">Monthly</span> / <span class="ui-label">Accumulated</span></td><td>Từng tháng, hoặc cộng dồn từ trái sang phải. Mặc định là cộng dồn.</td></tr>
+        </tbody>
+      </table>
+      <p>Chú giải: <strong>Total</strong>, <strong>Expected Amount</strong> (theo xác suất), <strong>Converted</strong>. Khi hồ sơ có chỉ tiêu, thêm đường Target (quota cộng dồn theo tháng).</p>
+
+      <h3>Bước 12: Tìm trong Recent Opportunities</h3>
+      <p>Bảng liệt kê cơ hội khớp bộ lọc. Gõ vào ô <span class="ui-label">Search by name or customer...</span> để lọc theo tên cơ hội hoặc khách hàng. Nhấn tiêu đề cột để sắp xếp.</p>
+      <figure class="figure-focus">
+        <img src="images/12-recent.png" alt="Bảng Recent Opportunities với ô tìm kiếm và các cột Name, Customer, Status, Sales Stage, Probability, Amount, Expected Closing" loading="lazy">
+        <figcaption>Bước 12 — Recent Opportunities</figcaption>
+      </figure>
+      <table>
+        <thead><tr><th>Cột</th><th>Nội dung</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ui-label">Name</span></td><td>Tên cơ hội — nhấn để mở phiếu</td></tr>
+          <tr><td><span class="ui-label">Customer / Prospect</span></td><td>Khách hàng hoặc đầu mối</td></tr>
+          <tr><td><span class="ui-label">Status</span> / <span class="ui-label">Sales Stage</span></td><td>Trạng thái và giai đoạn bán hàng</td></tr>
+          <tr><td><span class="ui-label">Probability</span></td><td>Xác suất</td></tr>
+          <tr><td><span class="ui-label">Amount (VNĐ)</span></td><td>Giá trị cơ hội</td></tr>
+          <tr><td><span class="ui-label">Expected Closing</span></td><td>Ngày dự kiến chốt</td></tr>
+        </tbody>
+      </table>
+      <p>Không có cơ hội khớp bộ lọc: <em>No opportunities match the current filters.</em> Ô tìm không ra dòng: thông báo riêng cho kết quả tìm kiếm.</p>
+    </section>
+
+    <section id="outcome">
+      <h2>Kết quả mong đợi</h2>
+      <p>Sau khi nhấn <span class="ui-label">Apply</span>:</p>
+      <ul>
+        <li>Chỉ tiêu, KPI theo bộ lọc, hai danh sách deal, các biểu đồ và bảng cơ hội cùng một tập dữ liệu</li>
+        <li>Dòng phụ <span class="ui-label">My Sales Target</span> khớp <span class="ui-label">Closing From</span> – <span class="ui-label">Closing To</span></li>
+        <li>Không còn số của lần lọc trước</li>
+        <li>Không có cơ hội: KPI liên quan = 0; biểu đồ hiện <em>No data</em> hoặc <em>No data available</em>; bảng hiện <em>No opportunities match the current filters.</em></li>
+      </ul>
+      <p><span class="ui-label">Assigned Customer</span> và <span class="ui-label">Assigned Facility</span> giữ nguyên khi đổi bộ lọc — đó là danh sách gán cho bạn, không phải kết quả lọc cơ hội.</p>
+    </section>
+
+    <section id="troubleshooting">
+      <h2>Xử lý sự cố thường gặp</h2>
+      <table>
+        <thead><tr><th>Triệu chứng</th><th>Nguyên nhân có thể</th><th>Cách xử lý</th></tr></thead>
+        <tbody>
+          <tr><td>Không mở được trang</td><td>Tài khoản không có vai trò kinh doanh</td><td>Nhờ quản trị gán <strong>iMED Sales</strong> (hoặc Manager / Admin)</td></tr>
+          <tr><td>Đổi kỳ hoặc bộ lọc mà số không đổi</td><td>Chưa nhấn <span class="ui-label">Apply</span></td><td>Nhấn Apply và đợi tải xong</td></tr>
+          <tr><td>Không thấy deal Lost hoặc Closed</td><td>Status mặc định không gồm hai trạng thái này</td><td>Thêm Lost / Closed vào <span class="ui-label">Status</span>, rồi Apply</td></tr>
+          <tr><td>Assigned Customer hoặc Assigned Facility không đổi sau Apply</td><td>Hai thẻ này không theo bộ lọc dashboard</td><td>Bình thường. Xem <span class="ui-label">Active Customer</span> và <span class="ui-label">My Opportunities</span> để đối chiếu bộ lọc</td></tr>
+          <tr><td>Target và Gap hiện dấu gạch</td><td>Chưa có target trên Sales Person</td><td>Nhờ quản lý khai báo chỉ tiêu</td></tr>
+          <tr><td>Mọi mục đều 0 hoặc No data</td><td>Không có cơ hội của bạn trong khoảng ngày và bộ lọc</td><td>Nới <span class="ui-label">Closing From</span> / <span class="ui-label">Closing To</span>, hoặc bỏ bớt Status, Sales Stage, Business Unit, Brand</td></tr>
+          <tr><td>Biểu đồ cơ sở y tế ít hơn các khối khác</td><td>Chỉ tính cơ hội bạn sở hữu</td><td>Bình thường — xem dòng <em>Owned opportunities only</em></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer>
+      Captured: 2026-10-08 · Environment: dev-erp.smartr.co · Screenshot account: demo7@smartr.co (iMED Sales)
+    </footer>
+    </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const links = Array.from(document.querySelectorAll(".on-this-page a"));
+      const sections = links
+        .map((link) => document.querySelector(link.getAttribute("href")))
+        .filter(Boolean);
+
+      function mark(id) {
+        links.forEach((link) => {
+          const on = link.getAttribute("href") === "#" + id;
+          link.classList.toggle("active", on);
+          if (on) link.setAttribute("aria-current", "true");
+          else link.removeAttribute("aria-current");
+        });
+      }
+
+      function currentId() {
+        const marker = 180;
+        let current = sections[0];
+        sections.forEach((section) => {
+          if (section.getBoundingClientRect().top <= marker) current = section;
+        });
+        const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+        if (nearBottom) current = sections[sections.length - 1];
+        return current ? current.id : "";
+      }
+
+      function update() {
+        mark(currentId());
+      }
+
+      links.forEach((link) => {
+        link.addEventListener("click", () => mark(link.getAttribute("href").slice(1)));
+      });
+
+      document.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+      update();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+{
+  "scenario": "C:\\Users\\Home\\SmartR Cursor\\imed-project\\.cursor\\skills\\serp-create-user-guide\\scripts\\scenarios\\my-sales-dashboard.yaml",
+  "title": "My Sales Dashboard — filters, target, and pipeline",
+  "output_dir": "C:\\Users\\Home\\SmartR Cursor\\imed-project\\serp-user-guide\\my-sales-dashboard\\images",
+  "captured": [
+    {
+      "id": "01-open-page",
+      "file": "01-open-page.png",
+      "caption": "Mở trang My Sales Dashboard",
+      "url": "https://dev-erp.smartr.co/app/my_opportunity_dashboard",
+      "focus": false,
+      "highlight": false
+    },
+    {
+      "id": "02-filters",
+      "file": "02-filters.png",
+      "caption": "Bộ lọc kỳ chốt và nút Apply",
+      "url": "https://dev-erp.smartr.co/app/my_opportunity_dashboard",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "03-period-quarter",
+      "file": "03-period-quarter.png",
+      "caption": "Chọn kỳ This Quarter",
+      "url": "https://dev-erp.smartr.co/app/my_opportunity_dashboard",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "04-apply",
+      "file": "04-apply.png",
+      "caption": "Nhấn Apply để làm mới toàn bộ trang",
+      "url": "https://dev-erp.smartr.co/app/my_opportunity_dashboard",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "05-target",
+      "file": "05-target.png",
+      "caption": "My Sales Target — chỉ tiêu, đã đạt, pipeline và khoảng cách",
+      "url": "https://dev-erp.smartr.co/app/my_opportunity_dashboard",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "06-overview",
+      "file": "06-overview.png",
+      "caption": "My Overview — các thẻ KPI",
+      "url": "https://dev-erp.smartr.co/app/my_opportunity_dashboard",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "07-deals",
+      "file": "07-deals.png",
+      "caption": "Closing Soon và Top Open Deals",
+      "url": "https://dev-erp.smartr.co/app/my_opportunity_dashboard",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "08-facilities",
+      "file": "08-facilities.png",
+      "caption": "Health Facilities by Territory",
+      "url": "https://dev-erp.smartr.co/app/my_opportunity_dashboard",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "09-status",
+      "file": "09-status.png",
+      "caption": "Amount by Status",
+      "url": "https://dev-erp.smartr.co/app/my_opportunity_dashboard",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "10-funnel",
+      "file": "10-funnel.png",
+      "caption": "Sales Stage Funnel",
+      "url": "https://dev-erp.smartr.co/app/my_opportunity_dashboard",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "11-closing",
+      "file": "11-closing.png",
+      "caption": "Amount by Expected Closing",
+      "url": "https://dev-erp.smartr.co/app/my_opportunity_dashboard",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "12-recent",
+      "file": "12-recent.png",
+      "caption": "Recent Opportunities — tìm và sắp xếp",
+      "url": "https://dev-erp.smartr.co/app/my_opportunity_dashboard",
+      "focus": true,
+      "highlight": false
+    }
+  ],
+  "timestamp": "2026-10-08T12:01:51.741Z",
+  "status": "success",
+  "summary": "Captured 12 screenshot(s)"
+}
