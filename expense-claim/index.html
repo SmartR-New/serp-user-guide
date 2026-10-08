@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Claim (Đề nghị thanh toán) — Hướng dẫn sử dụng | iMED ERP</title>
+  <meta name="description" content="Hướng dẫn nhân viên tạo Expense Claim hai giai đoạn Plan → Actual, gửi kế hoạch và chi phí thực tế trên iMED ERP.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,420;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font: "Inter", system-ui, sans-serif;
+      --surface: #fff;
+      --bg: #f8fafc;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --blue: #2490ef;
+      --amber-soft: #fffbeb;
+      --amber: #b45309;
+      --radius: 8px;
+      --max: 1080px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font: 420 15px/1.6 var(--font); color: var(--text); background: var(--bg); }
+    a { color: var(--blue); }
+    .shell { max-width: var(--max); margin: 0 auto; padding: 0 20px 64px; }
+    .page {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 210px;
+      grid-template-areas: "header rail" "content rail";
+      column-gap: 48px;
+      align-items: start;
+    }
+    header.page-header {
+      grid-area: header;
+      position: sticky; top: 0; z-index: 5;
+      background: rgba(248,250,252,.92); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0; margin-bottom: 28px;
+    }
+    .content { grid-area: content; min-width: 0; }
+    .back { font-size: 13px; color: var(--muted); }
+    h1 { margin: 8px 0 0; font-size: 26px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.25; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 12px; font-size: 13px; color: var(--muted); }
+    .meta strong { color: var(--text); font-weight: 600; }
+    section { margin-top: 36px; scroll-margin-top: 168px; }
+    h2 { margin: 0 0 12px; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+    h3 { margin: 28px 0 8px; font-size: 17px; font-weight: 600; }
+    p { margin: 0 0 12px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.25rem; }
+    li { margin-bottom: 6px; }
+    .checklist { list-style: none; padding: 0; }
+    .checklist li::before { content: "☐ "; color: var(--muted); }
+    figure {
+      margin: 16px 0 24px; padding: 12px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: 0 1px 3px rgba(0,0,0,.04);
+    }
+    figure img { display: block; width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border); }
+    figcaption { margin-top: 10px; font-size: 13px; color: var(--muted); text-align: center; }
+    figure.figure-focus img {
+      box-shadow: 0 0 0 2px #e53935, 0 8px 24px rgba(15,23,42,.15);
+    }
+    figure.figure-focus figcaption::before {
+      content: "Focus · ";
+      color: #e53935;
+      font-weight: 600;
+    }
+    .note {
+      margin: 12px 0 20px; padding: 12px 14px;
+      background: var(--amber-soft); border-left: 4px solid var(--amber);
+      border-radius: 0 var(--radius) var(--radius) 0; font-size: 14px;
+    }
+    .note strong { color: var(--amber); }
+    table {
+      width: 100%; border-collapse: collapse; font-size: 14px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden; margin: 12px 0 20px;
+    }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: #f1f5f9; font-weight: 600; font-size: 13px; }
+    tr:last-child td { border-bottom: none; }
+    .ui-label { font-family: ui-monospace, monospace; font-size: 0.92em; background: #f1f5f9; padding: 1px 6px; border-radius: 4px; }
+    footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+    .on-this-page {
+      grid-area: rail;
+      position: sticky;
+      top: 24px;
+      max-height: calc(100vh - 40px);
+      overflow: auto;
+      padding-top: 8px;
+    }
+    .on-this-page p {
+      margin: 0 0 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .on-this-page nav {
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid var(--border);
+    }
+    .on-this-page a {
+      display: block;
+      margin-left: -1px;
+      padding: 6px 8px 6px 14px;
+      border-left: 2px solid transparent;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+      text-decoration: none;
+    }
+    .on-this-page a:hover { color: var(--text); }
+    .on-this-page a.active {
+      border-left-color: #171717;
+      color: #171717;
+      font-weight: 600;
+      background: #f3f3f3;
+    }
+    @media (max-width: 860px) {
+      .page {
+        grid-template-columns: 1fr;
+        grid-template-areas: "header" "rail" "content";
+      }
+      .on-this-page { position: static; max-height: none; margin-bottom: 8px; }
+    }
+    @media print {
+      body { background: #fff; }
+      .shell { max-width: none; padding: 0 0 24px; }
+      .page { display: block; }
+      header.page-header {
+        position: static;
+        background: #fff;
+        backdrop-filter: none;
+      }
+      .on-this-page {
+        position: static;
+        max-height: none;
+        overflow: visible;
+        margin: 8px 0 24px;
+        break-inside: avoid;
+      }
+      .on-this-page a.active {
+        background: none;
+        font-weight: 420;
+        border-left-color: transparent;
+        color: var(--muted);
+      }
+      section { scroll-margin-top: 0; }
+      figure, table, .note, tr { break-inside: avoid; }
+      h2, h3 { break-after: avoid; }
+      a { text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="page">
+    <header class="page-header">
+      <a class="back" href="../index.html">← Tài liệu hướng dẫn iMED ERP</a>
+      <h1>Expense Claim (Đề nghị thanh toán) — Hướng dẫn sử dụng</h1>
+      <div class="meta">
+        <span><strong>Dành cho:</strong> Nhân viên, Quản lý (Expense Approver), Kế toán (Auditor), Controller</span>
+        <span><strong>Môi trường:</strong> dev-erp.smartr.co</span>
+        <span><strong>Cập nhật:</strong> 2026-10-08</span>
+        <span><strong>Nguồn:</strong> PRD Expense Claim v1.0</span>
+      </div>
+    </header>
+
+    <aside class="on-this-page">
+      <p>Trên trang này</p>
+      <nav aria-label="Trên trang này">
+        <a href="#purpose">Mục đích</a>
+        <a href="#prerequisites">Trước khi bắt đầu</a>
+        <a href="#overview">Quy trình hai giai đoạn</a>
+        <a href="#steps">Các bước — nhân viên</a>
+        <a href="#manager">Các bước — Quản lý</a>
+        <a href="#auditor">Các bước — Kế toán (Auditor)</a>
+        <a href="#controller">Các bước — Controller</a>
+        <a href="#workflow-bar">Thanh quy trình</a>
+        <a href="#after-submit">Sau khi bạn gửi</a>
+        <a href="#notifications">Thông báo</a>
+        <a href="#outcome">Kết quả mong đợi</a>
+        <a href="#troubleshooting">Xử lý sự cố</a>
+      </nav>
+    </aside>
+
+    <div class="content">
+
+    <section id="purpose">
+      <h2>Mục đích</h2>
+      <p><strong>Expense Claim</strong> (Đề nghị thanh toán) dùng để gửi <strong>kế hoạch chi phí</strong> và <strong>chi phí thực tế</strong> trên một phiếu. Quản lý trực tiếp duyệt trước; Kế toán và Controller duyệt chi phí thực tế sau.</p>
+      <p>Mỗi lần phiếu chuyển bước, người cần xử lý nhận thông báo trên chuông ERP và email.</p>
+      <p>Chi phí đã trả cho <strong>nhà cung cấp</strong> (hóa đơn mua hàng, garage…) không khai trên Expense Claim. Dùng quy trình mua hàng.</p>
+      <div class="note"><strong>Luồng trong tài liệu này:</strong> Path 1 — không tạm ứng. Bạn để <span class="ui-label">Request advance</span> = <span class="ui-label">No advance</span>. Nếu chọn tạm ứng, Kế toán chi tạm ứng trước khi bạn nhập chi phí thực tế.</div>
+    </section>
+
+    <section id="prerequisites">
+      <h2>Trước khi bắt đầu</h2>
+      <ul class="checklist">
+        <li>Đăng nhập bằng tài khoản gắn hồ sơ <strong>Employee</strong></li>
+        <li>Danh sách chỉ hiện đề nghị của chính bạn</li>
+        <li>Chỉ tạo đề nghị cho chính mình. <span class="ui-label">From Employee</span> và <span class="ui-label">Expense Approver</span> lấy từ hồ sơ và không sửa trên form</li>
+        <li>Hồ sơ nhân viên đã có hình thức nhận tiền nếu bạn chọn <span class="ui-label">Bank transfer</span></li>
+        <li>Giữ chứng từ gốc (hóa đơn, biên lai) để đính kèm khi nhập chi phí thực tế</li>
+      </ul>
+    </section>
+
+    <section id="overview">
+      <h2>Quy trình hai giai đoạn</h2>
+      <table>
+        <thead><tr><th>Giai đoạn</th><th>Bạn làm gì</th><th>Nút</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Kế hoạch (Plan)</strong></td>
+            <td>Nhập thời gian, nội dung, ngân sách. Lưu phiếu, rồi gửi kế hoạch</td>
+            <td><span class="ui-label">Save</span> rồi <span class="ui-label">Actions</span> → <span class="ui-label">Submit Plan</span></td>
+          </tr>
+          <tr>
+            <td><strong>Thực hiện</strong></td>
+            <td>Làm việc ngoài hệ thống. Trên thanh quy trình, bước <span class="ui-label">Execute</span> sáng</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><strong>Thực tế (Actual expense)</strong></td>
+            <td>Thêm dòng chi phí, đính kèm chứng từ, rồi gửi</td>
+            <td><span class="ui-label">Actions</span> → <span class="ui-label">Submit Actual</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="note"><strong>Lưu rồi gửi sau:</strong> <span class="ui-label">Save</span> chỉ giữ phiếu cho bạn. Bạn đóng và mở lại từ danh sách bất cứ lúc nào. Quản lý chưa thấy phiếu cho đến khi bạn gửi: <span class="ui-label">Submit Plan</span> với kế hoạch, <span class="ui-label">Submit Actual</span> với chi phí thực tế.</div>
+      <div class="note"><strong>Nhãn Draft:</strong> Tiêu đề phiếu và cột <span class="ui-label">Status</span> trên danh sách có thể vẫn là <span class="ui-label">Draft</span> trong lúc phiếu đang chờ duyệt. Xem thanh quy trình và mục <span class="ui-label">Activity</span> để biết bước hiện tại.</div>
+    </section>
+
+    <section id="steps">
+      <h2>Các bước thực hiện — nhân viên</h2>
+
+      <h3>Bước 1: Mở danh sách Expense Claim</h3>
+      <p>Vào module <span class="ui-label">HR</span> → <span class="ui-label">Expense Claim</span>.</p>
+      <figure>
+        <img src="images/01-open-list.png" alt="Danh sách Expense Claim với nút Add Expense Claim" loading="lazy">
+        <figcaption>Bước 1 — Danh sách đề nghị thanh toán</figcaption>
+      </figure>
+
+      <h3>Bước 2: Tạo đề nghị mới</h3>
+      <p>Nhấn <span class="ui-label">Add Expense Claim</span>.</p>
+      <figure class="figure-focus">
+        <img src="images/02-new-button.png" alt="Nút Add Expense Claim trên danh sách" loading="lazy">
+        <figcaption>Bước 2 — Add Expense Claim</figcaption>
+      </figure>
+
+      <h3>Bước 3: Lưu form mới</h3>
+      <p>Form mới có nhãn <span class="ui-label">Not Saved</span> và nút <span class="ui-label">Save</span>. Menu <span class="ui-label">Actions</span> chưa hiện cho đến khi bạn lưu.</p>
+      <p>Nhấn <span class="ui-label">Save</span> khi chưa gửi được. Phiếu nằm trong danh sách của bạn. Mở lại sau để nhập tiếp. Quản lý không thấy phiếu lúc này.</p>
+      <p>Form có ba mục: <span class="ui-label">General</span>, <span class="ui-label">Plan</span>, <span class="ui-label">Actual expense</span>. Mục đang mở là <span class="ui-label">General</span>.</p>
+      <figure>
+        <img src="images/03-new-form.png" alt="Form Expense Claim mới, chưa lưu, tab General" loading="lazy">
+        <figcaption>Bước 3 — Form mới, nút Save</figcaption>
+      </figure>
+      <figure class="figure-focus">
+        <img src="images/04-workflow-bar.png" alt="Thanh quy trình Request, Manager Review, Accountant Review, Controller Review, Approved, Execute" loading="lazy">
+        <figcaption>Bước 3b — Thanh quy trình. Phiếu mới đứng ở Request</figcaption>
+      </figure>
+
+      <h3>Bước 4: Kiểm tra General</h3>
+      <p>Ở <span class="ui-label">General</span>, kiểm tra:</p>
+      <ul>
+        <li><span class="ui-label">From Employee</span>, <span class="ui-label">Company</span>, <span class="ui-label">Posting Date</span></li>
+        <li><span class="ui-label">Expense Approver</span> — người duyệt, không đổi trên form</li>
+        <li><span class="ui-label">Payment method</span>: <span class="ui-label">Cash</span> hoặc <span class="ui-label">Bank transfer</span></li>
+        <li><span class="ui-label">Account Name</span>, <span class="ui-label">Account No</span>, <span class="ui-label">Bank, Province/City</span> — lấy từ hồ sơ nhân viên khi chuyển khoản</li>
+      </ul>
+      <p>Có thể nhập <span class="ui-label">Remark</span> nếu cần ghi chú chung.</p>
+      <figure>
+        <img src="images/05-subtab-general.png" alt="Tab General với nhân viên, ngày ghi sổ, người duyệt và hình thức thanh toán" loading="lazy">
+        <figcaption>Bước 4 — General sau khi đã lưu</figcaption>
+      </figure>
+
+      <h3>Bước 5: Nhập Plan</h3>
+      <p>Mở <span class="ui-label">Plan</span> và nhập:</p>
+      <ul>
+        <li><span class="ui-label">Start Date</span> và <span class="ui-label">End Date</span> (bắt buộc). Một ngày thì chọn <span class="ui-label">Same as start date</span></li>
+        <li><span class="ui-label">Plan Details</span> — mô tả mục đích</li>
+        <li><span class="ui-label">Planned Budget (VND)</span></li>
+        <li><span class="ui-label">Travel Request</span>: để <span class="ui-label">No</span> nếu không cần giấy đi đường. Chọn <span class="ui-label">Yes</span> khi cần mẫu 04-LĐTL</li>
+        <li><span class="ui-label">Request advance</span>: với luồng này chọn <span class="ui-label">No advance</span></li>
+      </ul>
+      <div class="note"><strong>Travel Request = Yes:</strong> nhập <span class="ui-label">Business Trip Location</span> và thêm ít nhất một chặng trong <span class="ui-label">Travel Itinerary</span>. <span class="ui-label">Travel Certificate No.</span> không bắt buộc.</div>
+      <figure>
+        <img src="images/06-subtab-plan.png" alt="Tab Plan với ngày, mô tả, ngân sách, Travel Request và Request advance" loading="lazy">
+        <figcaption>Bước 5 — Tab Plan, gồm Request advance ở cuối</figcaption>
+      </figure>
+      <figure class="figure-focus">
+        <img src="images/07-plan-panel.png" alt="Khu vực Plan content đang được khoanh" loading="lazy">
+        <figcaption>Bước 5b — Plan content</figcaption>
+      </figure>
+
+      <h3>Bước 6: Gửi kế hoạch</h3>
+      <p>Nhấn <span class="ui-label">Save</span> nếu phiếu còn <span class="ui-label">Not Saved</span>. Mở <span class="ui-label">Actions</span> và chọn <span class="ui-label">Submit Plan</span>. Chỉ bước này đưa phiếu tới quản lý. <span class="ui-label">Save</span> một mình thì quản lý vẫn chưa thấy.</p>
+      <figure class="figure-focus">
+        <img src="images/08-submit-plan.png" alt="Menu Actions đang mở, mục Submit Plan được khoanh" loading="lazy">
+        <figcaption>Bước 6 — Actions → Submit Plan</figcaption>
+      </figure>
+      <p>Sau khi gửi, bạn không sửa kế hoạch cho đến khi phiếu được trả về. Quản lý trên phiếu nhận thông báo <span class="ui-label">Duyệt kế hoạch</span>. Đọc lý do trên <span class="ui-label">Activity</span> nếu bị từ chối.</p>
+
+      <h3>Bước 7: Actual expense còn khóa</h3>
+      <p>Trước khi quản lý duyệt kế hoạch, mục <span class="ui-label">Actual expense</span> bị khóa. Bạn chưa thêm dòng chi phí ở bước này.</p>
+      <figure class="figure-focus">
+        <img src="images/09-subtab-actual.png" alt="Mục Actual expense bị khóa trên phiếu đang ở giai đoạn kế hoạch" loading="lazy">
+        <figcaption>Bước 7 — Actual expense khóa khi chưa duyệt kế hoạch</figcaption>
+      </figure>
+
+      <h3>Bước 8: Nhập chi phí thực tế và gửi</h3>
+      <p>Khi quản lý đã duyệt kế hoạch và không có tạm ứng, bạn nhận thông báo <span class="ui-label">Tiếp tục claim</span>. Bước <span class="ui-label">Execute</span> trên thanh quy trình sáng và tab <span class="ui-label">Actual expense</span> mở được. Mở lại đúng phiếu đó.</p>
+      <figure>
+        <img src="images/11-actual-grid.png" alt="Tab Actual expense với bảng Expenses, nút Add Row và Claim Summary" loading="lazy">
+        <figcaption>Bước 8 — Actual expense khi bước Execute đang sáng</figcaption>
+      </figure>
+      <p>Trên bảng <span class="ui-label">Expenses</span>:</p>
+      <ol>
+        <li>Nhấn <span class="ui-label">Add Row</span></li>
+        <li>Nhập <span class="ui-label">Expense Date</span>, <span class="ui-label">Expense Claim Type</span>, <span class="ui-label">Before Tax</span>, <span class="ui-label">Tax</span>, <span class="ui-label">After Tax</span></li>
+        <li>Đánh dấu <span class="ui-label">Tax Invoice</span> nếu có hóa đơn thuế</li>
+        <li>Đính kèm ảnh hoặc file chứng từ</li>
+        <li>Kiểm tra <span class="ui-label">Claim Summary</span></li>
+        <li>Mở <span class="ui-label">Actions</span> → <span class="ui-label">Submit Actual</span></li>
+      </ol>
+      <div class="note"><strong>Chưa gửi thì quản lý chưa thấy:</strong> Nhấn <span class="ui-label">Save</span> để giữ các dòng chi phí và quay lại sau. Quản lý chỉ thấy phiếu sau <span class="ui-label">Submit Actual</span>.</div>
+      <figure>
+        <img src="images/12-submit-actual.png" alt="Menu Actions với mục Submit Actual trên phiếu đang thực hiện" loading="lazy">
+        <figcaption>Bước 8b — Actions → Submit Actual</figcaption>
+      </figure>
+
+      <h3>Bước 9: Theo dõi Activity</h3>
+      <p>Cuộn xuống mục <span class="ui-label">Activity</span> trên form. Mỗi lần gửi, duyệt hoặc từ chối được ghi tại đây. Khi bị từ chối, đọc dòng ghi chú trước khi sửa.</p>
+      <figure>
+        <img src="images/10-activity-timeline.png" alt="Mục Activity với các mốc Pending LM và In Progress" loading="lazy">
+        <figcaption>Bước 9 — Activity sau khi kế hoạch được duyệt</figcaption>
+      </figure>
+    </section>
+
+    <section id="manager">
+      <h2>Các bước — Quản lý (Expense Approver)</h2>
+      <p>Đăng nhập bằng tài khoản <strong>Expense Approver</strong>. Bước này nằm <strong>sau</strong> khi nhân viên chọn <span class="ui-label">Submit Actual</span> và <strong>trước</strong> khi Kế toán mở tab <span class="ui-label">Accounting</span>. Trên thanh quy trình, bước <span class="ui-label">Manager Review</span> đang sáng.</p>
+      <div class="note"><strong>Duyệt kế hoạch:</strong> Khi phiếu đang chờ duyệt kế hoạch, mở <span class="ui-label">Actions</span> → <span class="ui-label">Approve Plan</span> (hoặc <span class="ui-label">Reject</span>). Hệ thống báo <span class="ui-label">Expense Claim updated successfully.</span> và đưa bạn về danh sách. Nhân viên nhận thông báo <span class="ui-label">Tiếp tục claim</span> để nhập chi phí thực tế.</div>
+
+      <h3>Bước 1: Mở danh sách</h3>
+      <p>Vào <span class="ui-label">HR</span> → <span class="ui-label">Expense Claim</span>. Bạn thấy đề nghị của chính mình, và các phiếu ghi bạn ở <span class="ui-label">Expense Approver</span> khi nhân viên đã gửi và phiếu đang chờ bạn duyệt kế hoạch hoặc chi phí thực tế. Phiếu nhân viên chỉ <span class="ui-label">Save</span>, chưa <span class="ui-label">Submit Plan</span> hoặc <span class="ui-label">Submit Actual</span>, không có trong danh sách. Cột <span class="ui-label">Status</span> có thể vẫn là <span class="ui-label">Draft</span>.</p>
+      <figure>
+        <img src="images/21-manager-list.png" alt="Danh sách Expense Claim khi đăng nhập Expense Approver" loading="lazy">
+        <figcaption>Quản lý — Danh sách đề nghị</figcaption>
+      </figure>
+
+      <h3>Bước 2: Tab Approvals</h3>
+      <p>Phiếu mở sẵn tab <span class="ui-label">Approvals</span>. Thẻ <span class="ui-label">Line Manager</span> trên <span class="ui-label">Approval trail</span> đang <span class="ui-label">Pending</span>.</p>
+      <p>Xem <span class="ui-label">Budget summary chart</span> để so sánh ngân sách kế hoạch với số kê khai. Có thể ghi <span class="ui-label">LM Approver Note</span>.</p>
+      <figure>
+        <img src="images/22-manager-approvals.png" alt="Tab Approvals với approval trail, biểu đồ ngân sách và bảng duyệt dòng chi phí" loading="lazy">
+        <figcaption>Quản lý — Tab Approvals, bước Manager Review</figcaption>
+      </figure>
+
+      <h3>Bước 3: Duyệt từng dòng</h3>
+      <p>Trong <span class="ui-label">Expense Line — Manager's Approval</span>, số đã kê là chỉ đọc. Bạn sửa được:</p>
+      <ul>
+        <li><span class="ui-label">Approved Amount</span> — không cao hơn số nhân viên đã kê</li>
+        <li><span class="ui-label">Cost Center</span></li>
+        <li><span class="ui-label">Line approval note</span></li>
+      </ul>
+      <figure>
+        <img src="images/23-manager-lines.png" alt="Bảng duyệt dòng chi phí với Approved Amount và Cost Center" loading="lazy">
+        <figcaption>Quản lý — Điều chỉnh số duyệt trên từng dòng</figcaption>
+      </figure>
+
+      <h3>Bước 4: Gửi Kế toán hoặc từ chối</h3>
+      <p>Mở <span class="ui-label">Actions</span>:</p>
+      <ul>
+        <li><span class="ui-label">Approve Expense</span> — chuyển phiếu sang Kế toán. Kế toán nhận thông báo <span class="ui-label">Kế toán duyệt</span></li>
+        <li><span class="ui-label">Reject</span> — trả phiếu cho nhân viên. Nhân viên nhận thông báo <span class="ui-label">Claim bị từ chối</span> và đọc lý do trên <span class="ui-label">Activity</span></li>
+      </ul>
+      <p>Sau <span class="ui-label">Approve Plan</span> hoặc <span class="ui-label">Approve Expense</span>, màn hình về danh sách kèm thông báo xanh <span class="ui-label">Expense Claim updated successfully.</span> Phiếu rời hàng chờ của bạn.</p>
+      <figure class="figure-focus">
+        <img src="images/24-manager-approve.png" alt="Menu Actions với Approve Expense và Reject" loading="lazy">
+        <figcaption>Quản lý — Actions → Approve Expense</figcaption>
+      </figure>
+    </section>
+
+    <section id="auditor">
+      <h2>Các bước — Kế toán (Auditor)</h2>
+      <p>Đăng nhập bằng tài khoản vai trò <strong>Auditor</strong>. Bạn xử lý phiếu sau khi quản lý đã duyệt chi phí thực tế. Trên thanh quy trình, bước <span class="ui-label">Accountant Review</span> đang sáng.</p>
+
+      <h3>Bước 1: Mở danh sách</h3>
+      <p>Vào <span class="ui-label">HR</span> → <span class="ui-label">Expense Claim</span>. Danh sách gồm phiếu đang chờ tạm ứng, đang chờ bạn duyệt chi phí, đang ở bước thực hiện, và phiếu đã chuyển Controller. Cột <span class="ui-label">Status</span> có thể vẫn là <span class="ui-label">Draft</span>.</p>
+      <figure>
+        <img src="images/13-auditor-list.png" alt="Danh sách Expense Claim khi đăng nhập Auditor" loading="lazy">
+        <figcaption>Auditor — Danh sách đề nghị</figcaption>
+      </figure>
+
+      <h3>Bước 2: Tab Accounting</h3>
+      <p>Phiếu mở sẵn tab <span class="ui-label">Accounting</span>. Các tab khác: <span class="ui-label">Details</span>, <span class="ui-label">Approvals</span>.</p>
+      <p>Kiểm tra <span class="ui-label">Accounting summary</span>, <span class="ui-label">Claim Summary</span> và số <span class="ui-label">Additional payment</span> (số cần chi thêm) hoặc phần tạm ứng nếu có.</p>
+      <figure>
+        <img src="images/14-auditor-accounting.png" alt="Tab Accounting với tổng hợp chi phí và phân bổ" loading="lazy">
+        <figcaption>Auditor — Tab Accounting, bước Accountant Review</figcaption>
+      </figure>
+
+      <h3>Bước 3: Expense Allocation</h3>
+      <p>Trong <span class="ui-label">Expense Allocation</span>, mỗi dòng đã duyệt cần <span class="ui-label">Cost Center</span>. Có thể gắn thêm <span class="ui-label">Quotation</span> và <span class="ui-label">Project</span>. Nhấn biểu tượng bút chì trên dòng để sửa.</p>
+      <figure>
+        <img src="images/15-auditor-allocation.png" alt="Bảng Expense Allocation với Cost Center trên từng dòng" loading="lazy">
+        <figcaption>Auditor — Expense Allocation</figcaption>
+      </figure>
+      <p>Chọn <span class="ui-label">Payable Account</span> trước khi chuyển Controller. Trường này là bắt buộc.</p>
+
+      <h3>Bước 4: Chuyển Controller hoặc từ chối</h3>
+      <p>Mở <span class="ui-label">Actions</span>:</p>
+      <ul>
+        <li><span class="ui-label">Approve for Controller</span> — gửi phiếu sang Controller. Controller nhận thông báo <span class="ui-label">FM duyệt</span></li>
+        <li><span class="ui-label">Reject</span> — trả phiếu, bắt buộc nhập lý do. Nhân viên nhận thông báo <span class="ui-label">Claim bị từ chối</span>. Lý do hiện trên <span class="ui-label">Activity</span></li>
+      </ul>
+      <p>Sau <span class="ui-label">Approve for Controller</span>, màn hình về danh sách kèm thông báo xanh <span class="ui-label">Expense Claim updated successfully.</span></p>
+      <figure class="figure-focus">
+        <img src="images/16-auditor-approve.png" alt="Menu Actions với Approve for Controller và Reject" loading="lazy">
+        <figcaption>Auditor — Actions → Approve for Controller</figcaption>
+      </figure>
+    </section>
+
+    <section id="controller">
+      <h2>Các bước — Controller</h2>
+      <p>Đăng nhập bằng tài khoản vai trò <strong>Controller</strong>. Bạn duyệt cuối sau khi Kế toán đã chọn <span class="ui-label">Approve for Controller</span>. Bước <span class="ui-label">Controller Review</span> đang sáng.</p>
+
+      <h3>Bước 1: Mở danh sách</h3>
+      <p>Vào <span class="ui-label">HR</span> → <span class="ui-label">Expense Claim</span>. Danh sách gồm phiếu đang chờ bạn duyệt cuối và phiếu đã duyệt xong. Mở phiếu đang chờ.</p>
+      <figure>
+        <img src="images/17-controller-list.png" alt="Danh sách Expense Claim khi đăng nhập Controller" loading="lazy">
+        <figcaption>Controller — Danh sách đề nghị</figcaption>
+      </figure>
+
+      <h3>Bước 2: Tab Controller</h3>
+      <p>Phiếu mở sẵn tab <span class="ui-label">Controller</span>. Đây là bản tóm tắt để ký duyệt, không sửa từng dòng chi phí. Chi tiết dòng nằm ở tab <span class="ui-label">Approvals</span> hoặc <span class="ui-label">Accounting</span>.</p>
+      <p>Xem:</p>
+      <ul>
+        <li><span class="ui-label">Claim summary for sign-off</span> — nhân viên, ngân sách kế hoạch, số đã duyệt, số chuyển cho nhân viên</li>
+        <li><span class="ui-label">Approval trail</span> — người gửi, quản lý và kế toán đã xong; Controller đang <span class="ui-label">Pending</span></li>
+        <li><span class="ui-label">Budget summary chart</span> — so sánh kế hoạch, số kê khai và số duyệt. Ô chênh lệch hiện khi số duyệt cao hơn ngân sách kế hoạch</li>
+        <li><span class="ui-label">Payable Account</span> — tài khoản Kế toán đã chọn</li>
+        <li><span class="ui-label">Controller Note</span> — ghi chú tùy chọn</li>
+      </ul>
+      <figure>
+        <img src="images/18-controller-tab.png" alt="Tab Controller với tóm tắt ký duyệt, approval trail và biểu đồ ngân sách" loading="lazy">
+        <figcaption>Controller — Tab Controller, bước Controller Review</figcaption>
+      </figure>
+
+      <h3>Bước 3: Duyệt cuối hoặc từ chối</h3>
+      <p>Mở <span class="ui-label">Actions</span>:</p>
+      <ul>
+        <li><span class="ui-label">Final Approve</span> — duyệt xong. Thanh quy trình tới <span class="ui-label">Approved</span>. Nhân viên nhận thông báo <span class="ui-label">Claim đã duyệt</span></li>
+        <li><span class="ui-label">Reject</span> — trả phiếu và ghi lý do. Nhân viên nhận thông báo <span class="ui-label">Claim bị từ chối</span></li>
+      </ul>
+      <figure class="figure-focus">
+        <img src="images/20-controller-approve.png" alt="Menu Actions với Final Approve và Reject" loading="lazy">
+        <figcaption>Controller — Actions → Final Approve</figcaption>
+      </figure>
+      <div class="note"><strong>Sau Final Approve:</strong> Kế toán tạo chứng từ chi phần còn phải trả, hoặc ghi nhận thu hồi tạm ứng nếu số tạm ứng lớn hơn số đã duyệt.</div>
+    </section>
+
+    <section id="workflow-bar">
+      <h2>Thanh quy trình</h2>
+      <p>Nhãn dưới đây là tiếng Anh như trên môi trường chụp ảnh. Bước đang làm có số màu xanh. Bước đã xong có dấu tích.</p>
+      <table>
+        <thead><tr><th>Bước</th><th>Nhãn trên màn hình</th><th>Khi nào bạn thấy</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><span class="ui-label">Request</span></td><td>Phiếu mới hoặc đang sửa bản nháp</td></tr>
+          <tr><td>2</td><td><span class="ui-label">Manager Review</span></td><td>Đang chờ quản lý duyệt kế hoạch, hoặc duyệt chi phí thực tế</td></tr>
+          <tr><td>3</td><td><span class="ui-label">Accountant Review</span></td><td>Đang chờ Kế toán</td></tr>
+          <tr><td>4</td><td><span class="ui-label">Controller Review</span></td><td>Đang chờ Controller</td></tr>
+          <tr><td>5</td><td><span class="ui-label">Approved</span></td><td>Đã duyệt xong</td></tr>
+          <tr><td>6</td><td><span class="ui-label">Execute</span></td><td>Kế hoạch đã duyệt — bạn nhập chi phí thực tế. Bước này có thể sáng trước bước 3–5</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="after-submit">
+      <h2>Sau khi bạn gửi — ai làm gì?</h2>
+      <table>
+        <thead><tr><th>Vai trò</th><th>Việc chính</th></tr></thead>
+        <tbody>
+          <tr><td>Quản lý (<span class="ui-label">Expense Approver</span>)</td><td>Duyệt kế hoạch. Sau khi bạn gửi chi phí thực tế, duyệt lại từng dòng</td></tr>
+          <tr><td>Kế toán (<span class="ui-label">Auditor</span>)</td><td>Rà chứng từ và phân bổ. Nếu có tạm ứng, xử lý chi hoặc thu hồi</td></tr>
+          <tr><td>Controller</td><td>Duyệt cuối. Thanh quy trình tới <span class="ui-label">Approved</span></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="notifications">
+      <h2>Thông báo</h2>
+      <p>Thông báo xuất hiện trên chuông của ERP và được gửi kèm email tới đúng người ở bước đó. Mở thông báo để vào phiếu.</p>
+      <table>
+        <thead><tr><th>Khi nào</th><th>Ai nhận</th><th>Tiêu đề</th></tr></thead>
+        <tbody>
+          <tr><td>Nhân viên gửi kế hoạch</td><td>Quản lý ghi trên phiếu</td><td><span class="ui-label">Duyệt kế hoạch</span></td></tr>
+          <tr><td>Quản lý duyệt kế hoạch có tạm ứng</td><td>Kế toán</td><td><span class="ui-label">Tạm ứng</span></td></tr>
+          <tr><td>Sẵn sàng nhập chi phí thực tế</td><td>Nhân viên tạo phiếu</td><td><span class="ui-label">Tiếp tục claim</span></td></tr>
+          <tr><td>Nhân viên gửi chi phí thực tế</td><td>Quản lý ghi trên phiếu</td><td><span class="ui-label">Duyệt chi phí</span></td></tr>
+          <tr><td>Quản lý duyệt chi phí thực tế</td><td>Kế toán</td><td><span class="ui-label">Kế toán duyệt</span></td></tr>
+          <tr><td>Kế toán chuyển Controller</td><td>Controller</td><td><span class="ui-label">FM duyệt</span></td></tr>
+          <tr><td>Phiếu bị từ chối</td><td>Nhân viên tạo phiếu</td><td><span class="ui-label">Claim bị từ chối</span></td></tr>
+          <tr><td>Controller duyệt cuối</td><td>Nhân viên tạo phiếu</td><td><span class="ui-label">Claim đã duyệt</span></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="outcome">
+      <h2>Kết quả mong đợi</h2>
+      <ul>
+        <li>Sau <span class="ui-label">Save</span>, chưa gửi: chỉ bạn thấy phiếu và có thể mở lại sau. Quản lý chưa thấy</li>
+        <li>Sau <span class="ui-label">Submit Plan</span>: phiếu chờ quản lý. Bạn không sửa kế hoạch</li>
+        <li>Sau khi kế hoạch được duyệt và không tạm ứng: bước <span class="ui-label">Execute</span> sáng, tab <span class="ui-label">Actual expense</span> mở</li>
+        <li>Sau <span class="ui-label">Submit Actual</span>: phiếu đi tiếp Quản lý → Kế toán → Controller</li>
+        <li>Khi xong, bước <span class="ui-label">Approved</span> hoàn tất trên thanh quy trình và bạn nhận thông báo <span class="ui-label">Claim đã duyệt</span></li>
+        <li>Mọi lần chuyển bước quan trọng nằm trong <span class="ui-label">Activity</span> và trên chuông thông báo</li>
+      </ul>
+    </section>
+
+    <section id="troubleshooting">
+      <h2>Xử lý sự cố thường gặp</h2>
+      <table>
+        <thead><tr><th>Triệu chứng</th><th>Nguyên nhân có thể</th><th>Cách xử lý</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Không thấy <span class="ui-label">Add Expense Claim</span></td>
+            <td>Tài khoản chưa có quyền Employee</td>
+            <td>Nhờ quản trị kiểm tra vai trò và hồ sơ nhân viên</td>
+          </tr>
+          <tr>
+            <td>Không thấy <span class="ui-label">Submit Plan</span></td>
+            <td>Phiếu chưa lưu. Form mới chỉ có <span class="ui-label">Save</span></td>
+            <td>Nhấn <span class="ui-label">Save</span>, rồi mở <span class="ui-label">Actions</span></td>
+          </tr>
+          <tr>
+            <td>Không mở được <span class="ui-label">Actual expense</span></td>
+            <td>Kế hoạch chưa được duyệt</td>
+            <td>Đợi quản lý duyệt. Theo dõi <span class="ui-label">Activity</span></td>
+          </tr>
+          <tr>
+            <td>Không đổi được người duyệt</td>
+            <td><span class="ui-label">Expense Approver</span> khóa theo hồ sơ</td>
+            <td>Nhờ HR sửa trên hồ sơ Employee</td>
+          </tr>
+          <tr>
+            <td>Bị từ chối</td>
+            <td>Thiếu thông tin hoặc chứng từ</td>
+            <td>Đọc <span class="ui-label">Activity</span>. Chọn <span class="ui-label">Resubmit Plan</span> hoặc <span class="ui-label">Resubmit Actual</span>, sửa, rồi gửi lại</td>
+          </tr>
+          <tr>
+            <td>Quản lý không thấy phiếu nhân viên vừa lưu</td>
+            <td>Nhân viên chưa gửi</td>
+            <td>Nhân viên mở lại phiếu từ danh sách của họ, rồi chọn <span class="ui-label">Submit Plan</span> hoặc <span class="ui-label">Submit Actual</span>. Chỉ <span class="ui-label">Save</span> thì quản lý chưa thấy</td>
+          </tr>
+          <tr>
+            <td>Quản lý không thấy <span class="ui-label">Approve Expense</span></td>
+            <td>Nhân viên chưa gửi chi phí thực tế, hoặc phiếu đã sang Kế toán</td>
+            <td>Đợi <span class="ui-label">Submit Actual</span>. Bước <span class="ui-label">Manager Review</span> phải đang sáng</td>
+          </tr>
+          <tr>
+            <td>Kế toán không thấy <span class="ui-label">Approve for Controller</span></td>
+            <td>Phiếu chưa tới bước Kế toán, hoặc thiếu <span class="ui-label">Cost Center</span> / <span class="ui-label">Payable Account</span></td>
+            <td>Đợi quản lý duyệt chi phí thực tế. Điền phân bổ và tài khoản phải trả, rồi mở <span class="ui-label">Actions</span></td>
+          </tr>
+          <tr>
+            <td>Controller không thấy <span class="ui-label">Final Approve</span></td>
+            <td>Kế toán chưa chuyển phiếu</td>
+            <td>Đợi bước <span class="ui-label">Controller Review</span> sáng trên thanh quy trình</td>
+          </tr>
+          <tr>
+            <td>Cột <span class="ui-label">Status</span> vẫn là Draft</td>
+            <td>Nhãn danh sách không phải thanh quy trình</td>
+            <td>Mở phiếu và xem thanh quy trình cùng <span class="ui-label">Activity</span></td>
+          </tr>
+          <tr>
+            <td>Không thấy phiếu của người khác</td>
+            <td>Danh sách lọc theo vai trò</td>
+            <td>Nhân viên chỉ thấy phiếu của mình. Quản lý chỉ thấy phiếu đang chờ mình duyệt</td>
+          </tr>
+          <tr>
+            <td>Vừa duyệt xong thì về danh sách, phiếu biến mất</td>
+            <td>Phiếu đã sang người kế tiếp</td>
+            <td>Đọc thông báo xanh. Người nhận bước sau có thông báo trên chuông</td>
+          </tr>
+          <tr>
+            <td>Không thấy thông báo chuyển bước</td>
+            <td>Chuông hoặc email chưa được mở</td>
+            <td>Mở biểu tượng chuông trên thanh trên và kiểm tra hộp thư của tài khoản ERP</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer>
+      Updated: 2026-10-08 · Captured: 2026-10-06 · Environment: dev-erp.smartr.co · Viewport: 1440×900 · Roles: Employee (demo1@smartr.co), Expense Approver (demo2@smartr.co), Auditor (demo3@smartr.co), Controller (demo4@smartr.co) · PRD v1.0
+    </footer>
+    </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const links = Array.from(document.querySelectorAll(".on-this-page a"));
+      const sections = links
+        .map((link) => document.querySelector(link.getAttribute("href")))
+        .filter(Boolean);
+
+      function mark(id) {
+        links.forEach((link) => {
+          const on = link.getAttribute("href") === "#" + id;
+          link.classList.toggle("active", on);
+          if (on) link.setAttribute("aria-current", "true");
+          else link.removeAttribute("aria-current");
+        });
+      }
+
+      function currentId() {
+        const marker = 180;
+        let current = sections[0];
+        sections.forEach((section) => {
+          if (section.getBoundingClientRect().top <= marker) current = section;
+        });
+        const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+        if (nearBottom) current = sections[sections.length - 1];
+        return current ? current.id : "";
+      }
+
+      function update() {
+        mark(currentId());
+      }
+
+      links.forEach((link) => {
+        link.addEventListener("click", () => mark(link.getAttribute("href").slice(1)));
+      });
+
+      document.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+      update();
+    })();
+  </script>
+</body>
+</html>

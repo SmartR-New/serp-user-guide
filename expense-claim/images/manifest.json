@@ -1,0 +1,39 @@
+{
+  "status": "success",
+  "captured_at": "2026-10-06",
+  "environment": "dev-erp.smartr.co",
+  "viewport": "1440x900",
+  "roles": {
+    "employee": "demo1@smartr.co",
+    "expense_approver": "demo2@smartr.co",
+    "auditor": "demo3@smartr.co",
+    "controller": "demo4@smartr.co"
+  },
+  "approval_order": ["employee", "expense_approver", "auditor", "controller"],
+  "files": [
+    "01-open-list.png",
+    "02-new-button.png",
+    "03-new-form.png",
+    "04-workflow-bar.png",
+    "05-subtab-general.png",
+    "06-subtab-plan.png",
+    "07-plan-panel.png",
+    "08-submit-plan.png",
+    "09-subtab-actual.png",
+    "10-activity-timeline.png",
+    "11-actual-grid.png",
+    "12-submit-actual.png",
+    "13-auditor-list.png",
+    "14-auditor-accounting.png",
+    "15-auditor-allocation.png",
+    "16-auditor-approve.png",
+    "17-controller-list.png",
+    "18-controller-tab.png",
+    "19-controller-summary.png",
+    "20-controller-approve.png",
+    "21-manager-list.png",
+    "22-manager-approvals.png",
+    "23-manager-lines.png",
+    "24-manager-approve.png"
+  ]
+}

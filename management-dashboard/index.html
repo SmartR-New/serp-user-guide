@@ -18,23 +18,32 @@
       --amber-soft: #fffbeb;
       --amber: #b45309;
       --radius: 8px;
-      --max: 820px;
+      --max: 1080px;
     }
     *, *::before, *::after { box-sizing: border-box; }
     body { margin: 0; font: 420 15px/1.6 var(--font); color: var(--text); background: var(--bg); }
     a { color: var(--blue); }
     .shell { max-width: var(--max); margin: 0 auto; padding: 0 20px 64px; }
+    .page {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 210px;
+      grid-template-areas: "header rail" "content rail";
+      column-gap: 48px;
+      align-items: start;
+    }
     header.page-header {
+      grid-area: header;
       position: sticky; top: 0; z-index: 5;
       background: rgba(248,250,252,.92); backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--border);
       padding: 14px 0; margin-bottom: 28px;
     }
+    .content { grid-area: content; min-width: 0; }
     .back { font-size: 13px; color: var(--muted); }
     h1 { margin: 8px 0 0; font-size: 28px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; }
     .meta { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 12px; font-size: 13px; color: var(--muted); }
     .meta strong { color: var(--text); font-weight: 600; }
-    section { margin-top: 36px; scroll-margin-top: 80px; }
+    section { margin-top: 36px; scroll-margin-top: 168px; }
     h2 { margin: 0 0 12px; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
     h3 { margin: 28px 0 8px; font-size: 17px; font-weight: 600; }
     p { margin: 0 0 12px; }
@@ -73,12 +82,54 @@
     tr:last-child td { border-bottom: none; }
     .ui-label { font-family: ui-monospace, monospace; font-size: 0.92em; background: #f1f5f9; padding: 1px 6px; border-radius: 4px; }
     footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
-    nav.toc { margin: 20px 0; padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
-    nav.toc ol { margin: 8px 0 0; }
+    .on-this-page {
+      grid-area: rail;
+      position: sticky;
+      top: 24px;
+      max-height: calc(100vh - 40px);
+      overflow: auto;
+      padding-top: 8px;
+    }
+    .on-this-page p {
+      margin: 0 0 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .on-this-page nav {
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid var(--border);
+    }
+    .on-this-page a {
+      display: block;
+      margin-left: -1px;
+      padding: 6px 8px 6px 14px;
+      border-left: 2px solid transparent;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+      text-decoration: none;
+    }
+    .on-this-page a:hover { color: var(--text); }
+    .on-this-page a.active {
+      border-left-color: #171717;
+      color: #171717;
+      font-weight: 600;
+      background: #f3f3f3;
+    }
+    @media (max-width: 860px) {
+      .page {
+        grid-template-columns: 1fr;
+        grid-template-areas: "header" "rail" "content";
+      }
+      .on-this-page { position: static; max-height: none; margin-bottom: 8px; }
+    }
   </style>
 </head>
 <body>
   <div class="shell">
+    <div class="page">
     <header class="page-header">
       <a class="back" href="../index.html">← Tài liệu hướng dẫn iMED ERP</a>
       <h1>Management Dashboard — Hướng dẫn sử dụng</h1>
@@ -89,17 +140,19 @@
       </div>
     </header>
 
-    <nav class="toc" aria-label="Mục lục">
-      <strong>Mục lục</strong>
-      <ol>
-        <li><a href="#purpose">Mục đích</a></li>
-        <li><a href="#prerequisites">Trước khi bắt đầu</a></li>
-        <li><a href="#steps">Các bước thực hiện</a></li>
-        <li><a href="#roles">Phân quyền theo vai trò</a></li>
-        <li><a href="#outcome">Kết quả mong đợi</a></li>
-        <li><a href="#troubleshooting">Xử lý sự cố</a></li>
-      </ol>
-    </nav>
+    <aside class="on-this-page">
+      <p>Trên trang này</p>
+      <nav aria-label="Trên trang này">
+        <a href="#purpose">Mục đích</a>
+        <a href="#prerequisites">Trước khi bắt đầu</a>
+        <a href="#steps">Các bước thực hiện</a>
+        <a href="#roles">Phân quyền theo vai trò</a>
+        <a href="#outcome">Kết quả mong đợi</a>
+        <a href="#troubleshooting">Xử lý sự cố</a>
+      </nav>
+    </aside>
+
+    <div class="content">
 
     <section id="purpose">
       <h2>Mục đích</h2>
@@ -253,6 +306,48 @@
     <footer>
       Captured: 2026-09-28 (step 5 charts updated) · Environment: dev-erp.smartr.co · Screenshot account: demo@smartr.co
     </footer>
+    </div>
+    </div>
   </div>
+  <script>
+    (function () {
+      const links = Array.from(document.querySelectorAll(".on-this-page a"));
+      const sections = links
+        .map((link) => document.querySelector(link.getAttribute("href")))
+        .filter(Boolean);
+
+      function mark(id) {
+        links.forEach((link) => {
+          const on = link.getAttribute("href") === "#" + id;
+          link.classList.toggle("active", on);
+          if (on) link.setAttribute("aria-current", "true");
+          else link.removeAttribute("aria-current");
+        });
+      }
+
+      function currentId() {
+        const marker = 180;
+        let current = sections[0];
+        sections.forEach((section) => {
+          if (section.getBoundingClientRect().top <= marker) current = section;
+        });
+        const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+        if (nearBottom) current = sections[sections.length - 1];
+        return current ? current.id : "";
+      }
+
+      function update() {
+        mark(currentId());
+      }
+
+      links.forEach((link) => {
+        link.addEventListener("click", () => mark(link.getAttribute("href").slice(1)));
+      });
+
+      document.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+      update();
+    })();
+  </script>
 </body>
 </html>
