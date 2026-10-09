@@ -295,10 +295,43 @@
       <h3>Bước 10: Sales Stage Funnel</h3>
       <p>Funnel lồng trạng thái và giai đoạn bán hàng iMED — số cơ hội <strong>đang đứng</strong> ở từng giai đoạn, không phải lịch sử chuyển giai đoạn. Cùng hai nút đếm / giá trị; mặc định <span class="ui-label">Total Value (VNĐ)</span>.</p>
       <figure class="figure-focus">
-        <img src="images/10-funnel.png" alt="Thẻ Sales Stage Funnel với nút Total Value (VNĐ) đang bật và thông báo No data available" loading="lazy">
+        <img src="images/10-funnel.png" alt="Sales Stage Funnel với các thanh New Lead, Need Analysis, Perception Analysis, Proposal/Quotation, PO và Waiting for result" loading="lazy">
         <figcaption>Bước 10 — Sales Stage Funnel</figcaption>
       </figure>
-      <p>Giai đoạn không có số liệu được ẩn. Cột trạng thái nhóm các giai đoạn: Open, Quotation, Converted, Replied, Closed, Lost.</p>
+      <p>Giai đoạn không có số liệu được ẩn. Sáu thanh trên ảnh:</p>
+      <table>
+        <thead><tr><th>Thanh trên ảnh</th><th>Việc đang xảy ra</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ui-label">New Lead</span> · 450 Tr</td><td>Bệnh viện vừa hỏi bơm tiêm. Mới ghi nhận nhu cầu, chưa gặp người quyết định.</td></tr>
+          <tr><td><span class="ui-label">Need Analysis</span> · 1,2 Tỷ</td><td>Đang làm rõ khoa hồi sức cần monitor loại nào và bao nhiêu máy.</td></tr>
+          <tr><td><span class="ui-label">Perception Analysis</span> · 800 Tr</td><td>Khoa xét nghiệm đã hiểu vì sao cấu hình máy này phù hợp hơn máy đang dùng.</td></tr>
+          <tr><td><span class="ui-label">Proposal/Quotation</span> · 2,5 Tỷ</td><td>Đã gửi báo giá máy siêu âm. Bệnh viện đang xem giá.</td></tr>
+          <tr><td><span class="ui-label">PO</span> · 3 Tỷ</td><td>Bệnh viện đã chốt mua máy thở. Deal tính là thắng.</td></tr>
+          <tr><td><span class="ui-label">Waiting for result</span> · 1,5 Tỷ</td><td>Bệnh viện đã phản hồi và deal đang chờ kết quả thầu.</td></tr>
+        </tbody>
+      </table>
+      <p>Mọi giai đoạn funnel có thể hiện — thanh nào có số thì mới hiện:</p>
+      <table>
+        <thead><tr><th>Trạng thái</th><th>Giai đoạn</th><th>Ví dụ</th></tr></thead>
+        <tbody>
+          <tr><td rowspan="5"><span class="ui-label">Open (50%)</span></td><td><span class="ui-label">New Lead</span></td><td>Bệnh viện vừa hỏi một loại máy. Bạn mới mở cơ hội.</td></tr>
+          <tr><td><span class="ui-label">Identify Decision Makers</span></td><td>Đã biết trưởng khoa và phòng vật tư là người duyệt mua.</td></tr>
+          <tr><td><span class="ui-label">Prospecting budget</span></td><td>Đang hỏi bệnh viện có ngân sách năm nay cho thiết bị này không.</td></tr>
+          <tr><td><span class="ui-label">Need Analysis</span></td><td>Đang chốt nhu cầu: khoa nào dùng, số lượng, cấu hình.</td></tr>
+          <tr><td><span class="ui-label">Perception Analysis</span></td><td>Bệnh viện đã hiểu vì sao phương án này phù hợp hơn máy hiện tại.</td></tr>
+          <tr><td rowspan="4"><span class="ui-label">Quotation (50–99%)</span></td><td><span class="ui-label">Demo</span></td><td>Đã hẹn hoặc đã demo máy tại khoa.</td></tr>
+          <tr><td><span class="ui-label">Value Proposition</span></td><td>Đã trình bày lợi ích và so với phương án khác.</td></tr>
+          <tr><td><span class="ui-label">Proposal/Quotation</span></td><td>Đã gửi báo giá. Bệnh viện đang xem.</td></tr>
+          <tr><td><span class="ui-label">Negotiation/Review</span></td><td>Đang thương lượng giá, điều khoản, hoặc hội đồng đang xét.</td></tr>
+          <tr><td rowspan="3"><span class="ui-label">Converted (100%)</span></td><td><span class="ui-label">PO</span></td><td>Bệnh viện đã có quyết định mua hoặc đơn đặt hàng.</td></tr>
+          <tr><td><span class="ui-label">Delivered</span></td><td>Máy đã giao và bàn giao cho khoa.</td></tr>
+          <tr><td><span class="ui-label">Collected Payment</span></td><td>Đã thu tiền deal này.</td></tr>
+          <tr><td><span class="ui-label">Replied (&lt;60%)</span></td><td><span class="ui-label">Waiting for result</span></td><td>Khách đã phản hồi. Deal đang chờ kết quả thầu hoặc quyết định.</td></tr>
+          <tr><td><span class="ui-label">Closed</span></td><td><span class="ui-label">No more interest</span></td><td>Bệnh viện dừng hoặc tạm hoãn nhu cầu.</td></tr>
+          <tr><td><span class="ui-label">Lost</span></td><td><span class="ui-label">Lost</span></td><td>Thua đối thủ, hết ngân sách, hoặc dự án bị hủy.</td></tr>
+        </tbody>
+      </table>
+      <div class="note"><strong>Lưu ý:</strong> <span class="ui-label">Proposal/Quotation</span>, <span class="ui-label">PO</span>, <span class="ui-label">Delivered</span> và <span class="ui-label">Collected Payment</span> là mốc trên cơ hội. Chúng không mở chứng từ Báo giá, Đơn bán hàng, Phiếu giao hay Phiếu thu.</div>
 
       <h3>Bước 11: Amount by Expected Closing</h3>
       <p>Biểu đồ theo tháng chốt trong khoảng ngày đã lọc.</p>
