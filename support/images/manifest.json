@@ -1,0 +1,22 @@
+{
+  "scenario": "support.yaml + support-reports.yaml (browser capture fallback — Node.js unavailable)",
+  "title": "Support module — workspace, DocTypes, reports",
+  "output_dir": "serp-user-guide/support/images",
+  "captured": [
+    { "id": "01-open-workspace", "file": "01-open-workspace.png", "caption": "Workspace Support và Support Dashboard" },
+    { "id": "02-dashboard-filter", "file": "02-dashboard-filter.png", "caption": "Bộ lọc thời gian trên Support Dashboard" },
+    { "id": "03-dashboard-kpi", "file": "03-dashboard-kpi.png", "caption": "Thẻ KPI công việc và task" },
+    { "id": "04-shortcuts", "file": "04-shortcuts.png", "caption": "Lối tắt và báo cáo trên workspace" },
+    { "id": "05-service-job-list", "file": "05-service-job-list.png", "caption": "Danh sách Service Job" },
+    { "id": "06-service-job-new", "file": "06-service-job-new.png", "caption": "Nút Add Service Job" },
+    { "id": "07-service-time-list", "file": "07-service-time-list.png", "caption": "Danh sách Service Time" },
+    { "id": "08-instrument-list", "file": "08-instrument-list.png", "caption": "Danh sách Instrument" },
+    { "id": "09-service-job-report", "file": "09-service-job-report.png", "caption": "Service Job Report" },
+    { "id": "10-sjob-report-filter", "file": "10-sjob-report-filter.png", "caption": "Bộ lọc Service Job Report" },
+    { "id": "11-service-time-report", "file": "11-service-time-report.png", "caption": "Service Time Report" },
+    { "id": "12-stime-report-filter", "file": "12-stime-report-filter.png", "caption": "Bộ lọc Service Time Report" }
+  ],
+  "timestamp": "2026-10-20T00:00:00.000Z",
+  "status": "success",
+  "summary": "Captured 12 screenshot(s) via dev-erp.smartr.co (demo11 session)"
+}

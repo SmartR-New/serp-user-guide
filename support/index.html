@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support — Hướng dẫn sử dụng | iMED ERP</title>
+  <meta name="description" content="Hướng dẫn workspace Support — Dashboard, Service Job, Service Time, Instrument và báo cáo cho nhân viên / quản lý dịch vụ iMED.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,420;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font: "Inter", system-ui, sans-serif;
+      --surface: #fff;
+      --bg: #f8fafc;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --blue: #2490ef;
+      --amber-soft: #fffbeb;
+      --amber: #b45309;
+      --radius: 8px;
+      --max: 1080px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font: 420 15px/1.6 var(--font); color: var(--text); background: var(--bg); }
+    a { color: var(--blue); }
+    .shell { max-width: var(--max); margin: 0 auto; padding: 0 20px 64px; }
+    .page {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 210px;
+      grid-template-areas: "header rail" "content rail";
+      column-gap: 48px;
+      align-items: start;
+    }
+    header.page-header {
+      grid-area: header;
+      position: sticky; top: 0; z-index: 5;
+      background: rgba(248,250,252,.92); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0; margin-bottom: 28px;
+    }
+    .content { grid-area: content; min-width: 0; }
+    .back { font-size: 13px; color: var(--muted); }
+    h1 { margin: 8px 0 0; font-size: 28px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 12px; font-size: 13px; color: var(--muted); }
+    .meta strong { color: var(--text); font-weight: 600; }
+    section { margin-top: 36px; scroll-margin-top: 168px; }
+    h2 { margin: 0 0 12px; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+    h3 { margin: 28px 0 8px; font-size: 17px; font-weight: 600; }
+    p { margin: 0 0 12px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.25rem; }
+    li { margin-bottom: 6px; }
+    .checklist { list-style: none; padding: 0; }
+    .checklist li::before { content: "☐ "; color: var(--muted); }
+    figure {
+      margin: 16px 0 24px; padding: 12px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: 0 1px 3px rgba(0,0,0,.04);
+    }
+    figure img { display: block; width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border); }
+    figcaption { margin-top: 10px; font-size: 13px; color: var(--muted); text-align: center; }
+    figure.figure-focus img {
+      box-shadow: 0 0 0 2px #e53935, 0 8px 24px rgba(15,23,42,.15);
+    }
+    figure.figure-focus figcaption::before {
+      content: "Focus · ";
+      color: #e53935;
+      font-weight: 600;
+    }
+    .note {
+      margin: 12px 0 20px; padding: 12px 14px;
+      background: var(--amber-soft); border-left: 4px solid var(--amber);
+      border-radius: 0 var(--radius) var(--radius) 0; font-size: 14px;
+    }
+    .note strong { color: var(--amber); }
+    table {
+      width: 100%; border-collapse: collapse; font-size: 14px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden; margin: 12px 0 20px;
+    }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: #f1f5f9; font-weight: 600; font-size: 13px; }
+    tr:last-child td { border-bottom: none; }
+    .ui-label { font-family: ui-monospace, monospace; font-size: 0.92em; background: #f1f5f9; padding: 1px 6px; border-radius: 4px; }
+    footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+    .on-this-page {
+      grid-area: rail;
+      position: sticky;
+      top: 24px;
+      max-height: calc(100vh - 40px);
+      overflow: auto;
+      padding-top: 8px;
+    }
+    .on-this-page p {
+      margin: 0 0 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .on-this-page nav {
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid var(--border);
+    }
+    .on-this-page a {
+      display: block;
+      margin-left: -1px;
+      padding: 6px 8px 6px 14px;
+      border-left: 2px solid transparent;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+      text-decoration: none;
+    }
+    .on-this-page a:hover { color: var(--text); }
+    .on-this-page a.active {
+      border-left-color: #171717;
+      color: #171717;
+      font-weight: 600;
+      background: #f3f3f3;
+    }
+    @media (max-width: 860px) {
+      .page {
+        grid-template-columns: 1fr;
+        grid-template-areas: "header" "rail" "content";
+      }
+      .on-this-page { position: static; max-height: none; margin-bottom: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="page">
+    <header class="page-header">
+      <a class="back" href="../index.html">← Tài liệu hướng dẫn iMED ERP</a>
+      <h1>Support — Hướng dẫn sử dụng</h1>
+      <div class="meta">
+        <span><strong>Dành cho:</strong> iMED Service User</span>
+        <span><strong>Môi trường:</strong> dev-erp.smartr.co</span>
+        <span><strong>Cập nhật:</strong> 2026-10-20</span>
+      </div>
+    </header>
+
+    <aside class="on-this-page">
+      <p>Trên trang này</p>
+      <nav aria-label="Trên trang này">
+        <a href="#purpose">Mục đích</a>
+        <a href="#prerequisites">Trước khi bắt đầu</a>
+        <a href="#steps">Các bước thực hiện</a>
+        <a href="#outcome">Kết quả mong đợi</a>
+        <a href="#troubleshooting">Xử lý sự cố</a>
+      </nav>
+    </aside>
+
+    <div class="content">
+
+    <section id="purpose">
+      <h2>Mục đích</h2>
+      <p>Workspace <strong>Support</strong> là nơi đội dịch vụ iMED theo dõi công việc hiện trường: <span class="ui-label">Service Job</span>, ghi giờ <span class="ui-label">Service Time</span>, tra cứu <span class="ui-label">Instrument</span>, và (với quản lý) xem báo cáo tổng hợp.</p>
+      <p>Trang landing có <strong>Support Dashboard</strong> — KPI theo kỳ bạn chọn, nhấn thẻ để mở danh sách đã lọc, và lối tắt mở nhanh các màn hình chính.</p>
+    </section>
+
+    <section id="prerequisites">
+      <h2>Trước khi bắt đầu</h2>
+      <ul class="checklist">
+        <li>Bạn đã đăng nhập ERP</li>
+        <li>Tài khoản có vai trò <strong>iMED Service User</strong> (workspace Support, Service Job / Service Time / Instrument)</li>
+        <li>Xem báo cáo <span class="ui-label">Service Job Report</span> / <span class="ui-label">Service Time Report</span>: cần <strong>iMED Service Leader</strong> hoặc <strong>iMED Service Manager</strong></li>
+      </ul>
+    </section>
+
+    <section id="steps">
+      <h2>Các bước thực hiện</h2>
+
+      <h3>Bước 1: Mở workspace Support</h3>
+      <p>Trên thanh tìm kiếm Desk (Ctrl + G), gõ <em>Support</em>. Hoặc chọn <span class="ui-label">Support</span> ở sidebar.</p>
+      <figure>
+        <img src="images/01-open-workspace.png" alt="Workspace Support với Support Dashboard và các thẻ KPI" loading="lazy">
+        <figcaption>Bước 1 — Mở workspace Support</figcaption>
+      </figure>
+      <div class="note"><strong>Lưu ý:</strong> Kỳ mặc định trên dashboard thường là <span class="ui-label">Tháng hiện tại</span>. Ảnh minh họa chụp trên dev-erp; số KPI và số dòng danh sách có thể khác production. Sidebar chỉ hiện module bạn được phân quyền.</div>
+
+      <h3>Bước 2: Chọn kỳ trên Support Dashboard</h3>
+      <p>Ở góc phải khối <span class="ui-label">Support Dashboard</span>, mở danh sách thời gian. Chọn <span class="ui-label">Hôm nay</span>, <span class="ui-label">Tuần này</span>, <span class="ui-label">Tháng hiện tại</span>, <span class="ui-label">Quý này</span>, <span class="ui-label">Năm nay</span>, hoặc <span class="ui-label">Tùy chọn ngày...</span> rồi nhập From / To — số liệu các thẻ cập nhật theo kỳ.</p>
+      <figure class="figure-focus">
+        <img src="images/02-dashboard-filter.png" alt="Dropdown lọc thời gian trên Support Dashboard" loading="lazy">
+        <figcaption>Bước 2 — Bộ lọc thời gian</figcaption>
+      </figure>
+
+      <h3>Bước 3: Đọc thẻ KPI và mở danh sách</h3>
+      <p>Cuộn trong khối dashboard để xem đủ thẻ. <strong>Nhấn một thẻ</strong> để mở danh sách <span class="ui-label">Service Job</span>, <span class="ui-label">Service Time</span>, hoặc <span class="ui-label">Task</span> đã lọc theo cùng kỳ.</p>
+      <figure>
+        <img src="images/03-dashboard-kpi.png" alt="Các thẻ KPI task và phần trăm hoàn thành trên Support Dashboard" loading="lazy">
+        <figcaption>Bước 3 — Thẻ KPI (cuộn xuống nếu cần)</figcaption>
+      </figure>
+      <table>
+        <thead><tr><th>Thẻ</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ui-label">TOTAL # OF JOBS</span></td><td>Số Service Job trong kỳ — nhấn để xem danh sách</td></tr>
+          <tr><td><span class="ui-label">TOTAL # OF TIME</span></td><td>Tổng thời gian Service Time trong kỳ</td></tr>
+          <tr><td><span class="ui-label">% COMPLETED JOBS</span></td><td>Tỷ lệ job đã đóng trong kỳ</td></tr>
+          <tr><td><span class="ui-label">OPEN TASKS</span> / <span class="ui-label">WORKING TASKS</span> / <span class="ui-label">LATE TASKS</span></td><td>Task Desk gắn công việc dịch vụ — màu cam/đỏ nhắc trễ hạn</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Bước 4: Dùng lối tắt và báo cáo</h3>
+      <p>Khu vực <span class="ui-label">Your Shortcuts</span> mở nhanh <span class="ui-label">Service Job</span>, <span class="ui-label">Service Time</span>, <span class="ui-label">Instrument</span> (số badge = tổng bản ghi tham khảo). <span class="ui-label">Reports &amp; Masters</span> dẫn tới báo cáo (Leader/Manager).</p>
+      <figure>
+        <img src="images/04-shortcuts.png" alt="Your Shortcuts và Reports trên workspace Support" loading="lazy">
+        <figcaption>Bước 4 — Lối tắt và báo cáo</figcaption>
+      </figure>
+
+      <h3>Bước 5: Mở danh sách Service Job</h3>
+      <p>Từ lối tắt hoặc tìm <em>Service Job</em>. Lọc theo <span class="ui-label">Customer</span>, <span class="ui-label">Job Status</span> (Open/Close), <span class="ui-label">Approver</span>, … rồi nhấn <span class="ui-label">Filter</span>.</p>
+      <figure>
+        <img src="images/05-service-job-list.png" alt="Danh sách Service Job dạng Report view với bộ lọc" loading="lazy">
+        <figcaption>Bước 5 — Danh sách Service Job</figcaption>
+      </figure>
+
+      <h3>Bước 6: Tạo Service Job mới</h3>
+      <p>Nhấn <span class="ui-label">Add Service Job</span> (nút + trên thanh tiêu đề). Điền thông tin bắt buộc theo quy trình nội bộ (khách hàng, loại job, CSE, …) rồi lưu hoặc gửi duyệt nếu có workflow.</p>
+      <figure class="figure-focus">
+        <img src="images/06-service-job-new.png" alt="Nút Add Service Job trên danh sách" loading="lazy">
+        <figcaption>Bước 6 — Tạo Service Job mới</figcaption>
+      </figure>
+
+      <h3>Bước 7: Mở danh sách Service Time</h3>
+      <p><span class="ui-label">Service Time</span> ghi nhận giờ theo <span class="ui-label">Service Job</span>: <span class="ui-label">Activity Type</span> (Travel, On-site Work, Phone Support, Support, …) và <span class="ui-label">Attendance Type</span>. Lọc theo job, <span class="ui-label">CSE Name</span>, rồi mở dòng hoặc <span class="ui-label">Add Service Time</span>.</p>
+      <figure>
+        <img src="images/07-service-time-list.png" alt="Danh sách Service Time với cột ID và bộ lọc" loading="lazy">
+        <figcaption>Bước 7 — Danh sách Service Time</figcaption>
+      </figure>
+
+      <h3>Bước 8: Tra cứu Instrument</h3>
+      <p><span class="ui-label">Instrument</span> là hồ sơ thiết bị tại khách hàng (serial, model, bảo hành, trạng thái). Lọc theo <span class="ui-label">Customer</span>, <span class="ui-label">Serial Number</span>, <span class="ui-label">Instrument Status</span>. Nhấn ID (ví dụ <span class="ui-label">INS-xxxxx</span>) để mở chi tiết.</p>
+      <figure>
+        <img src="images/08-instrument-list.png" alt="Danh sách Instrument với bộ lọc Customer và Serial" loading="lazy">
+        <figcaption>Bước 8 — Danh sách Instrument</figcaption>
+      </figure>
+
+      <h3>Bước 9: Service Job Report (Leader / Manager)</h3>
+      <p>Mở từ workspace → <span class="ui-label">Service Job Report</span> hoặc tìm kiếm tên trang. Chọn <span class="ui-label">Time Filter</span>, khách hàng, approver, <span class="ui-label">Job Status</span>, <span class="ui-label">Job Type</span> (gồm <span class="ui-label">Support</span>). Nhấn <span class="ui-label">Filter</span> để xem bảng và biểu đồ.</p>
+      <figure>
+        <img src="images/09-service-job-report.png" alt="Trang Service Job Report với bộ lọc và kết quả" loading="lazy">
+        <figcaption>Bước 9 — Service Job Report</figcaption>
+      </figure>
+      <figure class="figure-focus">
+        <img src="images/10-sjob-report-filter.png" alt="Khối Filter trên Service Job Report" loading="lazy">
+        <figcaption>Bước 9 — Bộ lọc Service Job Report</figcaption>
+      </figure>
+
+      <h3>Bước 10: Service Time Report (Leader / Manager)</h3>
+      <p>Tương tự với <span class="ui-label">From Date</span> / <span class="ui-label">To Date</span>, <span class="ui-label">CSE Name</span>, <span class="ui-label">Activity Type</span>, <span class="ui-label">Attendance Type</span>.</p>
+      <figure>
+        <img src="images/11-service-time-report.png" alt="Service Time Report với bảng TIME và biểu đồ" loading="lazy">
+        <figcaption>Bước 10 — Service Time Report</figcaption>
+      </figure>
+      <figure class="figure-focus">
+        <img src="images/12-stime-report-filter.png" alt="Khối Filter Service Time Report" loading="lazy">
+        <figcaption>Bước 10 — Bộ lọc Service Time Report</figcaption>
+      </figure>
+      <div class="note"><strong>Lưu ý:</strong> Nếu không thấy mục báo cáo, tài khoản chưa có vai trò Leader/Manager — liên hệ quản trị ERP.</div>
+    </section>
+
+    <section id="outcome">
+      <h2>Kết quả mong đợi</h2>
+      <p>Sau khi làm theo các bước trên:</p>
+      <ul>
+        <li>Support Dashboard hiển thị KPI và task theo <strong>cùng kỳ</strong> bạn chọn; nhấn thẻ mở list đúng bộ lọc ngày</li>
+        <li>Bạn mở được danh sách và phiếu <span class="ui-label">Service Job</span>, <span class="ui-label">Service Time</span>, <span class="ui-label">Instrument</span> từ lối tắt hoặc tìm kiếm Desk</li>
+        <li>Service User tạo/sửa job và ghi giờ theo quyền DocType; Leader/Manager xem báo cáo sau khi nhấn <span class="ui-label">Filter</span> trên trang Report</li>
+      </ul>
+      <p>Không có dữ liệu trong kỳ: KPI dashboard có thể hiện 0; danh sách trống hoặc thông báo chưa có bản ghi — thử mở rộng kỳ thời gian.</p>
+    </section>
+
+    <section id="troubleshooting">
+      <h2>Xử lý sự cố thường gặp</h2>
+      <table>
+        <thead><tr><th>Triệu chứng</th><th>Nguyên nhân có thể</th><th>Cách xử lý</th></tr></thead>
+        <tbody>
+          <tr><td>Không mở được workspace <span class="ui-label">Support</span></td><td>Thiếu vai trò dịch vụ</td><td>Nhờ quản trị gán <strong>iMED Service User</strong> (hoặc Leader / Manager)</td></tr>
+          <tr><td>Dashboard toàn số 0</td><td>Kỳ hẹp hoặc chưa có job/time trong kỳ</td><td>Chọn kỳ rộng hơn (<span class="ui-label">Quý này</span>, <span class="ui-label">Năm nay</span>, hoặc tùy chọn ngày)</td></tr>
+          <tr><td>Nhấn thẻ KPI không mở list</td><td>Lỗi tạm hoặc thiếu quyền đọc DocType</td><td>Tải lại workspace; kiểm tra quyền Service Job / Service Time / Task</td></tr>
+          <tr><td>Không thấy báo cáo</td><td>Chỉ Leader/Manager</td><td>Service User dùng dashboard + list; yêu cầu role báo cáo nếu cần</td></tr>
+          <tr><td>Không tạo được Service Job</td><td>Thiếu quyền ghi hoặc thiếu trường bắt buộc</td><td>Hoàn tất trường đỏ; liên hệ IT nếu không có nút <span class="ui-label">Add Service Job</span></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer>
+      Captured: 2026-10-20 · Environment: dev-erp.smartr.co · Screenshot account: demo11@smartr.co (re-capture khuyến nghị demo8@ / demo9@)
+    </footer>
+    </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const links = Array.from(document.querySelectorAll(".on-this-page a"));
+      const sections = links
+        .map((link) => document.querySelector(link.getAttribute("href")))
+        .filter(Boolean);
+
+      function mark(id) {
+        links.forEach((link) => {
+          const on = link.getAttribute("href") === "#" + id;
+          link.classList.toggle("active", on);
+          if (on) link.setAttribute("aria-current", "true");
+          else link.removeAttribute("aria-current");
+        });
+      }
+
+      function currentId() {
+        const marker = 180;
+        let current = sections[0];
+        sections.forEach((section) => {
+          if (section.getBoundingClientRect().top <= marker) current = section;
+        });
+        const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+        if (nearBottom) current = sections[sections.length - 1];
+        return current ? current.id : "";
+      }
+
+      function update() {
+        mark(currentId());
+      }
+
+      links.forEach((link) => {
+        link.addEventListener("click", () => mark(link.getAttribute("href").slice(1)));
+      });
+
+      document.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+      update();
+    })();
+  </script>
+</body>
+</html>
