@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Job Report — Hướng dẫn sử dụng | iMED ERP</title>
+  <meta name="description" content="Hướng dẫn báo cáo Service Job — bộ lọc, chỉ số KẾT QUẢ LỌC, biểu đồ và Job List cho Service Leader và Service Manager.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,420;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font: "Inter", system-ui, sans-serif;
+      --surface: #fff;
+      --bg: #f8fafc;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --blue: #2490ef;
+      --amber-soft: #fffbeb;
+      --amber: #b45309;
+      --radius: 8px;
+      --max: 1080px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font: 420 15px/1.6 var(--font); color: var(--text); background: var(--bg); }
+    a { color: var(--blue); }
+    .shell { max-width: var(--max); margin: 0 auto; padding: 0 20px 64px; }
+    .page {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 210px;
+      grid-template-areas: "header rail" "content rail";
+      column-gap: 48px;
+      align-items: start;
+    }
+    header.page-header {
+      grid-area: header;
+      position: sticky; top: 0; z-index: 5;
+      background: rgba(248,250,252,.92); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0; margin-bottom: 28px;
+    }
+    .content { grid-area: content; min-width: 0; }
+    .back { font-size: 13px; color: var(--muted); }
+    h1 { margin: 8px 0 0; font-size: 28px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 12px; font-size: 13px; color: var(--muted); }
+    .meta strong { color: var(--text); font-weight: 600; }
+    section { margin-top: 36px; scroll-margin-top: 168px; }
+    h2 { margin: 0 0 12px; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+    h3 { margin: 28px 0 8px; font-size: 17px; font-weight: 600; }
+    h4 { margin: 16px 0 8px; font-size: 15px; font-weight: 600; }
+    p { margin: 0 0 12px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.25rem; }
+    li { margin-bottom: 6px; }
+    .checklist { list-style: none; padding: 0; }
+    .checklist li::before { content: "☐ "; color: var(--muted); }
+    figure {
+      margin: 16px 0 24px; padding: 12px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: 0 1px 3px rgba(0,0,0,.04);
+    }
+    figure img { display: block; width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border); }
+    figcaption { margin-top: 10px; font-size: 13px; color: var(--muted); text-align: center; }
+    figure.figure-focus img {
+      box-shadow: 0 0 0 2px #e53935, 0 8px 24px rgba(15,23,42,.15);
+    }
+    figure.figure-focus figcaption::before {
+      content: "Focus · ";
+      color: #e53935;
+      font-weight: 600;
+    }
+    .note {
+      margin: 12px 0 20px; padding: 12px 14px;
+      background: var(--amber-soft); border-left: 4px solid var(--amber);
+      border-radius: 0 var(--radius) var(--radius) 0; font-size: 14px;
+    }
+    .note strong { color: var(--amber); }
+    table {
+      width: 100%; border-collapse: collapse; font-size: 14px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden; margin: 12px 0 20px;
+    }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: #f1f5f9; font-weight: 600; font-size: 13px; }
+    tr:last-child td { border-bottom: none; }
+    .ui-label { font-family: ui-monospace, monospace; font-size: 0.92em; background: #f1f5f9; padding: 1px 6px; border-radius: 4px; }
+    footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+    .on-this-page {
+      grid-area: rail;
+      position: sticky;
+      top: 24px;
+      max-height: calc(100vh - 40px);
+      overflow: auto;
+      padding-top: 8px;
+    }
+    .on-this-page p {
+      margin: 0 0 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .on-this-page nav {
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid var(--border);
+    }
+    .on-this-page a {
+      display: block;
+      margin-left: -1px;
+      padding: 6px 8px 6px 14px;
+      border-left: 2px solid transparent;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+      text-decoration: none;
+    }
+    .on-this-page a:hover { color: var(--text); }
+    .on-this-page a.active {
+      border-left-color: #171717;
+      color: #171717;
+      font-weight: 600;
+      background: #f3f3f3;
+    }
+    @media (max-width: 860px) {
+      .page {
+        grid-template-columns: 1fr;
+        grid-template-areas: "header" "rail" "content";
+      }
+      .on-this-page { position: static; max-height: none; margin-bottom: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="page">
+    <header class="page-header">
+      <a class="back" href="../index.html">← Tài liệu hướng dẫn iMED ERP</a>
+      <h1>Service Job Report — Hướng dẫn sử dụng</h1>
+      <div class="meta">
+        <span><strong>Dành cho:</strong> iMED Service Leader, iMED Service Manager</span>
+        <span><strong>Môi trường:</strong> dev-erp.smartr.co</span>
+        <span><strong>Cập nhật:</strong> 2026-10-19</span>
+      </div>
+    </header>
+
+    <aside class="on-this-page">
+      <p>Trên trang này</p>
+      <nav aria-label="Trên trang này">
+        <a href="#purpose">Mục đích</a>
+        <a href="#concepts">Khái niệm</a>
+        <a href="#prerequisites">Trước khi bắt đầu</a>
+        <a href="#steps">Các bước</a>
+        <a href="#metrics">Giải thích metrics</a>
+        <a href="#charts">Giải thích biểu đồ</a>
+        <a href="#roles">Phân quyền</a>
+        <a href="#outcome">Kết quả mong đợi</a>
+        <a href="#troubleshooting">Xử lý sự cố</a>
+      </nav>
+    </aside>
+
+    <div class="content">
+
+    <section id="purpose">
+      <h2>Mục đích</h2>
+      <p><strong>Service Job Report</strong> (tiêu đề trên màn hình: <span class="ui-label">Report &amp; Dashboard</span>) giúp lãnh đạo và trưởng nhóm dịch vụ theo dõi <strong>Service Job</strong> (phiếu công việc dịch vụ) trong khoảng thời gian và theo khách hàng, kỹ sư phụ trách (CSE), trạng thái và loại công việc.</p>
+      <p>Trang gồm: <strong>bộ lọc</strong>, khối <strong>KẾT QUẢ LỌC</strong> (chỉ số), <strong>Job List</strong> (bảng chi tiết có phân trang), và ba biểu đồ: <span class="ui-label">Job Chart List</span>, <span class="ui-label">Job Chart CSE</span>, <span class="ui-label">Job Chart Status</span>.</p>
+      <div class="note"><strong>Lưu ý:</strong> Chỉ tài khoản có vai trò <strong>iMED Service Leader</strong> hoặc <strong>iMED Service Manager</strong> (hoặc quản trị hệ thống) mới mở được trang. <strong>iMED Service User</strong> không truy cập báo cáo này.</div>
+    </section>
+
+    <section id="concepts">
+      <h2>Khái niệm: Service Job và Job Item</h2>
+      <p>Hiểu đúng hai khái niệm này giúp đọc số liệu không bị nhầm:</p>
+      <table>
+        <thead><tr><th>Khái niệm</th><th>Trên hệ thống</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Service Job</strong></td>
+            <td>Một phiếu Service Job (một lần hỗ trợ / một chuyến)</td>
+            <td>Có <span class="ui-label">Job ID</span>, <span class="ui-label">Job Status</span> (Open/Close), khách hàng, <span class="ui-label">Approver</span> (Primary CSE), ngày tạo.</td>
+          </tr>
+          <tr>
+            <td><strong>Job Item</strong></td>
+            <td>Dòng trên bảng thiết bị của phiếu (Service Job Instrument)</td>
+            <td>Mỗi dòng = một thiết bị (hoặc hạng mục) kèm <span class="ui-label">Job Type</span> (Installation, PM, CM, …). Một Service Job có thể có <strong>nhiều</strong> Job Item.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Một số chỉ số đếm theo <strong>số phiếu</strong> (Service Job), một số khác đếm theo <strong>số dòng</strong> (Job Item). Phần <a href="#metrics">Giải thích metrics</a> và <a href="#charts">Giải thích biểu đồ</a> ghi rõ từng trường hợp.</p>
+    </section>
+
+    <section id="prerequisites">
+      <h2>Trước khi bắt đầu</h2>
+      <ul class="checklist">
+        <li>Đã đăng nhập ERP</li>
+        <li>Tài khoản có vai trò <strong>iMED Service Leader</strong> hoặc <strong>iMED Service Manager</strong></li>
+        <li>Đã có dữ liệu Service Job và dòng thiết bị tương ứng trên hệ thống</li>
+      </ul>
+    </section>
+
+    <section id="steps">
+      <h2>Các bước thực hiện</h2>
+
+      <h3>Bước 1: Mở Service Job Report</h3>
+      <p>Từ thanh tìm kiếm Desk, gõ <em>Service Job Report</em> hoặc mở đường dẫn <span class="ui-label">/app/service_job_report</span>.</p>
+      <figure>
+        <img src="images/01-open-page.png" alt="Toàn cảnh Service Job Report — Filter, KẾT QUẢ LỌC, Job List và biểu đồ" loading="lazy">
+        <figcaption>Bước 1 — Mở trang Service Job Report</figcaption>
+      </figure>
+
+      <h3>Bước 2: Thiết lập bộ lọc</h3>
+      <p>Khối <span class="ui-label">Filter</span> nằm bên trái hàng trên. Mặc định kỳ thời gian thường là <strong>tháng hiện tại</strong> (<span class="ui-label">This Month</span>).</p>
+      <figure class="figure-focus">
+        <img src="images/02-filters.png" alt="Bộ lọc — kỳ ngày, Customer, Approver, Job Status, Job Type" loading="lazy">
+        <figcaption>Bước 2 — Khu vực Filter</figcaption>
+      </figure>
+      <table>
+        <thead><tr><th>Thành phần</th><th>Mô tả</th></tr></thead>
+        <tbody>
+          <tr><td>Kỳ thời gian (preset / tùy chỉnh)</td><td>Lọc theo <strong>ngày tạo</strong> Service Job (<span class="ui-label">Created On</span>), không theo ngày cập nhật cuối.</td></tr>
+          <tr><td><span class="ui-label">Customer</span></td><td>Một hoặc nhiều khách hàng (cơ sở y tế).</td></tr>
+          <tr><td><span class="ui-label">Approver</span></td><td>Primary CSE — kỹ sư phụ trách chính trên phiếu (chỉ user thuộc nhóm vai trò dịch vụ).</td></tr>
+          <tr><td><span class="ui-label">Job Status</span></td><td><span class="ui-label">Open</span> hoặc <span class="ui-label">Close</span>.</td></tr>
+          <tr><td><span class="ui-label">Job Type</span></td><td>Loại công việc trên <strong>dòng thiết bị</strong> (PM, Installation, …). Khi chọn, Job List chỉ hiển thị các dòng khớp loại đó (phiếu vẫn xuất hiện nếu còn dòng khác khi không lọc loại).</td></tr>
+          <tr><td><span class="ui-label">Filter</span> (nút)</td><td>Áp dụng bộ lọc cho <strong>toàn bộ</strong> chỉ số, biểu đồ và Job List (trang 1).</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Bước 3: Nhấn Filter</h3>
+      <p>Sau khi chỉnh bộ lọc, nhấn <span class="ui-label">Filter</span>. Hệ thống tải lại metrics, biểu đồ và danh sách job.</p>
+      <figure class="figure-focus">
+        <img src="images/04-apply-filter.png" alt="Nút Filter áp dụng bộ lọc" loading="lazy">
+        <figcaption>Bước 3 — Nhấn Filter</figcaption>
+      </figure>
+
+      <h3>Bước 4: Đọc khối KẾT QUẢ LỌC</h3>
+      <p>Phần bên phải hàng trên hiển thị tổng hợp theo đúng bộ lọc vừa áp dụng.</p>
+      <figure class="figure-focus">
+        <img src="images/03-metrics.png" alt="Khối KẾT QUẢ LỌC với tổng job, job item và phân rã Job Type" loading="lazy">
+        <figcaption>Bước 4 — KẾT QUẢ LỌC</figcaption>
+      </figure>
+      <p>Chi tiết từng dòng số liệu: xem mục <a href="#metrics">Giải thích metrics</a>.</p>
+
+      <h3>Bước 5: Xem Job List</h3>
+      <p>Bảng <span class="ui-label">Job List</span> liệt kê từng Service Job: trạng thái, khách hàng, territory, Approver, số Job Item, ngày tạo và cập nhật.</p>
+      <figure>
+        <img src="images/05-job-list.png" alt="Bảng Job List với phân trang Prev Next" loading="lazy">
+        <figcaption>Bước 5 — Job List (50 job mỗi trang)</figcaption>
+      </figure>
+      <ul>
+        <li>Nhấn mũi tên <strong>▶</strong> trên dòng để xem chi tiết từng Job Item (loại công việc, model, serial).</li>
+        <li>Dùng <span class="ui-label">Prev</span> / <span class="ui-label">Next</span> khi có nhiều hơn 50 phiếu.</li>
+        <li>Biểu tượng mở rộng góc phải tiêu đề mở bảng ở chế độ toàn màn hình.</li>
+      </ul>
+
+      <h3>Bước 6: Xem biểu đồ</h3>
+      <p>Ba biểu đồ phía dưới luôn phản ánh <strong>cùng bộ lọc</strong> với KẾT QUẢ LỌC. Nhấn biểu tượng mở rộng trên từng thẻ để xem fullscreen.</p>
+
+      <p><strong>Job Chart List</strong> — cột theo từng loại Job Type.</p>
+      <figure class="figure-focus">
+        <img src="images/06-chart-list.png" alt="Biểu đồ cột Job Chart List theo Job Type" loading="lazy">
+        <figcaption>Bước 6a — Job Chart List</figcaption>
+      </figure>
+
+      <p><strong>Job Chart CSE</strong> — cột theo Approver (tên kỹ sư).</p>
+      <figure class="figure-focus">
+        <img src="images/07-chart-cse.png" alt="Biểu đồ cột Job Chart CSE theo Approver" loading="lazy">
+        <figcaption>Bước 6b — Job Chart CSE</figcaption>
+      </figure>
+
+      <p><strong>Job Chart Status</strong> — biểu đồ tròn theo Job Status trên các Job Item.</p>
+      <figure class="figure-focus">
+        <img src="images/08-chart-status.png" alt="Biểu đồ tròn Job Chart Status Open và Close" loading="lazy">
+        <figcaption>Bước 6c — Job Chart Status</figcaption>
+      </figure>
+      <p>Giải thích cách đếm và cách đọc: mục <a href="#charts">Giải thích biểu đồ</a>.</p>
+    </section>
+
+    <section id="metrics">
+      <h2>Giải thích metrics (KẾT QUẢ LỌC)</h2>
+      <p>Tất cả số liệu dưới đây chỉ tính trên các Service Job (và dòng thiết bị liên quan) <strong>thỏa bộ lọc</strong> ở bước Filter. Kỳ lọc áp dụng theo <strong>ngày tạo phiếu</strong>.</p>
+
+      <h3>Chỉ số theo Service Job (đếm phiếu)</h3>
+      <table>
+        <thead><tr><th>Hiển thị trên màn hình</th><th>Cách tính</th><th>Gợi ý đọc</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Tổng số Service Job</strong></td>
+            <td>Đếm <strong>distinct</strong> mã phiếu (mỗi Job ID một lần), kể cả phiếu chưa có dòng thiết bị.</td>
+            <td>Tổng số “chuyến” / phiếu dịch vụ trong kỳ và điều kiện lọc.</td>
+          </tr>
+          <tr>
+            <td><strong>- Số lượng Job Open</strong></td>
+            <td>Số phiếu có <span class="ui-label">Job Status</span> = <span class="ui-label">Open</span> (đếm theo phiếu).</td>
+            <td>Phiếu đang mở — công việc chưa đóng.</td>
+          </tr>
+          <tr>
+            <td><strong>- Số lượng Job Close</strong></td>
+            <td>Số phiếu có <span class="ui-label">Job Status</span> = <span class="ui-label">Close</span> (đếm theo phiếu).</td>
+            <td>Phiếu đã đóng. Tổng Open + Close có thể nhỏ hơn tổng Service Job nếu còn trạng thái khác ngoài hai giá trị này.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Chỉ số theo Job Item (đếm dòng thiết bị)</h3>
+      <table>
+        <thead><tr><th>Hiển thị trên màn hình</th><th>Cách tính</th><th>Gợi ý đọc</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Tổng số Job Item</strong></td>
+            <td>Đếm <strong>tất cả dòng</strong> trên bảng thiết bị của phiếu (mỗi dòng một Job Item).</td>
+            <td>Khối lượng công việc theo thiết bị/loại trên phiếu. Thường <strong>≥</strong> tổng Service Job khi một phiếu có nhiều thiết bị.</td>
+          </tr>
+          <tr>
+            <td>Các dòng <strong>- [Job Type]:</strong> (11 loại)</td>
+            <td>Với từng loại (QC In/Out, Site Survey, Installation, Training, PM, CM, Update, Demo, Support, Meeting / Office Activity…), đếm <strong>số Job Item</strong> có loại đó và thuộc bộ lọc.</td>
+            <td>Phân rã khối lượng theo loại hình dịch vụ. Loại không phát sinh trong kỳ hiển thị <strong>0</strong>.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="note"><strong>Quan trọng:</strong> <em>Tổng số Service Job</em> và <em>Open/Close</em> đếm <strong>phiếu</strong>; <em>Tổng số Job Item</em> và từng dòng <em>Job Type</em> đếm <strong>dòng thiết bị</strong>. Vì vậy tổng các dòng Job Type (nếu cộng lại) thường bằng <em>Tổng số Job Item</em>, không bằng tổng Service Job.</div>
+    </section>
+
+    <section id="charts">
+      <h2>Giải thích biểu đồ</h2>
+      <p>Cả ba biểu đồ dùng <strong>cùng bộ lọc</strong> với KẾT QUẢ LỌC. Trục và legend hiển thị bằng tiếng Anh như trên ERP. Khi không có dữ liệu, biểu đồ hiện <em>No data for chart</em>.</p>
+
+      <table>
+        <thead><tr><th>Biểu đồ</th><th>Loại</th><th>Đơn vị đếm</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="ui-label">Job Chart List</span></td>
+            <td>Biểu đồ cột (bar)</td>
+            <td><strong>Job Item</strong> theo <span class="ui-label">Job Type</span></td>
+            <td>So sánh khối lượng từng loại công việc (Installation, PM, CM, …). Trục X luôn liệt kê đủ 11 loại chuẩn iMED; cột = 0 nếu không có dòng nào. Dataset: <span class="ui-label">Filtered Job Count</span>.</td>
+          </tr>
+          <tr>
+            <td><span class="ui-label">Job Chart CSE</span></td>
+            <td>Biểu đồ cột (bar)</td>
+            <td><strong>Job Item</strong> theo <span class="ui-label">Approver</span> (Primary CSE)</td>
+            <td>Phân bổ số dòng công việc theo kỹ sư phụ trách chính. Chỉ tính dòng có Job Type thuộc danh sách chuẩn. Dataset: <span class="ui-label">Job Count</span>.</td>
+          </tr>
+          <tr>
+            <td><span class="ui-label">Job Chart Status</span></td>
+            <td>Biểu đồ tròn (pie)</td>
+            <td><strong>Job Item</strong> theo <span class="ui-label">Job Status</span> của phiếu</td>
+            <td>Tỷ lệ dòng thiết bị thuộc phiếu Open vs Close (mỗi dòng mang trạng thái của phiếu cha). Dataset: <span class="ui-label">Job Status</span>. Di chuột lên lát cắt để xem số lượng.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>So sánh metrics và biểu đồ</h3>
+      <ul>
+        <li><strong>Job Chart List</strong> tương ứng với các dòng <em>- [Job Type]:</em> trong KẾT QUẢ LỌC (cùng đếm Job Item).</li>
+        <li><strong>Job Chart Status</strong> dùng Job Item, trong khi <em>Job Open / Job Close</em> trên metrics đếm <strong>phiếu</strong> — số trên pie và số Open/Close có thể khác nhau khi một phiếu có nhiều dòng.</li>
+        <li><strong>Job Chart CSE</strong> không có ô tổng riêng trên metrics; dùng để so sánh nhanh giữa các kỹ sư.</li>
+      </ul>
+    </section>
+
+    <section id="roles">
+      <h2>Phân quyền theo vai trò</h2>
+      <table>
+        <thead><tr><th>Vai trò</th><th>Truy cập Service Job Report</th></tr></thead>
+        <tbody>
+          <tr><td>iMED Service Manager</td><td>Có — xem toàn bộ dữ liệu theo bộ lọc</td></tr>
+          <tr><td>iMED Service Leader</td><td>Có — xem toàn bộ dữ liệu theo bộ lọc</td></tr>
+          <tr><td>iMED Service User</td><td>Không — thông báo không được phép</td></tr>
+          <tr><td>Administrator</td><td>Có</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="outcome">
+      <h2>Kết quả mong đợi</h2>
+      <p>Sau khi nhấn <span class="ui-label">Filter</span>:</p>
+      <ul>
+        <li>KẾT QUẢ LỌC, Job List (trang 1), và cả ba biểu đồ đồng bộ cùng một tập dữ liệu.</li>
+        <li>Job List sắp xếp phiếu mới tạo trước; phân trang 50 phiếu/trang.</li>
+        <li>Nếu không có dữ liệu: metrics = 0; biểu đồ trống; bảng job không có dòng.</li>
+      </ul>
+    </section>
+
+    <section id="troubleshooting">
+      <h2>Xử lý sự cố thường gặp</h2>
+      <table>
+        <thead><tr><th>Triệu chứng</th><th>Nguyên nhân có thể</th><th>Cách xử lý</th></tr></thead>
+        <tbody>
+          <tr><td>Không mở được trang</td><td>Tài khoản là iMED Service User hoặc thiếu quyền</td><td>Liên hệ quản trị gán <strong>Service Leader</strong> hoặc <strong>Service Manager</strong></td></tr>
+          <tr><td>Số liệu không đổi</td><td>Chưa nhấn <span class="ui-label">Filter</span></td><td>Chỉnh lọc rồi nhấn Filter; đợi tải xong</td></tr>
+          <tr><td>Tổng Job Item lớn hơn nhiều so với Service Job</td><td>Một phiếu nhiều thiết bị/dòng</td><td>Bình thường — xem chi tiết bằng mũi tên trên Job List</td></tr>
+          <tr><td>Open/Close metrics ≠ pie chart</td><td>Metrics đếm phiếu; pie đếm Job Item</td><td>Đọc theo mục <a href="#metrics">metrics</a> và <a href="#charts">biểu đồ</a></td></tr>
+          <tr><td>Biểu đồ <em>No data</em></td><td>Bộ lọc quá hẹp hoặc không có dòng thiết bị</td><td>Mở rộng kỳ ngày hoặc bỏ bớt Customer / Job Type</td></tr>
+          <tr><td>Trang job trống nhưng metrics &gt; 0</td><td>Đang ở trang pagination cuối sau khi thu hẹp lọc</td><td>Nhấn Filter lại (về trang 1) hoặc Prev về trang 1</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer>
+      Captured: 2026-10-19 · Environment: dev-erp.smartr.co · Screenshot account: demo10@smartr.co (iMED Service Manager)
+    </footer>
+    </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const links = Array.from(document.querySelectorAll(".on-this-page a"));
+      const sections = links
+        .map((link) => document.querySelector(link.getAttribute("href")))
+        .filter(Boolean);
+
+      function mark(id) {
+        links.forEach((link) => {
+          const on = link.getAttribute("href") === "#" + id;
+          link.classList.toggle("active", on);
+          if (on) link.setAttribute("aria-current", "true");
+          else link.removeAttribute("aria-current");
+        });
+      }
+
+      function currentId() {
+        const marker = 180;
+        let current = sections[0];
+        sections.forEach((section) => {
+          if (section.getBoundingClientRect().top <= marker) current = section;
+        });
+        const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+        if (nearBottom) current = sections[sections.length - 1];
+        return current ? current.id : "";
+      }
+
+      function update() {
+        mark(currentId());
+      }
+
+      links.forEach((link) => {
+        link.addEventListener("click", () => mark(link.getAttribute("href").slice(1)));
+      });
+
+      document.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+      update();
+    })();
+  </script>
+</body>
+</html>

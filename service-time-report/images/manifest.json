@@ -1,0 +1,74 @@
+{
+  "scenario": "E:\\smartr-workspace\\imed-project\\.cursor\\skills\\serp-create-user-guide\\scripts\\scenarios\\service-time-report.yaml",
+  "title": "Service Time Report — filters, metrics, charts, time list",
+  "output_dir": "E:\\smartr-workspace\\imed-project\\serp-user-guide\\service-time-report\\images",
+  "captured": [
+    {
+      "id": "01-open-page",
+      "file": "01-open-page.png",
+      "caption": "Mở trang Service Time Report",
+      "url": "https://dev-erp.smartr.co/app/service_time_report",
+      "focus": false,
+      "highlight": false
+    },
+    {
+      "id": "02-filters",
+      "file": "02-filters.png",
+      "caption": "Khu vực Filter — kỳ thời gian, CSE, Activity Type, Attendance Type",
+      "url": "https://dev-erp.smartr.co/app/service_time_report",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "03-metrics",
+      "file": "03-metrics.png",
+      "caption": "KẾT QUẢ LỌC — tổng giờ và phân rã Normal / After / Holiday",
+      "url": "https://dev-erp.smartr.co/app/service_time_report",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "04-apply-filter",
+      "file": "04-apply-filter.png",
+      "caption": "Nhấn Filter để áp dụng bộ lọc",
+      "url": "https://dev-erp.smartr.co/app/service_time_report",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "05-time-list",
+      "file": "05-time-list.png",
+      "caption": "Time List — danh sách bản ghi Service Time (50 dòng/trang)",
+      "url": "https://dev-erp.smartr.co/app/service_time_report",
+      "focus": false,
+      "highlight": false
+    },
+    {
+      "id": "06-chart-list",
+      "file": "06-chart-list.png",
+      "caption": "Time Chart List — tổng phút theo CSE",
+      "url": "https://dev-erp.smartr.co/app/service_time_report",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "07-chart-activity",
+      "file": "07-chart-activity.png",
+      "caption": "Time Chart Activity — phân bổ theo Activity Type",
+      "url": "https://dev-erp.smartr.co/app/service_time_report",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "08-chart-attendance",
+      "file": "08-chart-attendance.png",
+      "caption": "Time Chart Attendance — phân bổ theo Attendance Type",
+      "url": "https://dev-erp.smartr.co/app/service_time_report",
+      "focus": true,
+      "highlight": false
+    }
+  ],
+  "timestamp": "2026-10-19T10:22:20.999Z",
+  "status": "success",
+  "summary": "Captured 8 screenshot(s)"
+}

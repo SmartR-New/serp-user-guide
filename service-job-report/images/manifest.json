@@ -1,0 +1,74 @@
+{
+  "scenario": "E:\\smartr-workspace\\imed-project\\.cursor\\skills\\serp-create-user-guide\\scripts\\scenarios\\service-job-report.yaml",
+  "title": "Service Job Report — filters, metrics, charts, job list",
+  "output_dir": "E:\\smartr-workspace\\imed-project\\.cursor\\serp-user-guide\\service-job-report\\images",
+  "captured": [
+    {
+      "id": "01-open-page",
+      "file": "01-open-page.png",
+      "caption": "Mở trang Service Job Report",
+      "url": "https://dev-erp.smartr.co/app/service_job_report",
+      "focus": false,
+      "highlight": false
+    },
+    {
+      "id": "02-filters",
+      "file": "02-filters.png",
+      "caption": "Khu vực Filter — kỳ thời gian, khách hàng, Approver, Job Status, Job Type",
+      "url": "https://dev-erp.smartr.co/app/service_job_report",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "03-metrics",
+      "file": "03-metrics.png",
+      "caption": "KẾT QUẢ LỌC — chỉ số tổng hợp và phân rã theo Job Type",
+      "url": "https://dev-erp.smartr.co/app/service_job_report",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "04-apply-filter",
+      "file": "04-apply-filter.png",
+      "caption": "Nhấn Filter để áp dụng bộ lọc",
+      "url": "https://dev-erp.smartr.co/app/service_job_report",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "05-job-list",
+      "file": "05-job-list.png",
+      "caption": "Job List — danh sách Service Job đã lọc (phân trang 50 job/trang)",
+      "url": "https://dev-erp.smartr.co/app/service_job_report",
+      "focus": false,
+      "highlight": false
+    },
+    {
+      "id": "06-chart-list",
+      "file": "06-chart-list.png",
+      "caption": "Job Chart List — phân bố Job Item theo Job Type",
+      "url": "https://dev-erp.smartr.co/app/service_job_report",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "07-chart-cse",
+      "file": "07-chart-cse.png",
+      "caption": "Job Chart CSE — Job Item theo Approver (Primary CSE)",
+      "url": "https://dev-erp.smartr.co/app/service_job_report",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "08-chart-status",
+      "file": "08-chart-status.png",
+      "caption": "Job Chart Status — tỷ lệ Job Item theo Job Status",
+      "url": "https://dev-erp.smartr.co/app/service_job_report",
+      "focus": true,
+      "highlight": false
+    }
+  ],
+  "timestamp": "2026-10-19T10:17:21.569Z",
+  "status": "success",
+  "summary": "Captured 8 screenshot(s)"
+}

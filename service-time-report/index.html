@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Time Report — Hướng dẫn sử dụng | iMED ERP</title>
+  <meta name="description" content="Hướng dẫn báo cáo Service Time — bộ lọc, chỉ số KẾT QUẢ LỌC, biểu đồ và Time List cho Service Leader và Service Manager.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,420;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font: "Inter", system-ui, sans-serif;
+      --surface: #fff;
+      --bg: #f8fafc;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --blue: #2490ef;
+      --amber-soft: #fffbeb;
+      --amber: #b45309;
+      --radius: 8px;
+      --max: 1080px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font: 420 15px/1.6 var(--font); color: var(--text); background: var(--bg); }
+    a { color: var(--blue); }
+    .shell { max-width: var(--max); margin: 0 auto; padding: 0 20px 64px; }
+    .page {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 210px;
+      grid-template-areas: "header rail" "content rail";
+      column-gap: 48px;
+      align-items: start;
+    }
+    header.page-header {
+      grid-area: header;
+      position: sticky; top: 0; z-index: 5;
+      background: rgba(248,250,252,.92); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0; margin-bottom: 28px;
+    }
+    .content { grid-area: content; min-width: 0; }
+    .back { font-size: 13px; color: var(--muted); }
+    h1 { margin: 8px 0 0; font-size: 28px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 12px; font-size: 13px; color: var(--muted); }
+    .meta strong { color: var(--text); font-weight: 600; }
+    section { margin-top: 36px; scroll-margin-top: 168px; }
+    h2 { margin: 0 0 12px; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+    h3 { margin: 28px 0 8px; font-size: 17px; font-weight: 600; }
+    h4 { margin: 16px 0 8px; font-size: 15px; font-weight: 600; }
+    p { margin: 0 0 12px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.25rem; }
+    li { margin-bottom: 6px; }
+    .checklist { list-style: none; padding: 0; }
+    .checklist li::before { content: "☐ "; color: var(--muted); }
+    figure {
+      margin: 16px 0 24px; padding: 12px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: 0 1px 3px rgba(0,0,0,.04);
+    }
+    figure img { display: block; width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border); }
+    figcaption { margin-top: 10px; font-size: 13px; color: var(--muted); text-align: center; }
+    figure.figure-focus img {
+      box-shadow: 0 0 0 2px #e53935, 0 8px 24px rgba(15,23,42,.15);
+    }
+    figure.figure-focus figcaption::before {
+      content: "Focus · ";
+      color: #e53935;
+      font-weight: 600;
+    }
+    .note {
+      margin: 12px 0 20px; padding: 12px 14px;
+      background: var(--amber-soft); border-left: 4px solid var(--amber);
+      border-radius: 0 var(--radius) var(--radius) 0; font-size: 14px;
+    }
+    .note strong { color: var(--amber); }
+    table {
+      width: 100%; border-collapse: collapse; font-size: 14px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden; margin: 12px 0 20px;
+    }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: #f1f5f9; font-weight: 600; font-size: 13px; }
+    tr:last-child td { border-bottom: none; }
+    .ui-label { font-family: ui-monospace, monospace; font-size: 0.92em; background: #f1f5f9; padding: 1px 6px; border-radius: 4px; }
+    footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+    .on-this-page {
+      grid-area: rail;
+      position: sticky;
+      top: 24px;
+      max-height: calc(100vh - 40px);
+      overflow: auto;
+      padding-top: 8px;
+    }
+    .on-this-page p {
+      margin: 0 0 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .on-this-page nav {
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid var(--border);
+    }
+    .on-this-page a {
+      display: block;
+      margin-left: -1px;
+      padding: 6px 8px 6px 14px;
+      border-left: 2px solid transparent;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+      text-decoration: none;
+    }
+    .on-this-page a:hover { color: var(--text); }
+    .on-this-page a.active {
+      border-left-color: #171717;
+      color: #171717;
+      font-weight: 600;
+      background: #f3f3f3;
+    }
+    @media (max-width: 860px) {
+      .page {
+        grid-template-columns: 1fr;
+        grid-template-areas: "header" "rail" "content";
+      }
+      .on-this-page { position: static; max-height: none; margin-bottom: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="page">
+    <header class="page-header">
+      <a class="back" href="../index.html">← Tài liệu hướng dẫn iMED ERP</a>
+      <h1>Service Time Report — Hướng dẫn sử dụng</h1>
+      <div class="meta">
+        <span><strong>Dành cho:</strong> iMED Service Leader, iMED Service Manager</span>
+        <span><strong>Môi trường:</strong> dev-erp.smartr.co</span>
+        <span><strong>Cập nhật:</strong> 2026-10-19</span>
+      </div>
+    </header>
+
+    <aside class="on-this-page">
+      <p>Trên trang này</p>
+      <nav aria-label="Trên trang này">
+        <a href="#purpose">Mục đích</a>
+        <a href="#concepts">Khái niệm</a>
+        <a href="#prerequisites">Trước khi bắt đầu</a>
+        <a href="#steps">Các bước</a>
+        <a href="#metrics">Giải thích metrics</a>
+        <a href="#charts">Giải thích biểu đồ</a>
+        <a href="#roles">Phân quyền</a>
+        <a href="#outcome">Kết quả mong đợi</a>
+        <a href="#troubleshooting">Xử lý sự cố</a>
+      </nav>
+    </aside>
+
+    <div class="content">
+
+    <section id="purpose">
+      <h2>Mục đích</h2>
+      <p><strong>Service Time Report</strong> (tiêu đề trên màn hình: <span class="ui-label">Report &amp; Dashboard</span>) giúp lãnh đạo dịch vụ theo dõi <strong>thời gian làm việc</strong> mà kỹ sư (CSE) ghi nhận trên các bản ghi <strong>Service Time</strong>: tổng giờ, phân loại theo giờ hành chính / ngoài giờ / ngày lễ, và phân bổ theo loại hoạt động.</p>
+      <p>Trang gồm: <strong>Filter</strong>, khối <strong>KẾT QUẢ LỌC</strong>, bảng <span class="ui-label">Time List</span>, và ba biểu đồ: <span class="ui-label">Time Chart List</span>, <span class="ui-label">Time Chart Activity</span>, <span class="ui-label">Time Chart Attendance</span>.</p>
+      <div class="note"><strong>Lưu ý:</strong> Chỉ <strong>iMED Service Leader</strong>, <strong>iMED Service Manager</strong> (hoặc quản trị) mới mở được trang. <strong>iMED Service User</strong> không truy cập báo cáo này (dù vẫn có thể ghi Service Time trên phiếu công việc).</div>
+    </section>
+
+    <section id="concepts">
+      <h2>Khái niệm: Service Time và thời lượng</h2>
+      <p>Mỗi dòng <strong>Service Time</strong> là một khoảng thời gian làm việc do CSE nhập (thường gắn với Service Job), với:</p>
+      <ul>
+        <li><span class="ui-label">Start</span> / <span class="ui-label">End</span> — thời điểm bắt đầu và kết thúc;</li>
+        <li><span class="ui-label">CSE Name</span> — kỹ sư thực hiện;</li>
+        <li><span class="ui-label">Activity Type</span> — loại hoạt động (Travel, On-site Work, …);</li>
+        <li><span class="ui-label">Attendance Type</span> — loại giờ: <span class="ui-label">Normal hour</span>, <span class="ui-label">After hour</span>, <span class="ui-label">Holiday</span>.</li>
+      </ul>
+      <p><strong>Thời lượng</strong> của mỗi bản ghi = số phút giữa <span class="ui-label">Start</span> và <span class="ui-label">End</span> (chỉ tính khi cả hai có giá trị và End ≥ Start). Bản ghi thiếu giờ hoặc End trước Start được tính <strong>0 phút</strong>.</p>
+      <p>Trên báo cáo, tổng hợp quy ra <strong>giờ</strong> (số thập phân + chữ <em>Giờ</em> trên màn hình). Cột <span class="ui-label">Time Total</span> trên Time List hiển thị dạng đọc được (ví dụ <em>2 giờ 30 phút</em>).</p>
+    </section>
+
+    <section id="prerequisites">
+      <h2>Trước khi bắt đầu</h2>
+      <ul class="checklist">
+        <li>Đã đăng nhập ERP</li>
+        <li>Vai trò <strong>iMED Service Leader</strong> hoặc <strong>iMED Service Manager</strong></li>
+        <li>Đã có bản ghi Service Time với Start/End hợp lệ trên hệ thống</li>
+      </ul>
+    </section>
+
+    <section id="steps">
+      <h2>Các bước thực hiện</h2>
+
+      <h3>Bước 1: Mở Service Time Report</h3>
+      <p>Tìm <em>Service Time Report</em> trên Desk hoặc mở <span class="ui-label">/app/service_time_report</span>.</p>
+      <figure>
+        <img src="images/01-open-page.png" alt="Toàn cảnh Service Time Report" loading="lazy">
+        <figcaption>Bước 1 — Mở trang Service Time Report</figcaption>
+      </figure>
+
+      <h3>Bước 2: Thiết lập bộ lọc</h3>
+      <figure class="figure-focus">
+        <img src="images/02-filters.png" alt="Bộ lọc From Date, To Date, CSE, Activity, Attendance" loading="lazy">
+        <figcaption>Bước 2 — Khu vực Filter</figcaption>
+      </figure>
+      <table>
+        <thead><tr><th>Thành phần</th><th>Mô tả</th></tr></thead>
+        <tbody>
+          <tr><td>Preset kỳ (ví dụ <span class="ui-label">This Month</span>)</td><td>Điền nhanh <span class="ui-label">From Date</span> và <span class="ui-label">To Date</span>.</td></tr>
+          <tr><td><span class="ui-label">From Date</span> / <span class="ui-label">To Date</span></td><td>Lọc theo trường <strong>Start</strong> của Service Time (thời điểm bắt đầu nằm trong khoảng ngày, tính cả 00:00:00–23:59:59).</td></tr>
+          <tr><td><span class="ui-label">CSE Name</span></td><td>Chỉ xem giờ của một kỹ sư (user thuộc nhóm vai trò dịch vụ).</td></tr>
+          <tr><td><span class="ui-label">Activity Type</span></td><td>Travel, On-site Work, On-site Wait, Phone Support, Support, Office Activities, Workshop/Conference.</td></tr>
+          <tr><td><span class="ui-label">Attendance Type</span></td><td>Normal hour, After hour, Holiday.</td></tr>
+          <tr><td><span class="ui-label">Filter</span></td><td>Áp dụng lọc cho metrics, biểu đồ và Time List (về trang 1).</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Bước 3: Nhấn Filter</h3>
+      <figure class="figure-focus">
+        <img src="images/04-apply-filter.png" alt="Nút Filter" loading="lazy">
+        <figcaption>Bước 3 — Nhấn Filter</figcaption>
+      </figure>
+
+      <h3>Bước 4: Đọc KẾT QUẢ LỌC</h3>
+      <figure class="figure-focus">
+        <img src="images/03-metrics.png" alt="Metrics tổng giờ và Normal After Holiday" loading="lazy">
+        <figcaption>Bước 4 — KẾT QUẢ LỌC</figcaption>
+      </figure>
+      <p>Chi tiết từng chỉ số: mục <a href="#metrics">Giải thích metrics</a>.</p>
+
+      <h3>Bước 5: Xem Time List</h3>
+      <p>Bảng liệt kê từng bản ghi Service Time thỏa lọc, sắp xếp theo <span class="ui-label">Start</span> mới nhất trước.</p>
+      <figure>
+        <img src="images/05-time-list.png" alt="Bảng Time List với Time ID, CSE, Activity, Attendance, Time Total" loading="lazy">
+        <figcaption>Bước 5 — Time List (50 dòng/trang)</figcaption>
+      </figure>
+      <ul>
+        <li>Dùng <span class="ui-label">Prev</span> / <span class="ui-label">Next</span> khi có hơn 50 bản ghi.</li>
+        <li>Nhấn <span class="ui-label">Time ID</span> (nếu có link) để mở chi tiết bản ghi trên ERP.</li>
+      </ul>
+
+      <h3>Bước 6: Xem biểu đồ</h3>
+      <p>Ba biểu đồ dùng <strong>cùng bộ lọc</strong>. Di chuột lên cột hoặc lát pie để xem tooltip (giờ + phút). Nút mở rộng góc phải mỗi thẻ → xem fullscreen.</p>
+
+      <p><strong>Time Chart List</strong> — tổng thời gian theo từng CSE.</p>
+      <figure class="figure-focus">
+        <img src="images/06-chart-list.png" alt="Biểu đồ cột Time Chart List theo CSE" loading="lazy">
+        <figcaption>Bước 6a — Time Chart List</figcaption>
+      </figure>
+
+      <p><strong>Time Chart Activity</strong> — tỷ lệ thời gian theo Activity Type.</p>
+      <figure class="figure-focus">
+        <img src="images/07-chart-activity.png" alt="Biểu đồ tròn Time Chart Activity" loading="lazy">
+        <figcaption>Bước 6b — Time Chart Activity</figcaption>
+      </figure>
+
+      <p><strong>Time Chart Attendance</strong> — tỷ lệ theo Normal / After / Holiday.</p>
+      <figure class="figure-focus">
+        <img src="images/08-chart-attendance.png" alt="Biểu đồ tròn Time Chart Attendance" loading="lazy">
+        <figcaption>Bước 6c — Time Chart Attendance</figcaption>
+      </figure>
+      <p>Giải thích chi tiết: <a href="#charts">Giải thích biểu đồ</a>.</p>
+    </section>
+
+    <section id="metrics">
+      <h2>Giải thích metrics (KẾT QUẢ LỌC)</h2>
+      <p>Tất cả chỉ số là <strong>tổng thời lượng</strong> (quy đổi từ phút sang giờ) của các bản ghi Service Time thỏa bộ lọc. Công thức phút: chênh lệch <span class="ui-label">Start</span> → <span class="ui-label">End</span>; bản ghi không hợp lệ = 0 phút.</p>
+
+      <table>
+        <thead><tr><th>Hiển thị trên màn hình</th><th>Cách tính</th><th>Gợi ý đọc</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Tổng giờ làm</strong></td>
+            <td>Tổng phút của <strong>mọi</strong> bản ghi thỏa lọc ÷ 60, hiển thị kèm chữ <em>Giờ</em> (có thể là số thập phân, ví dụ <em>12.5 Giờ</em>).</td>
+            <td>Tổng thời gian làm việc trong kỳ và điều kiện đã chọn.</td>
+          </tr>
+          <tr>
+            <td><strong>- Normal Hour</strong></td>
+            <td>Tổng phút các bản ghi có <span class="ui-label">Attendance Type</span> = <span class="ui-label">Normal hour</span> ÷ 60.</td>
+            <td>Giờ hành chính / giờ bình thường.</td>
+          </tr>
+          <tr>
+            <td><strong>- After Hour</strong></td>
+            <td>Tổng phút với <span class="ui-label">Attendance Type</span> = <span class="ui-label">After hour</span> ÷ 60.</td>
+            <td>Giờ ngoài giờ (tăng ca).</td>
+          </tr>
+          <tr>
+            <td><strong>- Holiday</strong></td>
+            <td>Tổng phút với <span class="ui-label">Attendance Type</span> = <span class="ui-label">Holiday</span> ÷ 60.</td>
+            <td>Giờ làm ngày lễ.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="note"><strong>Quan trọng:</strong> Ba dòng Normal + After + Holiday (quy về cùng đơn vị giờ) <strong>cộng lại bằng Tổng giờ làm</strong>, vì mỗi bản ghi chỉ thuộc một Attendance Type. Làm tròn số thập phân trên màn hình có thể lệch nhẹ 0,01 giờ so với cộng tay.</div>
+
+      <h3>Metrics vs Time List</h3>
+      <ul>
+        <li>Metrics = <strong>cộng dồn</strong> toàn bộ bản ghi thỏa lọc.</li>
+        <li>Time List = <strong>từng dòng</strong> (tối đa 50/trang); cộng <span class="ui-label">Time Total</span> trên tất cả trang phải khớp tổng phút (trừ làm tròn hiển thị).</li>
+      </ul>
+    </section>
+
+    <section id="charts">
+      <h2>Giải thích biểu đồ</h2>
+      <p>Biểu đồ dùng <strong>cùng bộ lọc</strong> với KẾT QUẢ LỌC. Giá trị gốc trên server là <strong>phút</strong>; tooltip hiển thị dạng <em>X.XX giờ (Y phút)</em>. Không có dữ liệu → <em>No data for chart</em>.</p>
+
+      <table>
+        <thead><tr><th>Biểu đồ</th><th>Loại</th><th>Nhóm theo</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="ui-label">Time Chart List</span></td>
+            <td>Cột (bar)</td>
+            <td><span class="ui-label">CSE Name</span> (tên đầy đủ trên legend)</td>
+            <td>So sánh <strong>tổng thời gian</strong> từng kỹ sư trong tập đã lọc. Tiêu đề dataset: <span class="ui-label">SUM Minute Total</span>. Trục Y = phút; tooltip quy sang giờ.</td>
+          </tr>
+          <tr>
+            <td><span class="ui-label">Time Chart Activity</span></td>
+            <td>Tròn (pie)</td>
+            <td><span class="ui-label">Activity Type</span></td>
+            <td>Phân bổ thời gian theo loại hoạt động (Travel, On-site Work, …). Mỗi lát = tổng phút của loại đó. Chỉ hiện các loại có dữ liệu trong kỳ lọc.</td>
+          </tr>
+          <tr>
+            <td><span class="ui-label">Time Chart Attendance</span></td>
+            <td>Tròn (pie)</td>
+            <td><span class="ui-label">Attendance Type</span></td>
+            <td>Phân bổ Normal hour / After hour / Holiday. <strong>Tổng các lát</strong> (quy ra giờ) khớp với <em>Tổng giờ làm</em> và với ba dòng Normal / After / Holiday trên metrics.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>So sánh metrics và biểu đồ</h3>
+      <ul>
+        <li><strong>Time Chart Attendance</strong> ↔ ba chỉ số <em>Normal Hour</em>, <em>After Hour</em>, <em>Holiday</em> trên KẾT QUẢ LỌC (cùng cách cộng phút).</li>
+        <li><strong>Time Chart Activity</strong> ↔ phân rã theo hình thức công việc; không có dòng tương ứng riêng trên khối metrics (chỉ xem qua biểu đồ hoặc lọc <span class="ui-label">Activity Type</span>).</li>
+        <li><strong>Time Chart List</strong> ↔ phân rã theo CSE; khi lọc một <span class="ui-label">CSE Name</span> cụ thể, biểu đồ thường chỉ còn một cột.</li>
+      </ul>
+    </section>
+
+    <section id="roles">
+      <h2>Phân quyền theo vai trò</h2>
+      <table>
+        <thead><tr><th>Vai trò</th><th>Truy cập Service Time Report</th></tr></thead>
+        <tbody>
+          <tr><td>iMED Service Manager</td><td>Có</td></tr>
+          <tr><td>iMED Service Leader</td><td>Có</td></tr>
+          <tr><td>iMED Service User</td><td>Không</td></tr>
+          <tr><td>Administrator</td><td>Có</td></tr>
+        </tbody>
+      </table>
+      <p>Báo cáo công việc theo phiếu: xem thêm <a href="../service-job-report/index.html">Service Job Report</a>.</p>
+    </section>
+
+    <section id="outcome">
+      <h2>Kết quả mong đợi</h2>
+      <p>Sau khi nhấn <span class="ui-label">Filter</span>:</p>
+      <ul>
+        <li>KẾT QUẢ LỌC, Time List (trang 1) và ba biểu đồ đồng bộ một tập bản ghi.</li>
+        <li>Time List: 50 dòng/trang, sắp xếp Start giảm dần.</li>
+        <li>Không có dữ liệu: metrics = <em>0 Giờ</em>; biểu đồ trống; bảng không có dòng.</li>
+      </ul>
+    </section>
+
+    <section id="troubleshooting">
+      <h2>Xử lý sự cố thường gặp</h2>
+      <table>
+        <thead><tr><th>Triệu chứng</th><th>Nguyên nhân có thể</th><th>Cách xử lý</th></tr></thead>
+        <tbody>
+          <tr><td>Không mở được trang</td><td>Thiếu vai trò Leader/Manager</td><td>Liên hệ quản trị gán đúng vai trò</td></tr>
+          <tr><td>Tổng giờ = 0 nhưng có Service Time</td><td>Start/End trống hoặc End &lt; Start; hoặc Start ngoài khoảng From/To</td><td>Sửa bản ghi; mở rộng From Date / To Date</td></tr>
+          <tr><td>Metrics không đổi</td><td>Chưa nhấn Filter</td><td>Nhấn Filter sau khi đổi ngày hoặc loại</td></tr>
+          <tr><td>Pie Attendance ≠ cộng tay Normal+After+Holiday</td><td>Làm tròn hiển thị giờ</td><td>Dùng tooltip phút trên biểu đồ hoặc xem Time List</td></tr>
+          <tr><td>Biểu đồ <em>No data</em></td><td>Lọc quá hẹp</td><td>Bỏ Activity/Attendance/CSE hoặc nới ngày</td></tr>
+          <tr><td>Time List trống, metrics &gt; 0</td><td>Đang ở trang pagination sai</td><td>Nhấn Filter lại hoặc Prev về trang 1</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer>
+      Captured: 2026-10-19 · Environment: dev-erp.smartr.co · Screenshot account: demo10@smartr.co (iMED Service Manager)
+    </footer>
+    </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const links = Array.from(document.querySelectorAll(".on-this-page a"));
+      const sections = links
+        .map((link) => document.querySelector(link.getAttribute("href")))
+        .filter(Boolean);
+
+      function mark(id) {
+        links.forEach((link) => {
+          const on = link.getAttribute("href") === "#" + id;
+          link.classList.toggle("active", on);
+          if (on) link.setAttribute("aria-current", "true");
+          else link.removeAttribute("aria-current");
+        });
+      }
+
+      function currentId() {
+        const marker = 180;
+        let current = sections[0];
+        sections.forEach((section) => {
+          if (section.getBoundingClientRect().top <= marker) current = section;
+        });
+        const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+        if (nearBottom) current = sections[sections.length - 1];
+        return current ? current.id : "";
+      }
+
+      function update() {
+        mark(currentId());
+      }
+
+      links.forEach((link) => {
+        link.addEventListener("click", () => mark(link.getAttribute("href").slice(1)));
+      });
+
+      document.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+      update();
+    })();
+  </script>
+</body>
+</html>
