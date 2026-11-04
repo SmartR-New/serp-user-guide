@@ -1,7 +1,7 @@
 {
   "scenario": "E:\\smartr-workspace\\imed-project\\.cursor\\skills\\serp-create-user-guide\\scripts\\scenarios\\service-time-report.yaml",
   "title": "Service Time Report — filters, metrics, charts, time list",
-  "output_dir": "E:\\smartr-workspace\\imed-project\\serp-user-guide\\service-time-report\\images",
+  "output_dir": "e:\\smartr-workspace\\imed-project\\serp-user-guide\\service-time-report\\images",
   "captured": [
     {
       "id": "01-open-page",
@@ -14,7 +14,7 @@
     {
       "id": "02-filters",
       "file": "02-filters.png",
-      "caption": "Khu vực Filter — kỳ thời gian, CSE, Activity Type, Attendance Type",
+      "caption": "Khu vực Filter — kỳ, From/To Date, Activity, Attendance, CSEs",
       "url": "https://dev-erp.smartr.co/app/service_time_report",
       "focus": true,
       "highlight": false
@@ -22,7 +22,7 @@
     {
       "id": "03-metrics",
       "file": "03-metrics.png",
-      "caption": "KẾT QUẢ LỌC — tổng giờ và phân rã Normal / After / Holiday",
+      "caption": "Filter results — Total hours và Normal / After / Holiday",
       "url": "https://dev-erp.smartr.co/app/service_time_report",
       "focus": true,
       "highlight": false
@@ -68,7 +68,7 @@
       "highlight": false
     }
   ],
-  "timestamp": "2026-10-19T10:22:20.999Z",
+  "timestamp": "2026-11-04T11:00:47.360Z",
   "status": "success",
   "summary": "Captured 8 screenshot(s)"
 }

@@ -1,0 +1,16 @@
+{
+  "mode": "ad-hoc",
+  "output_dir": "e:\\smartr-workspace\\imed-project\\serp-user-guide\\support-ticket-workflow\\images",
+  "captured": [
+    {
+      "id": "05-ticket-detail",
+      "file": "05-ticket-detail.png",
+      "caption": "05-ticket-detail",
+      "url": "https://dev-erp.smartr.co/app/ticket/TKT-00001",
+      "focus": false,
+      "highlight": false
+    }
+  ],
+  "timestamp": "2026-11-04T10:50:30.030Z",
+  "status": "success"
+}

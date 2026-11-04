@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Service Job Report — Hướng dẫn sử dụng | iMED ERP</title>
-  <meta name="description" content="Hướng dẫn báo cáo Service Job — bộ lọc, chỉ số KẾT QUẢ LỌC, biểu đồ và Job List cho Service Leader và Service Manager.">
+  <meta name="description" content="Hướng dẫn báo cáo Service Job — bộ lọc, chỉ số Filter results, biểu đồ và Job List cho Service Leader và Service Manager.">
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,420;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -137,7 +137,7 @@
       <div class="meta">
         <span><strong>Dành cho:</strong> iMED Service Leader, iMED Service Manager</span>
         <span><strong>Môi trường:</strong> dev-erp.smartr.co</span>
-        <span><strong>Cập nhật:</strong> 2026-10-19</span>
+        <span><strong>Cập nhật:</strong> 2026-11-04</span>
       </div>
     </header>
 
@@ -145,7 +145,7 @@
       <p>Trên trang này</p>
       <nav aria-label="Trên trang này">
         <a href="#purpose">Mục đích</a>
-        <a href="#concepts">Khái niệm</a>
+        <a href="#concepts">Service Job trên báo cáo</a>
         <a href="#prerequisites">Trước khi bắt đầu</a>
         <a href="#steps">Các bước</a>
         <a href="#metrics">Giải thích metrics</a>
@@ -161,29 +161,27 @@
     <section id="purpose">
       <h2>Mục đích</h2>
       <p><strong>Service Job Report</strong> (tiêu đề trên màn hình: <span class="ui-label">Report &amp; Dashboard</span>) giúp lãnh đạo và trưởng nhóm dịch vụ theo dõi <strong>Service Job</strong> (phiếu công việc dịch vụ) trong khoảng thời gian và theo khách hàng, kỹ sư phụ trách (CSE), trạng thái và loại công việc.</p>
-      <p>Trang gồm: <strong>bộ lọc</strong>, khối <strong>KẾT QUẢ LỌC</strong> (chỉ số), <strong>Job List</strong> (bảng chi tiết có phân trang), và ba biểu đồ: <span class="ui-label">Job Chart List</span>, <span class="ui-label">Job Chart CSE</span>, <span class="ui-label">Job Chart Status</span>.</p>
+      <p>Trang gồm: <span class="ui-label">Filter</span> (full width), <span class="ui-label">Filter results</span> (thẻ KPI + <span class="ui-label">By job type</span>), <span class="ui-label">Job List</span>, và ba biểu đồ: <span class="ui-label">Job Chart List</span>, <span class="ui-label">Job Chart CSE</span>, <span class="ui-label">Job Chart Status</span>.</p>
       <div class="note"><strong>Lưu ý:</strong> Chỉ tài khoản có vai trò <strong>iMED Service Leader</strong> hoặc <strong>iMED Service Manager</strong> (hoặc quản trị hệ thống) mới mở được trang. <strong>iMED Service User</strong> không truy cập báo cáo này.</div>
     </section>
 
     <section id="concepts">
-      <h2>Khái niệm: Service Job và Job Item</h2>
-      <p>Hiểu đúng hai khái niệm này giúp đọc số liệu không bị nhầm:</p>
+      <h2>Service Job trên báo cáo</h2>
+      <p>Mỗi dòng số liệu trên báo cáo tương ứng <strong>một phiếu Service Job</strong> (một mã Job ID). Loại việc (<span class="ui-label">Job Type</span>) và trạng thái (<span class="ui-label">Open</span> / <span class="ui-label">Close</span>) nằm ngay trên phiếu đó.</p>
+      <p>Trên mỗi phiếu, các trường quan trọng khi đọc số liệu:</p>
       <table>
-        <thead><tr><th>Khái niệm</th><th>Trên hệ thống</th><th>Ý nghĩa</th></tr></thead>
+        <thead><tr><th>Trường</th><th>Vai trò trên báo cáo</th></tr></thead>
         <tbody>
-          <tr>
-            <td><strong>Service Job</strong></td>
-            <td>Một phiếu Service Job (một lần hỗ trợ / một chuyến)</td>
-            <td>Có <span class="ui-label">Job ID</span>, <span class="ui-label">Job Status</span> (Open/Close), khách hàng, <span class="ui-label">Approver</span> (Primary CSE), ngày tạo.</td>
-          </tr>
-          <tr>
-            <td><strong>Job Item</strong></td>
-            <td>Dòng trên bảng thiết bị của phiếu (Service Job Instrument)</td>
-            <td>Mỗi dòng = một thiết bị (hoặc hạng mục) kèm <span class="ui-label">Job Type</span> (Installation, PM, CM, …). Một Service Job có thể có <strong>nhiều</strong> Job Item.</td>
-          </tr>
+          <tr><td><span class="ui-label">Job Type</span></td><td>Loại công việc gắn trực tiếp trên Service Job (PM, Installation, Support, …). Dùng trong lọc, lưới <em>By job type</em> và biểu đồ Job Chart List.</td></tr>
+          <tr><td><span class="ui-label">Job Status</span></td><td><span class="ui-label">Open</span> / <span class="ui-label">Close</span> — thẻ KPI và biểu đồ Job Chart Status.</td></tr>
+          <tr><td><span class="ui-label">Ticket</span> → <span class="ui-label">Customer</span></td><td>Khách hàng lấy từ Ticket; lọc <span class="ui-label">Customer</span> trên báo cáo.</td></tr>
+          <tr><td><span class="ui-label">Ticket Approver</span></td><td>Người duyệt trên Ticket — cột Job List và bộ lọc cùng tên.</td></tr>
+          <tr><td><span class="ui-label">CSEs</span> (trên job)</td><td>Danh sách kỹ sư tham gia job; lọc <span class="ui-label">CSEs</span> và biểu đồ <span class="ui-label">Job Chart CSE</span> (một job có nhiều CSE có thể được tính cho từng người).</td></tr>
+          <tr><td><span class="ui-label">Created On</span></td><td>Ngày tạo phiếu — dùng cho lọc kỳ From/To Date.</td></tr>
         </tbody>
       </table>
-      <p>Một số chỉ số đếm theo <strong>số phiếu</strong> (Service Job), một số khác đếm theo <strong>số dòng</strong> (Job Item). Phần <a href="#metrics">Giải thích metrics</a> và <a href="#charts">Giải thích biểu đồ</a> ghi rõ từng trường hợp.</p>
+      <div class="note"><strong>Lưu ý:</strong> Phân rã theo <span class="ui-label">Job Type</span> và các biểu đồ chỉ tính job đã chọn <strong>Job Type hợp lệ</strong> (thuộc danh mục 11 loại chuẩn). Job thiếu hoặc sai loại vẫn có thể nằm trong <em>Total Service Jobs</em> nhưng không xuất hiện trong lưới <em>By job type</em> / biểu đồ.</div>
+      <p>Chưa biết cách tạo phiếu trên ERP? Xem <a href="../support-ticket-workflow/index.html">Support — Ticket, Service Job, Service Time</a>.</p>
     </section>
 
     <section id="prerequisites">
@@ -191,7 +189,7 @@
       <ul class="checklist">
         <li>Đã đăng nhập ERP</li>
         <li>Tài khoản có vai trò <strong>iMED Service Leader</strong> hoặc <strong>iMED Service Manager</strong></li>
-        <li>Đã có dữ liệu Service Job và dòng thiết bị tương ứng trên hệ thống</li>
+        <li>Đã có Service Job trên hệ thống (nên có <span class="ui-label">Job Type</span> để thấy đủ trên biểu đồ)</li>
       </ul>
     </section>
 
@@ -199,14 +197,14 @@
       <h2>Các bước thực hiện</h2>
 
       <h3>Bước 1: Mở Service Job Report</h3>
-      <p>Từ thanh tìm kiếm Desk, gõ <em>Service Job Report</em> hoặc mở đường dẫn <span class="ui-label">/app/service_job_report</span>.</p>
+      <p>Trên ERP, nhấn <strong>Ctrl + G</strong> (hoặc ô tìm kiếm trên cùng), gõ <em>Service Job Report</em> rồi chọn trang <span class="ui-label">Report &amp; Dashboard</span>.</p>
       <figure>
-        <img src="images/01-open-page.png" alt="Toàn cảnh Service Job Report — Filter, KẾT QUẢ LỌC, Job List và biểu đồ" loading="lazy">
+        <img src="images/01-open-page.png" alt="Toàn cảnh Service Job Report — Filter, Filter results, Job List và biểu đồ" loading="lazy">
         <figcaption>Bước 1 — Mở trang Service Job Report</figcaption>
       </figure>
 
       <h3>Bước 2: Thiết lập bộ lọc</h3>
-      <p>Khối <span class="ui-label">Filter</span> nằm bên trái hàng trên. Mặc định kỳ thời gian thường là <strong>tháng hiện tại</strong> (<span class="ui-label">This Month</span>).</p>
+      <p>Khối <span class="ui-label">Filter</span> nằm trên cùng. Chọn nhanh <span class="ui-label">This Month</span> / <span class="ui-label">This Quarter</span> / <span class="ui-label">This Year</span> hoặc <span class="ui-label">From Date</span> / <span class="ui-label">To Date</span>. Mặc định thường là <strong>tháng hiện tại</strong>.</p>
       <figure class="figure-focus">
         <img src="images/02-filters.png" alt="Bộ lọc — kỳ ngày, Customer, Approver, Job Status, Job Type" loading="lazy">
         <figcaption>Bước 2 — Khu vực Filter</figcaption>
@@ -216,9 +214,10 @@
         <tbody>
           <tr><td>Kỳ thời gian (preset / tùy chỉnh)</td><td>Lọc theo <strong>ngày tạo</strong> Service Job (<span class="ui-label">Created On</span>), không theo ngày cập nhật cuối.</td></tr>
           <tr><td><span class="ui-label">Customer</span></td><td>Một hoặc nhiều khách hàng (cơ sở y tế).</td></tr>
-          <tr><td><span class="ui-label">Approver</span></td><td>Primary CSE — kỹ sư phụ trách chính trên phiếu (chỉ user thuộc nhóm vai trò dịch vụ).</td></tr>
+          <tr><td><span class="ui-label">Ticket Approver</span></td><td>Người duyệt trên Ticket gắn với job (Trưởng nhóm / Quản lý dịch vụ).</td></tr>
+          <tr><td><span class="ui-label">CSEs</span></td><td>Lọc job có kỹ sư nằm trong trường <span class="ui-label">CSEs</span> trên Service Job (chọn nhiều).</td></tr>
           <tr><td><span class="ui-label">Job Status</span></td><td><span class="ui-label">Open</span> hoặc <span class="ui-label">Close</span>.</td></tr>
-          <tr><td><span class="ui-label">Job Type</span></td><td>Loại công việc trên <strong>dòng thiết bị</strong> (PM, Installation, …). Khi chọn, Job List chỉ hiển thị các dòng khớp loại đó (phiếu vẫn xuất hiện nếu còn dòng khác khi không lọc loại).</td></tr>
+          <tr><td><span class="ui-label">Job Type</span></td><td>Loại công việc trên <strong>Service Job</strong> (PM, Installation, …). Khi chọn, chỉ job có đúng loại đó được tính và hiển thị.</td></tr>
           <tr><td><span class="ui-label">Filter</span> (nút)</td><td>Áp dụng bộ lọc cho <strong>toàn bộ</strong> chỉ số, biểu đồ và Job List (trang 1).</td></tr>
         </tbody>
       </table>
@@ -230,28 +229,27 @@
         <figcaption>Bước 3 — Nhấn Filter</figcaption>
       </figure>
 
-      <h3>Bước 4: Đọc khối KẾT QUẢ LỌC</h3>
-      <p>Phần bên phải hàng trên hiển thị tổng hợp theo đúng bộ lọc vừa áp dụng.</p>
+      <h3>Bước 4: Đọc Filter results</h3>
+      <p>Ngay dưới bộ lọc, khối <span class="ui-label">Filter results</span> hiển thị ba thẻ <span class="ui-label">Total Service Jobs</span>, <span class="ui-label">Closed jobs</span>, <span class="ui-label">Open jobs</span> và lưới <span class="ui-label">By job type</span>.</p>
       <figure class="figure-focus">
-        <img src="images/03-metrics.png" alt="Khối KẾT QUẢ LỌC với tổng job, job item và phân rã Job Type" loading="lazy">
-        <figcaption>Bước 4 — KẾT QUẢ LỌC</figcaption>
+        <img src="images/03-metrics.png" alt="Filter results — KPI và By job type" loading="lazy">
+        <figcaption>Bước 4 — Filter results</figcaption>
       </figure>
       <p>Chi tiết từng dòng số liệu: xem mục <a href="#metrics">Giải thích metrics</a>.</p>
 
       <h3>Bước 5: Xem Job List</h3>
-      <p>Bảng <span class="ui-label">Job List</span> liệt kê từng Service Job: trạng thái, khách hàng, territory, Approver, số Job Item, ngày tạo và cập nhật.</p>
+      <p>Bảng <span class="ui-label">Job List</span> liệt kê từng Service Job: <span class="ui-label">Job ID</span>, <span class="ui-label">Job Status</span>, <span class="ui-label">Job Type</span>, khách hàng, territory, <span class="ui-label">Ticket Approver</span>, ngày tạo và cập nhật.</p>
       <figure>
         <img src="images/05-job-list.png" alt="Bảng Job List với phân trang Prev Next" loading="lazy">
         <figcaption>Bước 5 — Job List (50 job mỗi trang)</figcaption>
       </figure>
       <ul>
-        <li>Nhấn mũi tên <strong>▶</strong> trên dòng để xem chi tiết từng Job Item (loại công việc, model, serial).</li>
         <li>Dùng <span class="ui-label">Prev</span> / <span class="ui-label">Next</span> khi có nhiều hơn 50 phiếu.</li>
-        <li>Biểu tượng mở rộng góc phải tiêu đề mở bảng ở chế độ toàn màn hình.</li>
+        <li>Biểu tượng mở rộng góc phải tiêu đề Job List xem bảng toàn màn hình.</li>
       </ul>
 
       <h3>Bước 6: Xem biểu đồ</h3>
-      <p>Ba biểu đồ phía dưới luôn phản ánh <strong>cùng bộ lọc</strong> với KẾT QUẢ LỌC. Nhấn biểu tượng mở rộng trên từng thẻ để xem fullscreen.</p>
+      <p>Ba biểu đồ phía dưới luôn phản ánh <strong>cùng bộ lọc</strong> với Filter results. Nhấn biểu tượng mở rộng trên từng thẻ để xem fullscreen.</p>
 
       <p><strong>Job Chart List</strong> — cột theo từng loại Job Type.</p>
       <figure class="figure-focus">
@@ -259,13 +257,13 @@
         <figcaption>Bước 6a — Job Chart List</figcaption>
       </figure>
 
-      <p><strong>Job Chart CSE</strong> — cột theo Approver (tên kỹ sư).</p>
+      <p><strong>Job Chart CSE</strong> — cột theo CSE gán trên job.</p>
       <figure class="figure-focus">
-        <img src="images/07-chart-cse.png" alt="Biểu đồ cột Job Chart CSE theo Approver" loading="lazy">
+        <img src="images/07-chart-cse.png" alt="Biểu đồ cột Job Chart CSE — số phiếu job theo kỹ sư trên job" loading="lazy">
         <figcaption>Bước 6b — Job Chart CSE</figcaption>
       </figure>
 
-      <p><strong>Job Chart Status</strong> — biểu đồ tròn theo Job Status trên các Job Item.</p>
+      <p><strong>Job Chart Status</strong> — biểu đồ tròn Open / Close (theo job có Job Type hợp lệ).</p>
       <figure class="figure-focus">
         <img src="images/08-chart-status.png" alt="Biểu đồ tròn Job Chart Status Open và Close" loading="lazy">
         <figcaption>Bước 6c — Job Chart Status</figcaption>
@@ -274,84 +272,69 @@
     </section>
 
     <section id="metrics">
-      <h2>Giải thích metrics (KẾT QUẢ LỌC)</h2>
-      <p>Tất cả số liệu dưới đây chỉ tính trên các Service Job (và dòng thiết bị liên quan) <strong>thỏa bộ lọc</strong> ở bước Filter. Kỳ lọc áp dụng theo <strong>ngày tạo phiếu</strong>.</p>
+      <h2>Giải thích metrics (Filter results)</h2>
+      <p>Khối <span class="ui-label">Filter results</span> tóm tắt sau khi bạn nhấn <span class="ui-label">Filter</span>. Mọi con số đều đếm <strong>Service Job</strong> (mỗi Job ID tối đa một lần), trừ khi ghi chú riêng cho biểu đồ CSE. Kỳ lọc theo <strong>ngày tạo phiếu</strong>.</p>
 
-      <h3>Chỉ số theo Service Job (đếm phiếu)</h3>
+      <h3>Thẻ KPI (ba thẻ trên)</h3>
+
+      <h4>Total Service Jobs (thẻ xanh)</h4>
+      <p>Trả lời: <em>“Có bao nhiêu phiếu Service Job thỏa bộ lọc?”</em> Mỗi phiếu đếm một lần, kể cả khi chưa chọn Job Type.</p>
+
+      <h4>Open jobs (thẻ cam)</h4>
+      <p>Số phiếu có <span class="ui-label">Job Status</span> = <span class="ui-label">Open</span>.</p>
+
+      <h4>Closed jobs (thẻ xanh lá)</h4>
+      <p>Số phiếu có <span class="ui-label">Job Status</span> = <span class="ui-label">Close</span>. Open + Closed thường bằng phần lớn Total Service Jobs.</p>
+
+      <h3>By job type (lưới dưới KPI)</h3>
+      <p>Mỗi ô = <strong>số Service Job</strong> có <span class="ui-label">Job Type</span> tương ứng (trong 11 loại chuẩn). Job không có loại hoặc loại ngoài danh mục <strong>không</strong> cộng vào lưới. Tổng các ô thường <strong>≤</strong> Total Service Jobs. Loại không phát sinh hiển thị <strong>0</strong>.</p>
       <table>
-        <thead><tr><th>Hiển thị trên màn hình</th><th>Cách tính</th><th>Gợi ý đọc</th></tr></thead>
+        <thead><tr><th>Job Type (trên màn hình)</th><th>Hiểu đơn giản</th></tr></thead>
         <tbody>
-          <tr>
-            <td><strong>Tổng số Service Job</strong></td>
-            <td>Đếm <strong>distinct</strong> mã phiếu (mỗi Job ID một lần), kể cả phiếu chưa có dòng thiết bị.</td>
-            <td>Tổng số “chuyến” / phiếu dịch vụ trong kỳ và điều kiện lọc.</td>
-          </tr>
-          <tr>
-            <td><strong>- Số lượng Job Open</strong></td>
-            <td>Số phiếu có <span class="ui-label">Job Status</span> = <span class="ui-label">Open</span> (đếm theo phiếu).</td>
-            <td>Phiếu đang mở — công việc chưa đóng.</td>
-          </tr>
-          <tr>
-            <td><strong>- Số lượng Job Close</strong></td>
-            <td>Số phiếu có <span class="ui-label">Job Status</span> = <span class="ui-label">Close</span> (đếm theo phiếu).</td>
-            <td>Phiếu đã đóng. Tổng Open + Close có thể nhỏ hơn tổng Service Job nếu còn trạng thái khác ngoài hai giá trị này.</td>
-          </tr>
+          <tr><td><span class="ui-label">Quality Control_In</span></td><td>Kiểm tra chất lượng khi nhập kho / trước bàn giao</td></tr>
+          <tr><td><span class="ui-label">Quality Control_Out</span></td><td>Kiểm tra chất lượng trước khi xuất / giao khách</td></tr>
+          <tr><td><span class="ui-label">Site Survey</span></td><td>Khảo sát hiện trường trước lắp đặt hoặc triển khai</td></tr>
+          <tr><td><span class="ui-label">Installation</span></td><td>Lắp đặt thiết bị tại khách hàng</td></tr>
+          <tr><td><span class="ui-label">Training</span></td><td>Đào tạo sử dụng cho nhân viên khách hàng</td></tr>
+          <tr><td><span class="ui-label">Preventive Maintenance</span></td><td>Bảo trì định kỳ (PM)</td></tr>
+          <tr><td><span class="ui-label">Corrective Maintenance</span></td><td>Sửa chữa / bảo trì sự cố (CM)</td></tr>
+          <tr><td><span class="ui-label">Update</span></td><td>Cập nhật phần mềm, firmware hoặc cấu hình</td></tr>
+          <tr><td><span class="ui-label">Demo</span></td><td>Demo sản phẩm cho khách</td></tr>
+          <tr><td><span class="ui-label">Support</span></td><td>Hỗ trợ kỹ thuật (không thuộc các loại trên)</td></tr>
+          <tr><td><span class="ui-label">Meeting / Office Activity</span></td><td>Họp nội bộ, công việc văn phòng liên quan dịch vụ</td></tr>
         </tbody>
       </table>
 
-      <h3>Chỉ số theo Job Item (đếm dòng thiết bị)</h3>
-      <table>
-        <thead><tr><th>Hiển thị trên màn hình</th><th>Cách tính</th><th>Gợi ý đọc</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><strong>Tổng số Job Item</strong></td>
-            <td>Đếm <strong>tất cả dòng</strong> trên bảng thiết bị của phiếu (mỗi dòng một Job Item).</td>
-            <td>Khối lượng công việc theo thiết bị/loại trên phiếu. Thường <strong>≥</strong> tổng Service Job khi một phiếu có nhiều thiết bị.</td>
-          </tr>
-          <tr>
-            <td>Các dòng <strong>- [Job Type]:</strong> (11 loại)</td>
-            <td>Với từng loại (QC In/Out, Site Survey, Installation, Training, PM, CM, Update, Demo, Support, Meeting / Office Activity…), đếm <strong>số Job Item</strong> có loại đó và thuộc bộ lọc.</td>
-            <td>Phân rã khối lượng theo loại hình dịch vụ. Loại không phát sinh trong kỳ hiển thị <strong>0</strong>.</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="note"><strong>Quan trọng:</strong> <em>Tổng số Service Job</em> và <em>Open/Close</em> đếm <strong>phiếu</strong>; <em>Tổng số Job Item</em> và từng dòng <em>Job Type</em> đếm <strong>dòng thiết bị</strong>. Vì vậy tổng các dòng Job Type (nếu cộng lại) thường bằng <em>Tổng số Job Item</em>, không bằng tổng Service Job.</div>
+      <div class="note"><strong>Nhớ nhanh:</strong> KPI và <em>By job type</em> đều đếm <strong>phiếu</strong>. Chỉ job có Job Type hợp lệ mới vào lưới loại và vào biểu đồ (trừ Total Service Jobs vẫn đếm mọi job khớp lọc).</div>
     </section>
 
     <section id="charts">
       <h2>Giải thích biểu đồ</h2>
-      <p>Cả ba biểu đồ dùng <strong>cùng bộ lọc</strong> với KẾT QUẢ LỌC. Trục và legend hiển thị bằng tiếng Anh như trên ERP. Khi không có dữ liệu, biểu đồ hiện <em>No data for chart</em>.</p>
+      <p>Ba biểu đồ luôn phản ánh <strong>đúng bộ lọc</strong> bạn vừa áp dụng (cùng với Filter results và Job List). Rê chuột lên cột hoặc miếng bánh để xem số cụ thể. Không có dữ liệu → chữ <em>No data for chart</em>.</p>
 
-      <table>
-        <thead><tr><th>Biểu đồ</th><th>Loại</th><th>Đơn vị đếm</th><th>Ý nghĩa</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><span class="ui-label">Job Chart List</span></td>
-            <td>Biểu đồ cột (bar)</td>
-            <td><strong>Job Item</strong> theo <span class="ui-label">Job Type</span></td>
-            <td>So sánh khối lượng từng loại công việc (Installation, PM, CM, …). Trục X luôn liệt kê đủ 11 loại chuẩn iMED; cột = 0 nếu không có dòng nào. Dataset: <span class="ui-label">Filtered Job Count</span>.</td>
-          </tr>
-          <tr>
-            <td><span class="ui-label">Job Chart CSE</span></td>
-            <td>Biểu đồ cột (bar)</td>
-            <td><strong>Job Item</strong> theo <span class="ui-label">Approver</span> (Primary CSE)</td>
-            <td>Phân bổ số dòng công việc theo kỹ sư phụ trách chính. Chỉ tính dòng có Job Type thuộc danh sách chuẩn. Dataset: <span class="ui-label">Job Count</span>.</td>
-          </tr>
-          <tr>
-            <td><span class="ui-label">Job Chart Status</span></td>
-            <td>Biểu đồ tròn (pie)</td>
-            <td><strong>Job Item</strong> theo <span class="ui-label">Job Status</span> của phiếu</td>
-            <td>Tỷ lệ dòng thiết bị thuộc phiếu Open vs Close (mỗi dòng mang trạng thái của phiếu cha). Dataset: <span class="ui-label">Job Status</span>. Di chuột lên lát cắt để xem số lượng.</td>
-          </tr>
-        </tbody>
-      </table>
+      <h3><span class="ui-label">Job Chart List</span> — cột theo loại công việc</h3>
+      <p><strong>Loại biểu đồ:</strong> cột đứng.</p>
+      <p><strong>Ý nghĩa:</strong> So sánh <em>số phiếu Service Job</em> theo từng <span class="ui-label">Job Type</span> — khớp lưới <em>By job type</em>.</p>
+      <p><strong>Cách đọc:</strong> Cột cao nhất = loại công việc có nhiều phiếu nhất trong kỳ lọc. Trục ngang liệt kê đủ 11 loại; loại không có job hiển thị cột 0.</p>
+      <p><strong>Khi nào hữu ích:</strong> Họp định kỳ xem team đang tập trung PM hay CM, cân bằng Installation vs Support.</p>
 
-      <h3>So sánh metrics và biểu đồ</h3>
+      <h3><span class="ui-label">Job Chart CSE</span> — cột theo CSE trên job</h3>
+      <p><strong>Loại biểu đồ:</strong> cột đứng.</p>
+      <p><strong>Ý nghĩa:</strong> Đếm <strong>Service Job</strong> theo từng kỹ sư trong trường <span class="ui-label">CSEs</span> của phiếu. Một job gán hai CSE → cộng <strong>1</strong> cho mỗi người. Chỉ job có Job Type hợp lệ và có danh sách CSEs.</p>
+      <p><strong>Cách đọc:</strong> Không có thẻ KPI tương ứng; dùng để so sánh số phiếu giữa các kỹ sư. Khác với lọc / cột <span class="ui-label">Ticket Approver</span> (người duyệt Ticket).</p>
+      <p><strong>Khi nào hữu ích:</strong> Xem ai đang gánh nhiều job thực tế trên hiện trường.</p>
+
+      <h3><span class="ui-label">Job Chart Status</span> — tròn Open / Close</h3>
+      <p><strong>Loại biểu đồ:</strong> tròn (pie).</p>
+      <p><strong>Ý nghĩa:</strong> Tỷ lệ phiếu <span class="ui-label">Open</span> / <span class="ui-label">Close</span> (job có Job Type hợp lệ).</p>
+      <p><strong>Cách đọc:</strong> Thường gần với thẻ Open jobs / Closed jobs; có thể lệch nhẹ nếu có job Open/Close nhưng thiếu Job Type (có trên KPI, không vào pie).</p>
+      <p><strong>Khi nào hữu ích:</strong> Nhìn nhanh tỷ lệ đóng/mở trên tập job đủ loại công việc.</p>
+
+      <h3>Metrics và biểu đồ — đối chiếu nhanh</h3>
       <ul>
-        <li><strong>Job Chart List</strong> tương ứng với các dòng <em>- [Job Type]:</em> trong KẾT QUẢ LỌC (cùng đếm Job Item).</li>
-        <li><strong>Job Chart Status</strong> dùng Job Item, trong khi <em>Job Open / Job Close</em> trên metrics đếm <strong>phiếu</strong> — số trên pie và số Open/Close có thể khác nhau khi một phiếu có nhiều dòng.</li>
-        <li><strong>Job Chart CSE</strong> không có ô tổng riêng trên metrics; dùng để so sánh nhanh giữa các kỹ sư.</li>
+        <li><strong>Job Chart List</strong> = lưới <em>By job type</em> (cùng đếm job theo loại).</li>
+        <li><strong>Job Chart Status</strong> ≈ thẻ Open / Closed jobs (cùng đơn vị phiếu; pie có thể bỏ job thiếu Job Type).</li>
+        <li><strong>Job Chart CSE</strong> = job theo <span class="ui-label">CSEs</span> trên phiếu (một job có thể tính cho nhiều cột).</li>
       </ul>
     </section>
 
@@ -366,13 +349,14 @@
           <tr><td>Administrator</td><td>Có</td></tr>
         </tbody>
       </table>
+      <p>Chưa biết cách tạo phiếu trên ERP? Xem <a href="../support-ticket-workflow/index.html">Support — Ticket, Service Job, Service Time</a>.</p>
     </section>
 
     <section id="outcome">
       <h2>Kết quả mong đợi</h2>
       <p>Sau khi nhấn <span class="ui-label">Filter</span>:</p>
       <ul>
-        <li>KẾT QUẢ LỌC, Job List (trang 1), và cả ba biểu đồ đồng bộ cùng một tập dữ liệu.</li>
+        <li>Filter results, Job List (trang 1), và cả ba biểu đồ đồng bộ cùng một tập dữ liệu.</li>
         <li>Job List sắp xếp phiếu mới tạo trước; phân trang 50 phiếu/trang.</li>
         <li>Nếu không có dữ liệu: metrics = 0; biểu đồ trống; bảng job không có dòng.</li>
       </ul>
@@ -385,16 +369,17 @@
         <tbody>
           <tr><td>Không mở được trang</td><td>Tài khoản là iMED Service User hoặc thiếu quyền</td><td>Liên hệ quản trị gán <strong>Service Leader</strong> hoặc <strong>Service Manager</strong></td></tr>
           <tr><td>Số liệu không đổi</td><td>Chưa nhấn <span class="ui-label">Filter</span></td><td>Chỉnh lọc rồi nhấn Filter; đợi tải xong</td></tr>
-          <tr><td>Tổng Job Item lớn hơn nhiều so với Service Job</td><td>Một phiếu nhiều thiết bị/dòng</td><td>Bình thường — xem chi tiết bằng mũi tên trên Job List</td></tr>
-          <tr><td>Open/Close metrics ≠ pie chart</td><td>Metrics đếm phiếu; pie đếm Job Item</td><td>Đọc theo mục <a href="#metrics">metrics</a> và <a href="#charts">biểu đồ</a></td></tr>
-          <tr><td>Biểu đồ <em>No data</em></td><td>Bộ lọc quá hẹp hoặc không có dòng thiết bị</td><td>Mở rộng kỳ ngày hoặc bỏ bớt Customer / Job Type</td></tr>
+          <tr><td>Tổng <em>By job type</em> &lt; Total Service Jobs</td><td>Một số job chưa có Job Type hợp lệ</td><td>Bổ sung <span class="ui-label">Job Type</span> trên phiếu hoặc chấp nhận chênh lệch</td></tr>
+          <tr><td>Open/Close KPI ≠ pie chart</td><td>Pie bỏ job thiếu Job Type hợp lệ</td><td>Đọc mục <a href="#charts">Job Chart Status</a></td></tr>
+          <tr><td>Job Chart CSE trống</td><td>Job chưa gán <span class="ui-label">CSEs</span> hoặc thiếu Job Type</td><td>Cập nhật CSEs trên Service Job</td></tr>
+          <tr><td>Biểu đồ <em>No data</em></td><td>Bộ lọc quá hẹp hoặc không có job đủ điều kiện</td><td>Mở rộng kỳ ngày hoặc nới bộ lọc</td></tr>
           <tr><td>Trang job trống nhưng metrics &gt; 0</td><td>Đang ở trang pagination cuối sau khi thu hẹp lọc</td><td>Nhấn Filter lại (về trang 1) hoặc Prev về trang 1</td></tr>
         </tbody>
       </table>
     </section>
 
     <footer>
-      Captured: 2026-10-19 · Environment: dev-erp.smartr.co · Screenshot account: demo10@smartr.co (iMED Service Manager)
+      Captured: 2026-11-04 · Environment: dev-erp.smartr.co · Screenshot account: demo10@smartr.co (iMED Service Manager)
     </footer>
     </div>
     </div>

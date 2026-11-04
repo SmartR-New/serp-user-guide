@@ -4,53 +4,101 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>iMED ERP — Tài liệu hướng dẫn sử dụng</title>
-  <meta name="description" content="Hướng dẫn sử dụng iMED ERP cho khách hàng và người dùng cuối.">
+  <meta name="description" content="Hướng dẫn sử dụng iMED ERP theo module HR, CRM và Support — cho người dùng cuối.">
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,420;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <style>
     :root { --font: "Inter", system-ui, sans-serif; --text: #0f172a; --muted: #64748b; --border: #e2e8f0; --blue: #2490ef; }
     body { margin: 0; font: 420 15px/1.5 var(--font); color: var(--text); background: #f8fafc; }
     .shell { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
     h1 { margin: 0 0 8px; font-size: 26px; font-weight: 700; letter-spacing: -0.03em; }
-    .lead { margin: 0 0 28px; color: var(--muted); font-size: 14px; }
-    ul { list-style: none; margin: 0; padding: 0; }
-    li { border-bottom: 1px solid var(--border); }
-    a.card { display: block; padding: 16px 4px; color: inherit; text-decoration: none; }
-    a.card:hover { color: var(--blue); }
-    .title { font-weight: 600; font-size: 16px; }
-    .desc { margin: 4px 0 0; font-size: 13px; color: var(--muted); }
+    .lead { margin: 0 0 32px; color: var(--muted); font-size: 14px; }
+    .module { margin-bottom: 36px; }
+    .module:last-child { margin-bottom: 0; }
+    .module-head {
+      margin: 0 0 4px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .module-desc {
+      margin: 0 0 12px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .guide-list { list-style: none; margin: 0; padding: 0; background: #fff; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .guide-list li { border-bottom: 1px solid var(--border); }
+    .guide-list li:last-child { border-bottom: none; }
+    a.card { display: block; padding: 14px 16px; color: inherit; text-decoration: none; }
+    a.card:hover { background: #f8fafc; color: var(--blue); }
+    .title { font-weight: 600; font-size: 15px; display: block; }
+    .desc { margin: 4px 0 0; font-size: 13px; color: var(--muted); line-height: 1.45; }
     .date { float: right; font-size: 12px; color: var(--muted); font-weight: 400; }
+    a.card:hover .date { color: var(--muted); }
   </style>
 </head>
 <body>
   <div class="shell">
     <h1>iMED ERP — Tài liệu hướng dẫn</h1>
-    <p class="lead">Hướng dẫn sử dụng cho người dùng cuối. Ảnh minh họa từ dev-erp.smartr.co.</p>
-    <ul>
-      <li>
-        <a class="card" href="support/index.html">
-          <span class="title">Support (Dịch vụ / Hỗ trợ) <span class="date">2026-10-20</span></span>
-          <p class="desc">Workspace Support — Dashboard KPI, Service Job, Service Time, Instrument và báo cáo cho quản lý dịch vụ.</p>
-        </a>
-      </li>
-      <li>
-        <a class="card" href="my-sales-dashboard/index.html">
-          <span class="title">My Sales Dashboard <span class="date">2026-10-08</span></span>
-          <p class="desc">Pipeline cá nhân của nhân viên kinh doanh — lọc kỳ chốt, chỉ tiêu, KPI và danh sách cơ hội.</p>
-        </a>
-      </li>
-      <li>
-        <a class="card" href="expense-claim/index.html">
-          <span class="title">Expense Claim (Đề nghị thanh toán) <span class="date">2026-10-08</span></span>
-          <p class="desc">Nhân viên lưu phiếu và quay lại sau. Quản lý chỉ thấy phiếu sau khi gửi. Rồi Kế toán và Controller duyệt.</p>
-        </a>
-      </li>
-      <li>
-        <a class="card" href="management-dashboard/index.html">
-          <span class="title">Management Dashboard <span class="date">2026-09-28</span></span>
-          <p class="desc">Dashboard quản lý pipeline toàn team — Sales Manager, BU Manager.</p>
-        </a>
-      </li>
-    </ul>
+    <p class="lead">Hướng dẫn sử dụng cho người dùng cuối, theo từng module. Ảnh minh họa từ dev-erp.smartr.co.</p>
+
+    <section class="module" aria-labelledby="module-hr">
+      <h2 class="module-head" id="module-hr">HR</h2>
+      <p class="module-desc">Nhân sự — đề nghị thanh toán và quy trình duyệt.</p>
+      <ul class="guide-list">
+        <li>
+          <a class="card" href="expense-claim/index.html">
+            <span class="title">Expense Claim (Đề nghị thanh toán) <span class="date">2026-10-08</span></span>
+            <p class="desc">Nhân viên lưu phiếu và quay lại sau. Quản lý chỉ thấy phiếu sau khi gửi. Rồi Kế toán và Controller duyệt.</p>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="module" aria-labelledby="module-crm">
+      <h2 class="module-head" id="module-crm">CRM</h2>
+      <p class="module-desc">Kinh doanh — pipeline cá nhân và dashboard quản lý team.</p>
+      <ul class="guide-list">
+        <li>
+          <a class="card" href="my-sales-dashboard/index.html">
+            <span class="title">My Sales Dashboard <span class="date">2026-11-04</span></span>
+            <p class="desc">Pipeline cá nhân của nhân viên kinh doanh — lọc kỳ chốt, chỉ tiêu, KPI và danh sách cơ hội.</p>
+          </a>
+        </li>
+        <li>
+          <a class="card" href="management-dashboard/index.html">
+            <span class="title">Management Dashboard <span class="date">2026-09-28</span></span>
+            <p class="desc">Dashboard quản lý pipeline toàn team — Sales Manager, BU Manager.</p>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="module" aria-labelledby="module-support">
+      <h2 class="module-head" id="module-support">Support</h2>
+      <p class="module-desc">Dịch vụ — ticket, công việc hiện trường, ghi giờ và báo cáo.</p>
+      <ul class="guide-list">
+        <li>
+          <a class="card" href="support-ticket-workflow/index.html">
+            <span class="title">Support — Ticket, Service Job, Service Time <span class="date">2026-11-04</span></span>
+            <p class="desc">Quy trình dịch vụ: Ticket → Service Job (lịch Schedule) → ghi giờ Service Time.</p>
+          </a>
+        </li>
+        <li>
+          <a class="card" href="service-job-report/index.html">
+            <span class="title">Service Job Report <span class="date">2026-11-04</span></span>
+            <p class="desc">Báo cáo phiếu Service Job — bộ lọc, Filter results, biểu đồ và danh sách job (Leader / Manager).</p>
+          </a>
+        </li>
+        <li>
+          <a class="card" href="service-time-report/index.html">
+            <span class="title">Service Time Report <span class="date">2026-11-04</span></span>
+            <p class="desc">Báo cáo giờ làm việc CSE — tổng giờ, giờ hành chính / ngoài giờ / lễ, biểu đồ và Time List.</p>
+          </a>
+        </li>
+      </ul>
+    </section>
   </div>
 </body>
 </html>

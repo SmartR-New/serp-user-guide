@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support — Ticket, Service Job, Service Time | iMED ERP</title>
+  <meta name="description" content="Hướng dẫn tạo Ticket, Service Job và Service Time trên iMED ERP — từ phiếu hỗ trợ khách hàng đến ghi giờ làm việc của kỹ sư.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,420;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font: "Inter", system-ui, sans-serif;
+      --surface: #fff;
+      --bg: #f8fafc;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --blue: #2490ef;
+      --amber-soft: #fffbeb;
+      --amber: #b45309;
+      --radius: 8px;
+      --max: 1080px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font: 420 15px/1.6 var(--font); color: var(--text); background: var(--bg); }
+    a { color: var(--blue); }
+    .shell { max-width: var(--max); margin: 0 auto; padding: 0 20px 64px; }
+    .page {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 220px;
+      grid-template-areas: "header rail" "content rail";
+      column-gap: 48px;
+      align-items: start;
+    }
+    header.page-header {
+      grid-area: header;
+      position: sticky; top: 0; z-index: 5;
+      background: rgba(248,250,252,.92); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0; margin-bottom: 28px;
+    }
+    .content { grid-area: content; min-width: 0; }
+    .back { font-size: 13px; color: var(--muted); }
+    h1 { margin: 8px 0 0; font-size: 28px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 12px; font-size: 13px; color: var(--muted); }
+    .meta strong { color: var(--text); font-weight: 600; }
+    section { margin-top: 36px; scroll-margin-top: 168px; }
+    h2 { margin: 0 0 12px; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+    h3 { margin: 28px 0 8px; font-size: 17px; font-weight: 600; }
+    p { margin: 0 0 12px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.25rem; }
+    li { margin-bottom: 6px; }
+    .checklist { list-style: none; padding: 0; }
+    .checklist li::before { content: "☐ "; color: var(--muted); }
+    figure {
+      margin: 16px 0 24px; padding: 12px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: 0 1px 3px rgba(0,0,0,.04);
+    }
+    figure img { display: block; width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border); }
+    figcaption { margin-top: 10px; font-size: 13px; color: var(--muted); text-align: center; }
+    figure.figure-focus img {
+      box-shadow: 0 0 0 2px #e53935, 0 8px 24px rgba(15,23,42,.15);
+    }
+    figure.figure-focus figcaption::before {
+      content: "Focus · ";
+      color: #e53935;
+      font-weight: 600;
+    }
+    .note {
+      margin: 12px 0 20px; padding: 12px 14px;
+      background: var(--amber-soft); border-left: 4px solid var(--amber);
+      border-radius: 0 var(--radius) var(--radius) 0; font-size: 14px;
+    }
+    .note strong { color: var(--amber); }
+    table {
+      width: 100%; border-collapse: collapse; font-size: 14px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden; margin: 12px 0 20px;
+    }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: #f1f5f9; font-weight: 600; font-size: 13px; }
+    tr:last-child td { border-bottom: none; }
+    .ui-label { font-family: ui-monospace, monospace; font-size: 0.92em; background: #f1f5f9; padding: 1px 6px; border-radius: 4px; }
+    .diagram {
+      margin: 16px 0 24px; padding: 16px 20px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); font-size: 14px; line-height: 1.5;
+    }
+    footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+    .on-this-page {
+      grid-area: rail;
+      position: sticky;
+      top: 24px;
+      max-height: calc(100vh - 40px);
+      overflow: auto;
+      padding-top: 8px;
+    }
+    .on-this-page p { margin: 0 0 8px; font-size: 13px; font-weight: 600; color: var(--text); }
+    .on-this-page nav { display: flex; flex-direction: column; border-left: 1px solid var(--border); }
+    .on-this-page a {
+      display: block; margin-left: -1px; padding: 6px 8px 6px 14px;
+      border-left: 2px solid transparent; color: var(--muted);
+      font-size: 13px; line-height: 1.4; text-decoration: none;
+    }
+    .on-this-page a:hover { color: var(--text); }
+    .on-this-page a.active {
+      border-left-color: #171717; color: #171717; font-weight: 600; background: #f3f3f3;
+    }
+    @media (max-width: 860px) {
+      .page { grid-template-columns: 1fr; grid-template-areas: "header" "rail" "content"; }
+      .on-this-page { position: static; max-height: none; margin-bottom: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="page">
+    <header class="page-header">
+      <a class="back" href="../index.html">← Tài liệu hướng dẫn iMED ERP</a>
+      <h1>Support — Ticket, Service Job, Service Time</h1>
+      <div class="meta">
+        <span><strong>Dành cho:</strong> iMED Service User / Service Leader / Service Manager</span>
+        <span><strong>Môi trường:</strong> dev-erp.smartr.co</span>
+        <span><strong>Cập nhật:</strong> 2026-11-04</span>
+      </div>
+    </header>
+
+    <aside class="on-this-page">
+      <p>Trên trang này</p>
+      <nav aria-label="Trên trang này">
+        <a href="#purpose">Mục đích</a>
+        <a href="#hierarchy">Quan hệ dữ liệu</a>
+        <a href="#roles">Vai trò Approver &amp; CSE</a>
+        <a href="#ticket">1. Tạo Ticket</a>
+        <a href="#service-job">2. Tạo Service Job</a>
+        <a href="#service-time">3. Tạo Service Time</a>
+        <a href="#outcome">Kết quả mong đợi</a>
+        <a href="#troubleshooting">Xử lý sự cố</a>
+      </nav>
+    </aside>
+
+    <div class="content">
+
+    <section id="purpose">
+      <h2>Mục đích</h2>
+      <p>Hướng dẫn này mô tả quy trình ghi nhận công việc dịch vụ theo ba tầng: <strong>Ticket</strong> (phiếu hỗ trợ theo khách hàng) → <strong>Service Job</strong> (công việc cụ thể) → <strong>Service Time</strong> (giờ làm việc của kỹ sư).</p>
+      <p>Một Ticket có thể có <strong>nhiều</strong> Service Job; mỗi Service Job có thể có <strong>nhiều</strong> Service Time. Danh sách CSE được thu hẹp dần theo từng tầng để tránh gán nhầm người không thuộc ca làm việc.</p>
+    </section>
+
+    <section id="hierarchy">
+      <h2>Quan hệ dữ liệu</h2>
+      <div class="diagram">
+        <strong>Ticket</strong> (khách hàng, trạng thái, người duyệt, danh sách kỹ sư CSE)<br>
+        &nbsp;&nbsp;└─ <strong>Service Job</strong> (gắn Ticket; kỹ sư trên job phải nằm trong danh sách CSE của Ticket; có lịch Schedule)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ <strong>Service Time</strong> (gắn Service Job; kỹ sư ghi giờ phải nằm trong danh sách CSE của Job)
+      </div>
+      <p>Sau khi lưu Ticket, mở lại phiếu để thấy khu vực <span class="ui-label">Connections</span> → <span class="ui-label">Service Job</span> (số badge = số job đã tạo) và nút <strong>+</strong> để thêm job mới từ Ticket.</p>
+      <figure>
+        <img src="images/05-ticket-detail.png" alt="Ticket đã lưu với Connections Service Job và các trường Customer Status Approver CSEs" loading="lazy">
+        <figcaption>Ticket đã lưu — liên kết Service Job và danh sách CSEs</figcaption>
+      </figure>
+    </section>
+
+    <section id="roles">
+      <h2>Vai trò Approver &amp; CSE</h2>
+      <p>Hệ thống chỉ cho phép chọn đúng loại tài khoản (theo vai trò được cấp). Chọn sai, bạn sẽ không lưu được.</p>
+      <table>
+        <thead><tr><th>Trường</th><th>Màn hình</th><th>Ai được chọn</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="ui-label">Approver</span></td>
+            <td>Ticket</td>
+            <td><strong>iMED Service Leader</strong>, <strong>iMED Service Manager</strong></td>
+          </tr>
+          <tr>
+            <td><span class="ui-label">CSEs</span></td>
+            <td>Ticket</td>
+            <td><strong>iMED Service User</strong>, <strong>iMED Service Leader</strong> (chọn ít nhất một người)</td>
+          </tr>
+          <tr>
+            <td><span class="ui-label">CSEs</span></td>
+            <td>Service Job</td>
+            <td>Chỉ user nằm trong <span class="ui-label">CSEs</span> của Ticket đã chọn (và vẫn phải thuộc vai trò dịch vụ như trên)</td>
+          </tr>
+          <tr>
+            <td><span class="ui-label">CSE Name</span></td>
+            <td>Service Time</td>
+            <td>Chỉ user nằm trong <span class="ui-label">CSEs</span> của Service Job đã chọn</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="note"><strong>Gợi ý tài khoản demo:</strong> Service Leader <code>demo9@smartr.co</code>, Service Manager <code>demo10@smartr.co</code>, Service User <code>demo8@smartr.co</code> — mật khẩu chung trên dev-erp.</div>
+    </section>
+
+    <section id="ticket">
+      <h2>1. Tạo Ticket</h2>
+
+      <h3>Bước 1.1 — Mở danh sách Ticket</h3>
+      <p>Trên Desk (Ctrl + G), gõ <em>Ticket</em> hoặc mở từ workspace Support. Nhấn <span class="ui-label">+ Add Ticket</span> để tạo mới.</p>
+      <figure>
+        <img src="images/01-ticket-list.png" alt="Danh sách Ticket với nút Add Ticket" loading="lazy">
+        <figcaption>Danh sách Ticket</figcaption>
+      </figure>
+
+      <h3>Bước 1.2 — Điền thông tin Ticket</h3>
+      <ol>
+        <li><span class="ui-label">Naming Series</span> — giữ mặc định <span class="ui-label">TKT-.#####</span> trừ khi quy trình nội bộ quy định khác.</li>
+        <li><span class="ui-label">Customer</span> — chọn cơ sở y tế / khách hàng (bắt buộc).</li>
+        <li><span class="ui-label">Status</span> — <span class="ui-label">Open</span> hoặc <span class="ui-label">Closed</span>.</li>
+        <li><span class="ui-label">Approver</span> — chọn Trưởng nhóm hoặc Quản lý dịch vụ (xem bảng vai trò ở trên).</li>
+        <li><span class="ui-label">CSEs</span> — chọn một hoặc nhiều kỹ sư dịch vụ tham gia ticket; bắt buộc có ít nhất một người.</li>
+      </ol>
+      <figure>
+        <img src="images/02-ticket-new.png" alt="Form New Ticket với Customer Status Approver CSEs" loading="lazy">
+        <figcaption>Form tạo Ticket mới</figcaption>
+      </figure>
+      <figure class="figure-focus">
+        <img src="images/03-ticket-approver-cses.png" alt="Trường Approver và CSEs trên Ticket" loading="lazy">
+        <figcaption>Approver và CSEs</figcaption>
+      </figure>
+
+      <h3>Bước 1.3 — Lưu Ticket</h3>
+      <p>Nhấn <span class="ui-label">Save</span>. Ghi nhớ mã Ticket (ví dụ <span class="ui-label">TKT-00001</span>) — bạn sẽ gắn mã này khi tạo Service Job.</p>
+    </section>
+
+    <section id="service-job">
+      <h2>2. Tạo Service Job</h2>
+      <p>Mỗi job là một công việc cụ thể (QC, bảo trì, hỗ trợ, …) thuộc cùng Ticket. Có thể tạo nhiều job cho một Ticket.</p>
+
+      <h3>Bước 2.1 — Mở form Service Job</h3>
+      <p>Tìm <em>Service Job</em> trên Desk → <span class="ui-label">+ Add Service Job</span>. Hoặc từ Ticket đã lưu: <span class="ui-label">Connections</span> → <span class="ui-label">Service Job</span> → <strong>+</strong>.</p>
+      <figure>
+        <img src="images/06-service-job-list.png" alt="Danh sách Service Job dạng Report" loading="lazy">
+        <figcaption>Danh sách Service Job</figcaption>
+      </figure>
+      <figure>
+        <img src="images/07-service-job-new.png" alt="Form New Service Job" loading="lazy">
+        <figcaption>Form Service Job mới</figcaption>
+      </figure>
+
+      <h3>Bước 2.2 — Gắn Ticket và thông tin chung</h3>
+      <ol>
+        <li><span class="ui-label">Ticket</span> (bắt buộc) — chọn Ticket vừa tạo. <span class="ui-label">Customer</span> hiển thị read-only theo Ticket.</li>
+        <li><span class="ui-label">Job Status</span> — thường <span class="ui-label">Open</span> khi bắt đầu; chuyển <span class="ui-label">Close</span> khi hoàn tất (Trưởng nhóm / Quản lý dịch vụ).</li>
+        <li><span class="ui-label">Job Type</span> — loại công việc (QC, PM, CM, Support, …).</li>
+        <li><span class="ui-label">Instrument</span> — thiết bị liên quan (nếu có).</li>
+        <li><span class="ui-label">CSEs</span> — chỉ hiện sau khi chọn Ticket. Danh sách gợi ý <strong>chỉ gồm CSE đã khai trên Ticket</strong>; không thể chọn kỹ sư ngoài ticket.</li>
+      </ol>
+      <figure class="figure-focus">
+        <img src="images/08-service-job-ticket-cses.png" alt="Chọn Ticket trên Service Job trước khi chọn CSEs" loading="lazy">
+        <figcaption>Chọn Ticket trước — sau đó chọn CSEs trong phạm vi Ticket</figcaption>
+      </figure>
+      <div class="note"><strong>Lưu ý:</strong> Nếu chưa thấy <span class="ui-label">CSEs</span>, hãy chọn <span class="ui-label">Ticket</span> trước. Khi đổi Ticket, hệ thống có thể xóa CSE job không còn thuộc ticket mới.</div>
+
+      <h3>Bước 2.3 — Khối Schedule (lịch kế hoạch / thực tế)</h3>
+      <p>Service Job có thêm phần <span class="ui-label">Schedule</span>:</p>
+      <ul>
+        <li><span class="ui-label">Plan Start DateTime</span> / <span class="ui-label">Plan End DateTime</span> — bắt buộc; thời gian dự kiến làm việc (ngày + giờ theo múi giờ tài khoản của bạn).</li>
+        <li><span class="ui-label">Actual Start DateTime</span> / <span class="ui-label">Actual End DateTime</span> — tùy chọn; điền khi biết thời gian thực tế.</li>
+      </ul>
+      <figure class="figure-focus">
+        <img src="images/09-service-job-schedule.png" alt="Khối Schedule Plan và Actual DateTime trên Service Job" loading="lazy">
+        <figcaption>Schedule — Plan và Actual DateTime</figcaption>
+      </figure>
+
+      <h3>Bước 2.4 — Chi tiết theo loại job &amp; lưu</h3>
+      <p>Điền các trường ở khối <span class="ui-label">Details</span> (mô tả sự cố, ghi chú, …) tùy <span class="ui-label">Job Type</span>. Nhấn <span class="ui-label">Save</span>.</p>
+    </section>
+
+    <section id="service-time">
+      <h2>3. Tạo Service Time</h2>
+      <p>Service Time ghi nhận từng khoảng thời gian làm việc của một CSE trên một Service Job (đi lại, làm tại site, hỗ trợ điện thoại, …).</p>
+
+      <h3>Bước 3.1 — Mở form Service Time</h3>
+      <p>Tìm <em>Service Time</em> → <span class="ui-label">+ Add Service Time</span>.</p>
+      <figure>
+        <img src="images/10-service-time-list.png" alt="Danh sách Service Time" loading="lazy">
+        <figcaption>Danh sách Service Time</figcaption>
+      </figure>
+      <figure>
+        <img src="images/11-service-time-new.png" alt="Form New Service Time" loading="lazy">
+        <figcaption>Form Service Time mới</figcaption>
+      </figure>
+
+      <h3>Bước 3.2 — Gắn Service Job và CSE</h3>
+      <ol>
+        <li><span class="ui-label">Service Job</span> (bắt buộc) — chọn job cần ghi giờ.</li>
+        <li><span class="ui-label">CSE Name</span> (bắt buộc) — chỉ chọn được kỹ sư thuộc <span class="ui-label">CSEs</span> của job đó. Nếu job chưa có CSE, bổ sung CSE trên Service Job trước.</li>
+        <li><span class="ui-label">Activity Type</span> — ví dụ <span class="ui-label">Travel</span>, <span class="ui-label">On-site Work</span>, <span class="ui-label">Phone Support</span>, …</li>
+        <li><span class="ui-label">Attendance Type</span> — <span class="ui-label">Normal hour</span>, <span class="ui-label">After hour</span>, hoặc <span class="ui-label">Holiday</span>.</li>
+        <li><span class="ui-label">Start</span> / <span class="ui-label">End</span> — thời điểm bắt đầu và kết thúc; <span class="ui-label">Time Total</span> tính tự động khi lưu.</li>
+      </ol>
+      <figure class="figure-focus">
+        <img src="images/12-service-time-cse.png" alt="Service Job và CSE Name trên Service Time" loading="lazy">
+        <figcaption>Chọn Service Job trước, sau đó CSE Name trong phạm vi CSEs của job</figcaption>
+      </figure>
+      <div class="note"><strong>Lưu ý:</strong> Một Service Job có thể có nhiều Service Time (nhiều CSE hoặc nhiều khoảng giờ). Mỗi dòng time phải trỏ đúng job và đúng CSE tham gia job đó.</div>
+
+      <h3>Bước 3.3 — Lưu Service Time</h3>
+      <p>Nhấn <span class="ui-label">Save</span>. Lặp lại bước 3 cho các khoảng giờ / CSE khác trên cùng job hoặc job khác cùng Ticket.</p>
+    </section>
+
+    <section id="outcome">
+      <h2>Kết quả mong đợi</h2>
+      <ul>
+        <li>Ticket lưu với Customer, Status, Approver (Leader/Manager) và ít nhất một CSE (User/Leader).</li>
+        <li>Nhiều Service Job cùng trỏ một Ticket; kỹ sư trên từng job chỉ được chọn trong danh sách CSE của Ticket; có lịch dự kiến Plan (và thực tế Actual nếu bạn ghi thêm).</li>
+        <li>Nhiều Service Time trỏ một Service Job; mỗi dòng ghi đúng một kỹ sư (<span class="ui-label">CSE Name</span>) đã có trên job đó.</li>
+        <li>Trên Ticket, badge <span class="ui-label">Service Job</span> trong Connections phản ánh số job đã tạo.</li>
+      </ul>
+      <p>Sau khi có dữ liệu, quản lý dịch vụ có thể xem tổng hợp tại <a href="../service-job-report/index.html">Service Job Report</a> (số phiếu công việc) và <a href="../service-time-report/index.html">Service Time Report</a> (tổng giờ làm việc).</p>
+    </section>
+
+    <section id="troubleshooting">
+      <h2>Xử lý sự cố thường gặp</h2>
+      <table>
+        <thead><tr><th>Triệu chứng</th><th>Nguyên nhân có thể</th><th>Cách xử lý</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Lỗi khi chọn Approver</td>
+            <td>User không có vai trò Leader/Manager</td>
+            <td>Chọn user có <strong>iMED Service Leader</strong> hoặc <strong>iMED Service Manager</strong></td>
+          </tr>
+          <tr>
+            <td>Không lưu được Ticket — thiếu CSE</td>
+            <td>Chưa chọn CSEs</td>
+            <td>Thêm ít nhất một CSE (Service User hoặc Service Leader)</td>
+          </tr>
+          <tr>
+            <td>Không thấy trường CSEs trên Service Job</td>
+            <td>Chưa chọn Ticket</td>
+            <td>Chọn <span class="ui-label">Ticket</span> trước</td>
+          </tr>
+          <tr>
+            <td>Không chọn được CSE ngoài ticket trên job</td>
+            <td>Theo quy định — job chỉ dùng kỹ sư đã khai trên Ticket</td>
+            <td>Sửa Ticket, thêm CSE cần thiết, lưu rồi chọn lại trên job</td>
+          </tr>
+          <tr>
+            <td>CSE Name trên Service Time trống / không đúng người</td>
+            <td>Chưa chọn job hoặc CSE không thuộc job</td>
+            <td>Chọn <span class="ui-label">Service Job</span>; đảm bảo CSE đã có trong <span class="ui-label">CSEs</span> của job</td>
+          </tr>
+          <tr>
+            <td>Không lưu Service Job — Schedule</td>
+            <td>Thiếu Plan Start/End</td>
+            <td>Điền đủ <span class="ui-label">Plan Start DateTime</span> và <span class="ui-label">Plan End DateTime</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer>
+      Captured: 2026-11-04 · Environment: dev-erp.smartr.co · Screenshot account: demo9@smartr.co (iMED Service Leader)
+    </footer>
+    </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const links = Array.from(document.querySelectorAll(".on-this-page a"));
+      const sections = links
+        .map((link) => document.querySelector(link.getAttribute("href")))
+        .filter(Boolean);
+
+      function mark(id) {
+        links.forEach((link) => {
+          const on = link.getAttribute("href") === "#" + id;
+          link.classList.toggle("active", on);
+          if (on) link.setAttribute("aria-current", "true");
+          else link.removeAttribute("aria-current");
+        });
+      }
+
+      function currentId() {
+        const marker = 180;
+        let current = sections[0];
+        sections.forEach((section) => {
+          if (section.getBoundingClientRect().top <= marker) current = section;
+        });
+        const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+        if (nearBottom) current = sections[sections.length - 1];
+        return current ? current.id : "";
+      }
+
+      function update() { mark(currentId()); }
+
+      links.forEach((link) => {
+        link.addEventListener("click", () => mark(link.getAttribute("href").slice(1)));
+      });
+
+      document.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+      update();
+    })();
+  </script>
+</body>
+</html>
