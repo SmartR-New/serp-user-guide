@@ -130,7 +130,8 @@
       <nav aria-label="Trên trang này">
         <a href="#purpose">Mục đích</a>
         <a href="#hierarchy">Quan hệ dữ liệu</a>
-        <a href="#roles">Vai trò Approver &amp; CSE</a>
+        <a href="#roles">Vai trò &amp; phân quyền</a>
+        <a href="#field-rules">Quy tắc Approver &amp; CSE</a>
         <a href="#ticket">1. Tạo Ticket</a>
         <a href="#service-job">2. Tạo Service Job</a>
         <a href="#service-time">3. Tạo Service Time</a>
@@ -162,8 +163,37 @@
     </section>
 
     <section id="roles">
-      <h2>Vai trò Approver &amp; CSE</h2>
-      <p>Hệ thống chỉ cho phép chọn đúng loại tài khoản (theo vai trò được cấp). Chọn sai, bạn sẽ không lưu được.</p>
+      <h2>Vai trò trong quy trình</h2>
+      <p>Trên ERP, mỗi vai trò dịch vụ iMED có phần việc chính khi làm việc với Ticket, Service Job và Service Time:</p>
+      <table>
+        <thead><tr><th>Vai trò</th><th>Ticket</th><th>Service Job</th><th>Service Time</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>iMED Service Manager</strong><br><span style="font-size:13px;color:var(--muted)">Quản lý dịch vụ</span></td>
+            <td>Tạo mới và chỉnh sửa</td>
+            <td>Tạo mới và chỉnh sửa</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><strong>iMED Service Leader</strong><br><span style="font-size:13px;color:var(--muted)">Trưởng nhóm dịch vụ</span></td>
+            <td>—</td>
+            <td>Tạo mới và chỉnh sửa</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><strong>iMED Service User</strong><br><span style="font-size:13px;color:var(--muted)">Kỹ sư dịch vụ (CSE)</span></td>
+            <td>—</td>
+            <td>Chỉnh sửa</td>
+            <td>Tạo mới và chỉnh sửa</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="note"><strong>Gợi ý quy trình:</strong> Manager mở Ticket và có thể tạo job; Leader triển khai job trên hiện trường; User cập nhật job được giao và ghi giờ Service Time. Leader thường được chọn làm <span class="ui-label">Approver</span> trên Ticket; User và Leader nằm trong danh sách <span class="ui-label">CSEs</span>.</div>
+    </section>
+
+    <section id="field-rules">
+      <h2>Quy tắc chọn Approver &amp; CSE</h2>
+      <p>Ngoài phân quyền theo vai trò, một số trường chỉ cho phép chọn đúng loại tài khoản. Chọn sai, bạn sẽ không lưu được.</p>
       <table>
         <thead><tr><th>Trường</th><th>Màn hình</th><th>Ai được chọn</th></tr></thead>
         <tbody>
@@ -194,6 +224,7 @@
 
     <section id="ticket">
       <h2>1. Tạo Ticket</h2>
+      <p><strong>Ai thực hiện:</strong> <strong>iMED Service Manager</strong> (tạo và chỉnh sửa Ticket).</p>
 
       <h3>Bước 1.1 — Mở danh sách Ticket</h3>
       <p>Trên Desk (Ctrl + G), gõ <em>Ticket</em> hoặc mở từ workspace Support. Nhấn <span class="ui-label">+ Add Ticket</span> để tạo mới.</p>
@@ -225,6 +256,7 @@
 
     <section id="service-job">
       <h2>2. Tạo Service Job</h2>
+      <p><strong>Ai thực hiện:</strong> <strong>iMED Service Manager</strong> và <strong>iMED Service Leader</strong> tạo mới và chỉnh sửa Service Job; <strong>iMED Service User</strong> chỉnh sửa job được giao (không tạo job mới theo quy trình này).</p>
       <p>Mỗi job là một công việc cụ thể (QC, bảo trì, hỗ trợ, …) thuộc cùng Ticket. Có thể tạo nhiều job cho một Ticket.</p>
 
       <h3>Bước 2.1 — Mở form Service Job</h3>
@@ -269,6 +301,7 @@
 
     <section id="service-time">
       <h2>3. Tạo Service Time</h2>
+      <p><strong>Ai thực hiện:</strong> <strong>iMED Service User</strong> (và kỹ sư được giao trên job) tạo mới và chỉnh sửa Service Time.</p>
       <p>Service Time ghi nhận từng khoảng thời gian làm việc của một CSE trên một Service Job (đi lại, làm tại site, hỗ trợ điện thoại, …).</p>
 
       <h3>Bước 3.1 — Mở form Service Time</h3>
@@ -303,6 +336,7 @@
     <section id="outcome">
       <h2>Kết quả mong đợi</h2>
       <ul>
+        <li>Đúng phân vai: Manager — Ticket + Job; Leader — Job; User — chỉnh Job + ghi Service Time.</li>
         <li>Ticket lưu với Customer, Status, Approver (Leader/Manager) và ít nhất một CSE (User/Leader).</li>
         <li>Nhiều Service Job cùng trỏ một Ticket; kỹ sư trên từng job chỉ được chọn trong danh sách CSE của Ticket; có lịch dự kiến Plan (và thực tế Actual nếu bạn ghi thêm).</li>
         <li>Nhiều Service Time trỏ một Service Job; mỗi dòng ghi đúng một kỹ sư (<span class="ui-label">CSE Name</span>) đã có trên job đó.</li>
@@ -316,6 +350,11 @@
       <table>
         <thead><tr><th>Triệu chứng</th><th>Nguyên nhân có thể</th><th>Cách xử lý</th></tr></thead>
         <tbody>
+          <tr>
+            <td>Service User cần tạo Ticket / job mới</td>
+            <td>Theo quy trình — User không mở Ticket hay tạo job</td>
+            <td>Nhờ <strong>Service Manager</strong> (Ticket, job) hoặc <strong>Service Leader</strong> (job); User chỉ sửa job được giao và ghi Service Time</td>
+          </tr>
           <tr>
             <td>Lỗi khi chọn Approver</td>
             <td>User không có vai trò Leader/Manager</td>
