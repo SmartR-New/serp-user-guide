@@ -384,7 +384,7 @@
       <h3>Bước 2.3 — Khối Schedule (lịch kế hoạch / thực tế)</h3>
       <p>Service Job có thêm phần <span class="ui-label">Schedule</span>:</p>
       <ul>
-        <li><span class="ui-label">Plan Start DateTime</span> / <span class="ui-label">Plan End DateTime</span> — bắt buộc; thời gian dự kiến làm việc (ngày + giờ theo múi giờ tài khoản của bạn).</li>
+        <li><span class="ui-label">Plan Start DateTime</span> / <span class="ui-label">Plan End DateTime</span> — <strong>tùy chọn</strong>; có thể để trống khi tạo mới. Nếu điền cả hai, Plan End phải không sớm hơn Plan Start.</li>
         <li><span class="ui-label">Actual Start DateTime</span> / <span class="ui-label">Actual End DateTime</span> — tùy chọn; điền khi biết thời gian thực tế.</li>
       </ul>
       <figure class="figure-focus">
@@ -393,7 +393,7 @@
       </figure>
 
       <h3>Bước 2.4 — Chi tiết theo loại job &amp; lưu</h3>
-      <p>Điền các trường ở khối <span class="ui-label">Details</span> (mô tả sự cố, ghi chú, …) tùy <span class="ui-label">Job Type</span>. Nhấn <span class="ui-label">Save</span>.</p>
+      <p>Điền các trường ở khối <span class="ui-label">Details</span> (liên kết QC / Installation Note / bảo trì, loại Support, ghi chú …) tùy <span class="ui-label">Job Type</span>. Không còn trường ngày riêng theo từng loại job trên form; dùng <span class="ui-label">Schedule</span> hoặc <span class="ui-label">Note</span> nếu cần ghi thời điểm. Nhấn <span class="ui-label">Save</span>.</p>
     </section>
 
     <section id="service-time">
@@ -485,8 +485,8 @@
           </tr>
           <tr>
             <td>Không lưu Service Job — Schedule</td>
-            <td>Thiếu Plan Start/End</td>
-            <td>Điền đủ <span class="ui-label">Plan Start DateTime</span> và <span class="ui-label">Plan End DateTime</span></td>
+            <td>Plan End sớm hơn Plan Start</td>
+            <td>Chỉnh lại thời gian Plan hoặc xóa một trong hai trường Plan</td>
           </tr>
           <tr>
             <td>Ticket read-only — Customers/CSEs dính một dòng ID</td>
