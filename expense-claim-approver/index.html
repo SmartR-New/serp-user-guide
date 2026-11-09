@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Claim — Người duyệt | iMED ERP</title>
+  <meta name="description" content="Người duyệt kế hoạch và duyệt chi tiết chi phí thực tế trên Expense Claim.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,420;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/guide.css">
+</head>
+<body>
+  <div class="shell">
+    <div class="page">
+      <header class="page-header">
+        <a class="back" href="../index.html">← Tài liệu hướng dẫn iMED ERP</a>
+        <h1>Expense Claim — Người duyệt (Expense Approver)</h1>
+        <div class="meta">
+          <span><strong>Dành cho:</strong> Người duyệt (Expense Approver)</span>
+          <span><strong>Môi trường:</strong> dev-erp.smartr.co</span>
+          <span><strong>Cập nhật:</strong> 2026-11-09</span>
+        </div>
+      </header>
+      <aside class="on-this-page">
+        <p>Trên trang này</p>
+        <nav>
+          <a href="#purpose">Mục đích</a>
+          <a href="#plan">Duyệt kế hoạch</a>
+          <a href="#expense">Duyệt chi tiết chi phí thực tế</a>
+        </nav>
+      </aside>
+      <div class="content">
+        <section id="purpose">
+          <h2>Mục đích</h2>
+          <p>Bạn duyệt phiếu khi mình là <span class="ui-label">Expense Approver</span> (Người duyệt) trên phiếu đó. Có hai lần: duyệt kế hoạch, rồi duyệt chi tiết chi phí thực tế sau khi nhân viên gửi số liệu.</p>
+          <p>Phiếu nhân viên chỉ <span class="ui-label">Save</span>, chưa <span class="ui-label">Submit Plan</span> hoặc <span class="ui-label">Submit Actual</span>, không có trong danh sách của bạn. Cột <span class="ui-label">Status</span> có thể vẫn là <span class="ui-label">Draft</span>. Xem thanh quy trình: bước <span class="ui-label">Manager Review</span> đang sáng thì phiếu đang chờ bạn.</p>
+        </section>
+
+        <section id="plan">
+          <h2>Duyệt kế hoạch</h2>
+          <h3>Bước 1: Mở danh sách</h3>
+          <p>Vào <span class="ui-label">HR</span> → <span class="ui-label">Expense Claim</span>. Mở phiếu đang chờ.</p>
+          <figure>
+            <img src="images/01-open-list.png" alt="Danh sách Expense Claim của Expense Approver">
+            <figcaption>Bước 1 — Danh sách Expense Claim</figcaption>
+          </figure>
+          <h3>Bước 2: Xem Approvals</h3>
+          <p>Phiếu mở tab <span class="ui-label">Approvals</span>. Thẻ <span class="ui-label">Line Manager</span> trên <span class="ui-label">Approval trail</span> đang <span class="ui-label">Pending</span>. Xem <span class="ui-label">Budget summary chart</span> để so ngân sách kế hoạch với số đã kê. Có thể ghi <span class="ui-label">LM Approver Note</span>.</p>
+          <figure>
+            <img src="images/02-review.png" alt="Tab Approvals với approval trail và biểu đồ ngân sách">
+            <figcaption>Bước 2 — Tab Approvals, bước Manager Review</figcaption>
+          </figure>
+          <h3>Bước 3: Duyệt hoặc từ chối</h3>
+          <p>Mở <span class="ui-label">Actions</span>:</p>
+          <ul>
+            <li><span class="ui-label">Approve Plan</span> — duyệt kế hoạch. Không đề nghị tạm ứng thì nhân viên được nhập chi tiết chi phí thực tế. Có đề nghị tạm ứng thì phiếu sang Kiểm Toán để chi đề nghị tạm ứng</li>
+            <li><span class="ui-label">Reject</span> — trả phiếu. Nhập lý do. Nhân viên đọc lý do rồi gửi lại</li>
+          </ul>
+          <figure>
+            <img src="images/04-approve-plan.png" alt="Menu Actions với Approve Plan và Reject">
+            <figcaption>Bước 3 — Actions → Approve Plan</figcaption>
+          </figure>
+          <p>Sau khi duyệt, màn hình về danh sách và phiếu rời hàng chờ của bạn.</p>
+        </section>
+
+        <section id="expense">
+          <h2>Duyệt chi tiết chi phí thực tế</h2>
+          <p>Khi nhân viên đã chọn <span class="ui-label">Submit Actual</span>, phiếu quay lại bước <span class="ui-label">Manager Review</span>. Mở lại phiếu, vẫn ở tab <span class="ui-label">Approvals</span>.</p>
+          <p>Trong bảng duyệt từng dòng, số nhân viên kê là chỉ đọc. Bạn sửa được <span class="ui-label">Approved Amount</span> (Số tiền được duyệt, không cao hơn số đã kê), <span class="ui-label">Cost Center</span> và ghi chú dòng.</p>
+          <p>Mở <span class="ui-label">Actions</span>:</p>
+          <ul>
+            <li><span class="ui-label">Approve Expense</span> — chuyển phiếu sang Kiểm Toán</li>
+            <li><span class="ui-label">Reject</span> — trả phiếu cho nhân viên sửa chi tiết chi phí thực tế</li>
+          </ul>
+        </section>
+        <footer>Updated: 2026-11-09 · Captured: 2026-10-30 · Environment: dev-erp.smartr.co · Viewport: 1440×900 · Role: Expense Approver (demo2@smartr.co)</footer>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

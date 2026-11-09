@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Claim — Kiểm Toán | iMED ERP</title>
+  <meta name="description" content="Kiểm Toán rà soát Expense Claim và chuyển Kiểm Soát Trưởng.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,420;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/guide.css">
+</head>
+<body>
+  <div class="shell">
+    <div class="page">
+      <header class="page-header">
+        <a class="back" href="../index.html">← Tài liệu hướng dẫn iMED ERP</a>
+        <h1>Expense Claim — Kiểm Toán (Auditor)</h1>
+        <div class="meta">
+          <span><strong>Dành cho:</strong> Kiểm Toán (Auditor)</span>
+          <span><strong>Môi trường:</strong> dev-erp.smartr.co</span>
+          <span><strong>Cập nhật:</strong> 2026-11-09</span>
+        </div>
+      </header>
+      <aside class="on-this-page">
+        <p>Trên trang này</p>
+        <nav>
+          <a href="#purpose">Mục đích</a>
+          <a href="#review">Rà soát Accounting</a>
+          <a href="#handoff">Chuyển Kiểm Soát Trưởng</a>
+          <a href="#other">Việc chi tiền</a>
+        </nav>
+      </aside>
+      <div class="content">
+        <section id="purpose">
+          <h2>Mục đích</h2>
+          <p>Bạn rà soát phiếu sau khi người duyệt đã duyệt chi tiết chi phí thực tế. Trên thanh quy trình, bước <span class="ui-label">Accountant Review</span> đang sáng thì phiếu đang chờ bạn.</p>
+          <p>Chi đề nghị tạm ứng và chi phần còn lại sau khi Kiểm Soát Trưởng duyệt nằm ở hai hướng dẫn riêng: <a href="../expense-claim-advance-payment/index.html">chi đề nghị tạm ứng</a> và <a href="../expense-claim-payment/index.html">chi sau khi duyệt</a>.</p>
+        </section>
+
+        <section id="review">
+          <h2>Rà soát Accounting</h2>
+          <h3>Bước 1: Mở danh sách</h3>
+          <p>Vào <span class="ui-label">HR</span> → <span class="ui-label">Expense Claim</span>. Cột <span class="ui-label">Status</span> có thể vẫn là <span class="ui-label">Draft</span>. Mở phiếu có bước <span class="ui-label">Accountant Review</span> đang sáng.</p>
+          <figure>
+            <img src="images/01-open-list.png" alt="Danh sách Expense Claim khi đăng nhập Auditor">
+            <figcaption>Bước 1 — Danh sách Expense Claim</figcaption>
+          </figure>
+          <h3>Bước 2: Đọc tab Accounting</h3>
+          <p>Phiếu mở tab <span class="ui-label">Accounting</span>. Kiểm tra:</p>
+          <ul>
+            <li><span class="ui-label">Accounting summary</span> — <span class="ui-label">Total Claimed Amount</span>, <span class="ui-label">Total Sanctioned Amount</span> (Tổng số tiền được phê duyệt), <span class="ui-label">Transfer amount to employee</span></li>
+            <li><span class="ui-label">Employee payment &amp; bank details</span> và <span class="ui-label">Payment method</span></li>
+            <li><span class="ui-label">Claim Summary</span> — <span class="ui-label">Total expenses</span>, <span class="ui-label">Advance paid</span>, <span class="ui-label">Additional payment</span></li>
+          </ul>
+          <p>Mỗi dòng đã duyệt cần <span class="ui-label">Cost Center</span> trong phân bổ. Chọn <span class="ui-label">Payable Account</span> trước khi chuyển Kiểm Soát Trưởng.</p>
+          <figure>
+            <img src="images/02-accounting.png" alt="Tab Accounting với tổng hợp chi phí và Additional payment">
+            <figcaption>Bước 2 — Tab Accounting. Phiếu trong ảnh đã sang Controller Review</figcaption>
+          </figure>
+          <div class="note"><strong>Ảnh minh họa:</strong> Phiếu HR-EXP-2026-00030 đã qua <span class="ui-label">Accountant Review</span> và đang ở <span class="ui-label">Controller Review</span>. Các số trên tab <span class="ui-label">Accounting</span> là phần bạn đã rà trước khi chuyển.</div>
+        </section>
+
+        <section id="handoff">
+          <h2>Chuyển Kiểm Soát Trưởng</h2>
+          <p>Khi bước <span class="ui-label">Accountant Review</span> đang sáng, mở <span class="ui-label">Actions</span>:</p>
+          <ul>
+            <li><span class="ui-label">Approve for Controller</span> — gửi phiếu sang Kiểm Soát Trưởng</li>
+            <li><span class="ui-label">Reject</span> — trả phiếu. Nhập lý do. Nhân viên sửa chi tiết chi phí thực tế rồi gửi lại</li>
+          </ul>
+          <p>Sau <span class="ui-label">Approve for Controller</span>, màn hình về danh sách. Kiểm Soát Trưởng nhận phiếu ở bước <span class="ui-label">Controller Review</span>.</p>
+        </section>
+
+        <section id="other">
+          <h2>Việc chi tiền</h2>
+          <ul>
+            <li>Phiếu đang chờ đề nghị tạm ứng: làm theo <a href="../expense-claim-advance-payment/index.html">Kiểm Toán chi đề nghị tạm ứng</a></li>
+            <li>Kiểm Soát Trưởng đã <span class="ui-label">Final Approve</span> và còn số phải trả nhân viên: làm theo <a href="../expense-claim-payment/index.html">Kiểm Toán chi sau khi duyệt</a></li>
+          </ul>
+        </section>
+        <footer>Updated: 2026-11-09 · Captured: 2026-10-30 · Environment: dev-erp.smartr.co · Viewport: 1440×900 · Role: Auditor (demo3@smartr.co)</footer>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

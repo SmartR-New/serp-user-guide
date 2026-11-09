@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Claim — Kiểm Soát Trưởng | iMED ERP</title>
+  <meta name="description" content="Kiểm Soát Trưởng duyệt cuối Expense Claim.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,420;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/guide.css">
+</head>
+<body>
+  <div class="shell">
+    <div class="page">
+      <header class="page-header">
+        <a class="back" href="../index.html">← Tài liệu hướng dẫn iMED ERP</a>
+        <h1>Expense Claim — Kiểm Soát Trưởng</h1>
+        <div class="meta">
+          <span><strong>Dành cho:</strong> Kiểm Soát Trưởng (Controller)</span>
+          <span><strong>Môi trường:</strong> dev-erp.smartr.co</span>
+          <span><strong>Cập nhật:</strong> 2026-11-09</span>
+        </div>
+      </header>
+      <aside class="on-this-page">
+        <p>Trên trang này</p>
+        <nav>
+          <a href="#purpose">Mục đích</a>
+          <a href="#review">Xem tóm tắt</a>
+          <a href="#approve">Duyệt cuối</a>
+        </nav>
+      </aside>
+      <div class="content">
+        <section id="purpose">
+          <h2>Mục đích</h2>
+          <p>Bạn duyệt cuối sau khi Kiểm Toán đã chọn <span class="ui-label">Approve for Controller</span>. Bước <span class="ui-label">Controller Review</span> đang sáng thì phiếu đang chờ bạn. Đây là bản tóm tắt để ký, không sửa từng dòng chi phí.</p>
+        </section>
+
+        <section id="review">
+          <h2>Xem tóm tắt</h2>
+          <h3>Bước 1: Mở danh sách</h3>
+          <p>Vào <span class="ui-label">HR</span> → <span class="ui-label">Expense Claim</span>. Mở phiếu đang chờ duyệt cuối.</p>
+          <figure>
+            <img src="images/01-open-list.png" alt="Danh sách Expense Claim khi đăng nhập Controller">
+            <figcaption>Bước 1 — Danh sách Expense Claim</figcaption>
+          </figure>
+          <h3>Bước 2: Tab Controller</h3>
+          <p>Phiếu mở tab <span class="ui-label">Controller</span>. Xem:</p>
+          <ul>
+            <li><span class="ui-label">Claim summary for sign-off</span> — nhân viên, <span class="ui-label">Planned Budget (VND)</span>, <span class="ui-label">Total Sanctioned Amount</span> (Tổng số tiền được phê duyệt), <span class="ui-label">Transfer amount to employee</span></li>
+            <li><span class="ui-label">Approval trail</span> — người gửi, người duyệt và Kiểm Toán đã <span class="ui-label">Completed</span>. Kiểm Soát Trưởng đang <span class="ui-label">Pending</span></li>
+            <li><span class="ui-label">Budget summary chart</span> — so kế hoạch, số kê khai và số duyệt</li>
+          </ul>
+          <p>Chi tiết dòng nằm ở tab <span class="ui-label">Approvals</span> hoặc <span class="ui-label">Accounting</span>.</p>
+          <figure>
+            <img src="images/02-controller.png" alt="Tab Controller với tóm tắt ký duyệt và approval trail">
+            <figcaption>Bước 2 — Tab Controller, bước Controller Review</figcaption>
+          </figure>
+        </section>
+
+        <section id="approve">
+          <h2>Duyệt cuối</h2>
+          <p>Mở <span class="ui-label">Actions</span>:</p>
+          <ul>
+            <li><span class="ui-label">Final Approve</span> — duyệt xong. Thanh quy trình tới <span class="ui-label">Approved</span></li>
+            <li><span class="ui-label">Reject</span> — trả phiếu và ghi lý do</li>
+          </ul>
+          <figure>
+            <img src="images/03-final-approve.png" alt="Menu Actions với Final Approve và Reject">
+            <figcaption>Bước 3 — Actions → Final Approve</figcaption>
+          </figure>
+          <div class="note"><strong>Sau Final Approve:</strong> Nếu còn số phải trả hoặc phải thu, mở tab <span class="ui-label">Tasks</span> để tạo việc cho Kiểm Toán. Kiểm Toán nộp <span class="ui-label">Payment Entry</span> theo <a href="../expense-claim-payment/index.html">hướng dẫn chi sau khi duyệt</a>.</div>
+        </section>
+        <footer>Updated: 2026-11-09 · Captured: 2026-10-30 · Environment: dev-erp.smartr.co · Viewport: 1440×900 · Role: Controller (demo4@smartr.co)</footer>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đề nghị thanh toán — Nhân viên | iMED ERP</title>
+  <meta name="description" content="Nhân viên tạo đề nghị thanh toán, gửi kế hoạch và gửi chi tiết chi phí thực tế.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,420;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/guide.css">
+</head>
+<body>
+  <div class="shell">
+    <div class="page">
+      <header class="page-header">
+        <a class="back" href="../index.html">← Tài liệu hướng dẫn iMED ERP</a>
+        <h1>Đề nghị thanh toán — Nhân viên</h1>
+        <div class="meta">
+          <span><strong>Dành cho:</strong> Nhân viên</span>
+          <span><strong>Môi trường:</strong> dev-erp.smartr.co</span>
+          <span><strong>Cập nhật:</strong> 2026-11-09</span>
+        </div>
+      </header>
+      <aside class="on-this-page">
+        <p>Trên trang này</p>
+        <nav>
+          <a href="#purpose">Mục đích</a>
+          <a href="#create">Tạo phiếu</a>
+          <a href="#plan">Gửi kế hoạch</a>
+          <a href="#actual">Gửi chi tiết chi phí thực tế</a>
+          <a href="#after">Sau khi gửi</a>
+        </nav>
+      </aside>
+      <div class="content">
+        <section id="purpose">
+          <h2>Mục đích</h2>
+          <p>Dùng <span class="ui-label">Đề nghị thanh toán</span> để gửi kế hoạch chi và chi tiết chi phí thực tế trên một phiếu. Người duyệt chỉ thấy phiếu sau khi bạn gửi.</p>
+          <div class="note"><strong>Nhãn trên ảnh:</strong> Ảnh chụp trước khi đổi từ. Màn hình có thể vẫn hiện <span class="ui-label">Chi phí khiếu nại</span>, <span class="ui-label">Yêu cầu du lịch</span>, <span class="ui-label">Đồng ý</span>, <span class="ui-label">Hành hình</span>, <span class="ui-label">Tóm tắt yêu cầu</span>. Trong hướng dẫn, dùng nhãn mới.</div>
+          <div class="note"><strong>Lưu khác gửi:</strong> <span class="ui-label">Lưu</span> chỉ giữ phiếu cho bạn. Mở <span class="ui-label">Các thao tác</span> rồi chọn <span class="ui-label">Submit Plan</span> hoặc <span class="ui-label">Submit Actual</span> thì người duyệt mới nhận phiếu.</div>
+        </section>
+
+        <section id="create">
+          <h2>Tạo phiếu</h2>
+          <h3>Bước 1: Mở danh sách</h3>
+          <p>Vào <span class="ui-label">nhân sự</span> → <span class="ui-label">Đề nghị thanh toán</span>. Danh sách chỉ có phiếu của bạn. Cột trạng thái có thể vẫn là <span class="ui-label">Bản nháp</span>. Xem thanh quy trình trên phiếu để biết bước hiện tại.</p>
+          <figure>
+            <img src="images/01-open-list.png" alt="Danh sách Đề nghị thanh toán của nhân viên">
+            <figcaption>Bước 1 — Danh sách đề nghị thanh toán</figcaption>
+          </figure>
+          <h3>Bước 2: Tạo phiếu mới</h3>
+          <p>Nhấn <span class="ui-label">Đề nghị thanh toán mới</span>. Form mới có nhãn <span class="ui-label">Chưa lưu</span> và nút <span class="ui-label">Lưu</span>.</p>
+          <figure>
+            <img src="images/02-new-form.png" alt="Form mới tab Chung với nút Lưu">
+            <figcaption>Bước 2 — Tab Chung, phiếu chưa lưu</figcaption>
+          </figure>
+          <p>Ở tab <span class="ui-label">Chung</span>, kiểm tra:</p>
+          <ul>
+            <li><span class="ui-label">Từ nhân viên</span> và <span class="ui-label">Công ty</span></li>
+            <li><span class="ui-label">Người duyệt</span> — lấy từ hồ sơ, không sửa trên form</li>
+            <li><span class="ui-label">Phương thức thanh toán</span>: <span class="ui-label">Tiền mặt</span> hoặc <span class="ui-label">Chuyển khoản</span></li>
+            <li><span class="ui-label">Tên Tài khoản</span>, <span class="ui-label">Số tài khoản</span>, <span class="ui-label">Ngân hàng, Tỉnh/Thành phố</span> khi chuyển khoản</li>
+          </ul>
+          <p>Nhấn <span class="ui-label">Lưu</span>. Phiếu nằm trong danh sách của bạn. Bạn đóng và mở lại sau được.</p>
+        </section>
+
+        <section id="plan">
+          <h2>Gửi kế hoạch</h2>
+          <h3>Bước 3: Nhập Kế hoạch</h3>
+          <p>Mở tab <span class="ui-label">Kế hoạch</span> và nhập:</p>
+          <ul>
+            <li><span class="ui-label">Ngày bắt đầu</span> và <span class="ui-label">Ngày kết thúc</span>. Một ngày thì chọn <span class="ui-label">Trùng ngày bắt đầu</span></li>
+            <li><span class="ui-label">Chi tiết kế hoạch</span></li>
+            <li><span class="ui-label">Ngân sách dự kiến (VND)</span></li>
+            <li><span class="ui-label">Yêu cầu giấy đi đường</span>: để <span class="ui-label">Không</span> nếu không cần giấy đi đường. Chọn <span class="ui-label">Có</span> khi cần mẫu 04-LĐTL</li>
+            <li><span class="ui-label">Yêu cầu tạm ứng</span>: chọn <span class="ui-label">Không tạm ứng</span> nếu không cần tiền trước. Chọn <span class="ui-label">Yêu cầu tạm ứng</span> khi cần Kiểm Toán chi đề nghị tạm ứng trước khi đi làm</li>
+          </ul>
+          <figure>
+            <img src="images/04-plan.png" alt="Tab Kế hoạch với ngày, chi tiết và yêu cầu giấy đi đường">
+            <figcaption>Bước 3 — Nội dung kế hoạch</figcaption>
+          </figure>
+          <figure>
+            <img src="images/04b-plan-advance.png" alt="Mục Yêu cầu tạm ứng với Không tạm ứng và Yêu cầu tạm ứng">
+            <figcaption>Bước 3b — Yêu cầu tạm ứng ở cuối tab Kế hoạch</figcaption>
+          </figure>
+          <h3>Bước 4: Gửi kế hoạch</h3>
+          <p>Nhấn <span class="ui-label">Lưu</span> nếu phiếu còn <span class="ui-label">Chưa lưu</span>. Mở <span class="ui-label">Các thao tác</span> và chọn <span class="ui-label">Submit Plan</span>. Menu này cùng chỗ với <span class="ui-label">Submit Actual</span> ở bước sau. Chỉ <span class="ui-label">Submit Plan</span> đưa phiếu tới người duyệt.</p>
+          <p>Thanh quy trình bắt đầu ở <span class="ui-label">Yêu cầu</span>. Sau khi gửi, bước <span class="ui-label">Trưởng bộ phận duyệt</span> là bước đang chờ.</p>
+        </section>
+
+        <section id="actual">
+          <h2>Gửi chi tiết chi phí thực tế</h2>
+          <h3>Bước 5: Mở lại phiếu khi được làm tiếp</h3>
+          <p>Khi người duyệt đã duyệt kế hoạch và không có đề nghị tạm ứng, bước <span class="ui-label">Triển Khai</span> sáng. Nếu có đề nghị tạm ứng, đợi Kiểm Toán chi đề nghị tạm ứng rồi bước này mới sáng. Mở đúng phiếu đó, chọn tab <span class="ui-label">Chi tiết chi phí thực tế</span>.</p>
+          <figure>
+            <img src="images/06-actual.png" alt="Tab Chi tiết chi phí thực tế khi bước Triển Khai đang sáng">
+            <figcaption>Bước 5 — Chi tiết chi phí thực tế, bước Triển Khai đang sáng</figcaption>
+          </figure>
+          <h3>Bước 6: Thêm dòng và gửi</h3>
+          <ol>
+            <li>Nhấn <span class="ui-label">Thêm dòng</span></li>
+            <li>Nhập <span class="ui-label">Ngày Chi phí</span>, <span class="ui-label">Loại chi phí yêu cầu thanh toán</span>, <span class="ui-label">Trước thuế</span>, <span class="ui-label">Thuế</span>, <span class="ui-label">Sau thuế</span></li>
+            <li>Đánh dấu hóa đơn nếu có hóa đơn GTGT</li>
+            <li>Đính kèm chứng từ</li>
+            <li>Kiểm tra <span class="ui-label">Tổng hợp chi phí</span></li>
+            <li>Mở <span class="ui-label">Các thao tác</span> → <span class="ui-label">Submit Actual</span></li>
+          </ol>
+          <figure>
+            <img src="images/05-actions.png" alt="Menu Các thao tác với mục Submit Actual">
+            <figcaption>Bước 6 — Các thao tác → Submit Actual</figcaption>
+          </figure>
+          <div class="note"><strong>Chưa gửi thì người duyệt chưa thấy:</strong> <span class="ui-label">Lưu</span> giữ chi tiết chi phí thực tế. Người duyệt chỉ thấy phiếu sau <span class="ui-label">Submit Actual</span>.</div>
+        </section>
+
+        <section id="after">
+          <h2>Sau khi gửi</h2>
+          <table>
+            <thead><tr><th>Bước trên thanh</th><th>Ý nghĩa</th></tr></thead>
+            <tbody>
+              <tr><td><span class="ui-label">Yêu cầu</span></td><td>Phiếu mới hoặc đang sửa</td></tr>
+              <tr><td><span class="ui-label">Trưởng bộ phận duyệt</span></td><td>Đang chờ người duyệt</td></tr>
+              <tr><td><span class="ui-label">Kế toán duyệt</span></td><td>Đang chờ Kiểm Toán</td></tr>
+              <tr><td><span class="ui-label">Kiểm soát viên duyệt</span></td><td>Đang chờ Kiểm Soát Trưởng</td></tr>
+              <tr><td><span class="ui-label">Đã được phê duyệt</span></td><td>Đã duyệt xong</td></tr>
+              <tr><td><span class="ui-label">Triển Khai</span></td><td>Được nhập chi tiết chi phí thực tế</td></tr>
+            </tbody>
+          </table>
+          <p>Khi bị từ chối, đọc ghi chú trên phiếu rồi sửa và gửi lại. Chi phí đã trả cho nhà cung cấp không khai trên phiếu này.</p>
+        </section>
+        <footer>Updated: 2026-11-09 · Captured: 2026-10-30 · Environment: dev-erp.smartr.co · Viewport: 1440×900 · Role: Employee (demo1@smartr.co)</footer>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

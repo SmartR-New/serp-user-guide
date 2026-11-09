@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi đề nghị tạm ứng — Kiểm Toán | iMED ERP</title>
+  <meta name="description" content="Kiểm Toán chi đề nghị tạm ứng cho nhân viên trên Employee Advance rồi đánh dấu Advance Paid.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,420;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/guide.css">
+</head>
+<body>
+  <div class="shell">
+    <div class="page">
+      <header class="page-header">
+        <a class="back" href="../index.html">← Tài liệu hướng dẫn iMED ERP</a>
+        <h1>Kiểm Toán chi đề nghị tạm ứng</h1>
+        <div class="meta">
+          <span><strong>Dành cho:</strong> Kiểm Toán (Auditor)</span>
+          <span><strong>Môi trường:</strong> dev-erp.smartr.co</span>
+          <span><strong>Cập nhật:</strong> 2026-11-09</span>
+        </div>
+      </header>
+      <aside class="on-this-page">
+        <p>Trên trang này</p>
+        <nav>
+          <a href="#when">Khi nào làm</a>
+          <a href="#advance">Mở Đề nghị tạm ứng</a>
+          <a href="#pay">Chi và duyệt đề nghị tạm ứng</a>
+          <a href="#claim">Đánh dấu trên phiếu</a>
+        </nav>
+      </aside>
+      <div class="content">
+        <section id="when">
+          <h2>Khi nào làm</h2>
+          <p>Nhân viên chọn <span class="ui-label">Yêu cầu tạm ứng</span> và người duyệt đã <span class="ui-label">Approve Plan</span>. Hệ thống tạo <span class="ui-label">Employee Advance</span> (Đề nghị tạm ứng) và đề nghị thanh toán đứng ở bước chờ Kiểm Toán chi đề nghị tạm ứng.</p>
+          <p>Chi phần còn lại sau khi Kiểm Soát Trưởng duyệt là việc khác: <a href="../expense-claim-payment/index.html">chi sau khi duyệt</a>.</p>
+        </section>
+
+        <section id="advance">
+          <h2>Mở Đề nghị tạm ứng</h2>
+          <h3>Bước 1: Mở danh sách</h3>
+          <p>Vào <span class="ui-label">HR</span> → <span class="ui-label">Employee Advance</span> (Đề nghị tạm ứng). Mở phiếu <span class="ui-label">Draft</span> đang chờ bạn. Phiếu đã chi có trạng thái <span class="ui-label">Paid</span>.</p>
+          <figure>
+            <img src="images/01-advance-list.png" alt="Danh sách Employee Advance">
+            <figcaption>Bước 1 — Danh sách Đề nghị tạm ứng</figcaption>
+          </figure>
+          <h3>Bước 2: Kiểm tra số tiền</h3>
+          <p>Trên form, kiểm tra:</p>
+          <ul>
+            <li><span class="ui-label">Linked Expense Claim</span> — đề nghị thanh toán gốc</li>
+            <li><span class="ui-label">Purpose</span> và <span class="ui-label">Advance Amount</span></li>
+            <li><span class="ui-label">Paid Amount</span> — còn <span class="ui-label">0</span> thì chưa chi</li>
+          </ul>
+          <figure>
+            <img src="images/02-advance-form.png" alt="Form Employee Advance với Advance Amount và Paid Amount bằng 0">
+            <figcaption>Bước 2 — Đề nghị tạm ứng chưa chi</figcaption>
+          </figure>
+        </section>
+
+        <section id="pay">
+          <h2>Chi và duyệt đề nghị tạm ứng</h2>
+          <h3>Bước 3: Tạo Payment Entry</h3>
+          <p>Tạo <span class="ui-label">Payment Entry</span> kiểu <span class="ui-label">Pay</span>, đối tượng <span class="ui-label">Employee</span>, số tiền bằng <span class="ui-label">Advance Amount</span>, và tham chiếu đúng <span class="ui-label">Employee Advance</span> (Đề nghị tạm ứng) này. Điền <span class="ui-label">Mode of Payment</span> và tài khoản ngân hàng, rồi nhấn <span class="ui-label">Submit</span>.</p>
+          <p>Chưa có chứng từ chi đã nộp thì chưa đánh dấu đề nghị tạm ứng đã trả.</p>
+          <h3>Bước 4: Approve Advance</h3>
+          <p>Quay lại <span class="ui-label">Employee Advance</span>. Mở <span class="ui-label">Actions</span> → <span class="ui-label">Approve Advance</span>. <span class="ui-label">Paid Amount</span> cập nhật theo chứng từ chi. <span class="ui-label">Reject</span> trả đề nghị tạm ứng khi chưa chi.</p>
+          <figure>
+            <img src="images/03-advance-actions.png" alt="Menu Actions với Approve Advance và Reject">
+            <figcaption>Bước 4 — Actions → Approve Advance</figcaption>
+          </figure>
+        </section>
+
+        <section id="claim">
+          <h2>Đánh dấu trên đề nghị thanh toán</h2>
+          <p>Mở <span class="ui-label">Expense Claim</span> (Đề nghị thanh toán) liên kết. Khi bước chờ đề nghị tạm ứng đang sáng, mở <span class="ui-label">Actions</span> → <span class="ui-label">Advance Paid</span>. Hệ thống kiểm tra đề nghị tạm ứng đã có số đã chi. Sau đó nhân viên được nhập chi tiết chi phí thực tế.</p>
+          <div class="note"><strong>Chưa chi mà bấm Advance Paid:</strong> hệ thống báo Employee Advance chưa có payment. Tạo và nộp <span class="ui-label">Payment Entry</span> trước, rồi thử lại.</div>
+        </section>
+        <footer>Updated: 2026-11-09 · Captured: 2026-10-30 · Environment: dev-erp.smartr.co · Viewport: 1440×900 · Role: Auditor (demo3@smartr.co)</footer>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
