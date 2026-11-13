@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Expense Claim (Đề nghị thanh toán) — Hướng dẫn sử dụng | iMED ERP</title>
-  <meta name="description" content="Hướng dẫn nhân viên tạo Expense Claim hai giai đoạn Plan → Actual, gửi kế hoạch và chi tiết chi phí thực tế trên iMED ERP.">
+  <title>Đề nghị thanh toán — Hướng dẫn sử dụng | iMED ERP</title>
+  <meta name="description" content="Hướng dẫn tạo đề nghị thanh toán hai giai đoạn Plan → Actual, gửi kế hoạch, chi tiết chi phí thực tế, chi đề nghị tạm ứng và chi sau khi duyệt.">
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,420;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -159,7 +159,7 @@
     <div class="page">
     <header class="page-header">
       <a class="back" href="../index.html">← Tài liệu hướng dẫn iMED ERP</a>
-      <h1>Expense Claim (Đề nghị thanh toán) — Hướng dẫn sử dụng</h1>
+      <h1>Đề nghị thanh toán — Hướng dẫn sử dụng</h1>
       <div class="meta">
         <span><strong>Dành cho:</strong> Nhân viên, Quản lý (Expense Approver), Kiểm Toán (Auditor), Kiểm Soát Trưởng (Controller)</span>
         <span><strong>Môi trường:</strong> dev-erp.smartr.co</span>
@@ -178,6 +178,8 @@
         <a href="#manager">Các bước — Quản lý</a>
         <a href="#auditor">Các bước — Kiểm Toán</a>
         <a href="#controller">Các bước — Kiểm Soát Trưởng</a>
+        <a href="#advance-payment">Chi đề nghị tạm ứng</a>
+        <a href="#auditor-payment">Chi sau khi duyệt</a>
         <a href="#workflow-bar">Thanh quy trình</a>
         <a href="#after-submit">Sau khi bạn gửi</a>
         <a href="#notifications">Thông báo</a>
@@ -192,8 +194,8 @@
       <h2>Mục đích</h2>
       <p><strong>Expense Claim</strong> (Đề nghị thanh toán) dùng để gửi <strong>kế hoạch chi phí</strong> và <strong>chi tiết chi phí thực tế</strong> trên một phiếu. Người duyệt xét trước; Kiểm Toán và Kiểm Soát Trưởng duyệt chi tiết chi phí thực tế sau.</p>
       <p>Mỗi lần phiếu chuyển bước, người cần xử lý nhận thông báo trên chuông ERP và email.</p>
-      <p>Chi phí đã trả cho <strong>nhà cung cấp</strong> (hóa đơn mua hàng, garage…) không khai trên Expense Claim. Dùng quy trình mua hàng.</p>
-      <div class="note"><strong>Luồng trong tài liệu này:</strong> Path 1 — không đề nghị tạm ứng. Bạn để <span class="ui-label">Request advance</span> = <span class="ui-label">No advance</span>. Nếu chọn đề nghị tạm ứng, Kiểm Toán chi đề nghị tạm ứng trước khi bạn nhập chi tiết chi phí thực tế.</div>
+      <p>Chi phí đã trả cho <strong>nhà cung cấp</strong> (hóa đơn mua hàng, garage…) không khai trên đề nghị thanh toán. Dùng quy trình mua hàng.</p>
+      <div class="note"><strong>Luồng trong tài liệu này:</strong> Path 1 — không đề nghị tạm ứng. Bạn để <span class="ui-label">Request advance</span> = <span class="ui-label">No advance</span>. Nếu chọn đề nghị tạm ứng, Kiểm Toán <a href="#advance-payment">chi đề nghị tạm ứng</a> trước khi bạn nhập chi tiết chi phí thực tế. Sau khi duyệt xong, Kiểm Toán <a href="#auditor-payment">chi phần còn lại</a>.</div>
     </section>
 
     <section id="prerequisites">
@@ -236,7 +238,7 @@
     <section id="steps">
       <h2>Các bước thực hiện — nhân viên</h2>
 
-      <h3>Bước 1: Mở danh sách Expense Claim</h3>
+      <h3>Bước 1: Mở danh sách đề nghị thanh toán</h3>
       <p>Vào module <span class="ui-label">HR</span> → <span class="ui-label">Expense Claim</span>.</p>
       <figure>
         <img src="images/01-open-list.png" alt="Danh sách Expense Claim với nút Add Expense Claim" loading="lazy">
@@ -312,7 +314,7 @@
       </figure>
 
       <h3>Bước 8: Nhập chi tiết chi phí thực tế và gửi</h3>
-      <p>Khi người duyệt đã duyệt kế hoạch và không có đề nghị tạm ứng, bạn nhận thông báo <span class="ui-label">Tiếp tục claim</span>. Bước <span class="ui-label">Execute</span> (Triển Khai) trên thanh quy trình sáng và tab <span class="ui-label">Actual expense</span> (Chi tiết chi phí thực tế) mở được. Mở lại đúng phiếu đó.</p>
+      <p>Khi người duyệt đã duyệt kế hoạch và không có đề nghị tạm ứng, bạn nhận thông báo <span class="ui-label">Tiếp tục đề nghị</span>. Bước <span class="ui-label">Execute</span> (Triển Khai) trên thanh quy trình sáng và tab <span class="ui-label">Actual expense</span> (Chi tiết chi phí thực tế) mở được. Mở lại đúng phiếu đó.</p>
       <figure>
         <img src="images/11-actual-grid.png" alt="Tab Actual expense với bảng Expenses, nút Add Row và Claim Summary" loading="lazy">
         <figcaption>Bước 8 — Actual expense khi bước Execute đang sáng</figcaption>
@@ -343,7 +345,7 @@
     <section id="manager">
       <h2>Các bước — Quản lý (Expense Approver)</h2>
       <p>Đăng nhập bằng tài khoản <strong>Expense Approver</strong> (Người duyệt). Bước này nằm <strong>sau</strong> khi nhân viên chọn <span class="ui-label">Submit Actual</span> và <strong>trước</strong> khi Kiểm Toán mở tab <span class="ui-label">Accounting</span>. Trên thanh quy trình, bước <span class="ui-label">Manager Review</span> đang sáng.</p>
-      <div class="note"><strong>Duyệt kế hoạch:</strong> Khi phiếu đang chờ duyệt kế hoạch, mở <span class="ui-label">Actions</span> → <span class="ui-label">Approve Plan</span> (hoặc <span class="ui-label">Reject</span>). Hệ thống báo <span class="ui-label">Expense Claim updated successfully.</span> và đưa bạn về danh sách. Nhân viên nhận thông báo <span class="ui-label">Tiếp tục claim</span> để nhập chi tiết chi phí thực tế.</div>
+      <div class="note"><strong>Duyệt kế hoạch:</strong> Khi phiếu đang chờ duyệt kế hoạch, mở <span class="ui-label">Actions</span> → <span class="ui-label">Approve Plan</span> (hoặc <span class="ui-label">Reject</span>). Hệ thống báo <span class="ui-label">Expense Claim updated successfully.</span> và đưa bạn về danh sách. Nhân viên nhận thông báo <span class="ui-label">Tiếp tục đề nghị</span> để nhập chi tiết chi phí thực tế.</div>
 
       <h3>Bước 1: Mở danh sách</h3>
       <p>Vào <span class="ui-label">HR</span> → <span class="ui-label">Expense Claim</span>. Bạn thấy đề nghị của chính mình, và các phiếu ghi bạn ở <span class="ui-label">Expense Approver</span> khi nhân viên đã gửi và phiếu đang chờ bạn duyệt kế hoạch hoặc chi tiết chi phí thực tế. Phiếu nhân viên chỉ <span class="ui-label">Save</span>, chưa <span class="ui-label">Submit Plan</span> hoặc <span class="ui-label">Submit Actual</span>, không có trong danh sách. Cột <span class="ui-label">Status</span> có thể vẫn là <span class="ui-label">Draft</span>.</p>
@@ -376,7 +378,7 @@
       <p>Mở <span class="ui-label">Actions</span>:</p>
       <ul>
         <li><span class="ui-label">Approve Expense</span> — chuyển phiếu sang Kiểm Toán. Kiểm Toán nhận thông báo <span class="ui-label">Kế toán duyệt</span></li>
-        <li><span class="ui-label">Reject</span> — trả phiếu cho nhân viên. Nhân viên nhận thông báo <span class="ui-label">Claim bị từ chối</span> và đọc lý do trên <span class="ui-label">Activity</span></li>
+        <li><span class="ui-label">Reject</span> — trả phiếu cho nhân viên. Nhân viên nhận thông báo <span class="ui-label">Đề nghị bị từ chối</span> và đọc lý do trên <span class="ui-label">Activity</span></li>
       </ul>
       <p>Sau <span class="ui-label">Approve Plan</span> hoặc <span class="ui-label">Approve Expense</span>, màn hình về danh sách kèm thông báo xanh <span class="ui-label">Expense Claim updated successfully.</span> Phiếu rời hàng chờ của bạn.</p>
       <figure class="figure-focus">
@@ -416,7 +418,7 @@
       <p>Mở <span class="ui-label">Actions</span>:</p>
       <ul>
         <li><span class="ui-label">Approve for Controller</span> — gửi phiếu sang Kiểm Soát Trưởng. Kiểm Soát Trưởng nhận thông báo <span class="ui-label">FM duyệt</span></li>
-        <li><span class="ui-label">Reject</span> — trả phiếu, bắt buộc nhập lý do. Nhân viên nhận thông báo <span class="ui-label">Claim bị từ chối</span>. Lý do hiện trên <span class="ui-label">Activity</span></li>
+        <li><span class="ui-label">Reject</span> — trả phiếu, bắt buộc nhập lý do. Nhân viên nhận thông báo <span class="ui-label">Đề nghị bị từ chối</span>. Lý do hiện trên <span class="ui-label">Activity</span></li>
       </ul>
       <p>Sau <span class="ui-label">Approve for Controller</span>, màn hình về danh sách kèm thông báo xanh <span class="ui-label">Expense Claim updated successfully.</span></p>
       <figure class="figure-focus">
@@ -454,14 +456,84 @@
       <h3>Bước 3: Duyệt cuối hoặc từ chối</h3>
       <p>Mở <span class="ui-label">Actions</span>:</p>
       <ul>
-        <li><span class="ui-label">Final Approve</span> — duyệt xong. Thanh quy trình tới <span class="ui-label">Approved</span>. Nhân viên nhận thông báo <span class="ui-label">Claim đã duyệt</span></li>
-        <li><span class="ui-label">Reject</span> — trả phiếu và ghi lý do. Nhân viên nhận thông báo <span class="ui-label">Claim bị từ chối</span></li>
+        <li><span class="ui-label">Final Approve</span> — duyệt xong. Thanh quy trình tới <span class="ui-label">Approved</span>. Nhân viên nhận thông báo <span class="ui-label">Đề nghị đã duyệt</span></li>
+        <li><span class="ui-label">Reject</span> — trả phiếu và ghi lý do. Nhân viên nhận thông báo <span class="ui-label">Đề nghị bị từ chối</span></li>
       </ul>
       <figure class="figure-focus">
         <img src="images/20-controller-approve.png" alt="Menu Actions với Final Approve và Reject" loading="lazy">
         <figcaption>Controller — Actions → Final Approve</figcaption>
       </figure>
-      <div class="note"><strong>Sau Final Approve:</strong> Kiểm Toán tạo chứng từ chi phần còn phải trả, hoặc ghi nhận thu hồi đề nghị tạm ứng nếu số tạm ứng lớn hơn số tiền được duyệt.</div>
+      <div class="note"><strong>Sau Final Approve:</strong> Kiểm Toán chi phần còn phải trả theo <a href="#auditor-payment">chi sau khi duyệt</a>. Nếu số tạm ứng lớn hơn số tiền được duyệt, ghi nhận thu hồi.</div>
+    </section>
+
+    <section id="advance-payment">
+      <h2>Kiểm Toán chi đề nghị tạm ứng</h2>
+      <p>Đăng nhập bằng tài khoản <strong>Auditor</strong> (Kiểm Toán). Làm bước này khi nhân viên chọn tạm ứng và người duyệt đã <span class="ui-label">Approve Plan</span>. Hệ thống tạo <span class="ui-label">Employee Advance</span> (Đề nghị tạm ứng). Đề nghị thanh toán đứng chờ bạn chi trước khi nhân viên nhập chi tiết chi phí thực tế.</p>
+
+      <h3>Bước 1: Mở danh sách đề nghị tạm ứng</h3>
+      <p>Vào <span class="ui-label">HR</span> → <span class="ui-label">Employee Advance</span> (Đề nghị tạm ứng). Mở phiếu <span class="ui-label">Draft</span> đang chờ bạn. Phiếu đã chi có trạng thái <span class="ui-label">Paid</span>.</p>
+      <figure>
+        <img src="../expense-claim-advance-payment/images/01-advance-list.png" alt="Danh sách Đề nghị tạm ứng" loading="lazy">
+        <figcaption>Kiểm Toán — Danh sách đề nghị tạm ứng</figcaption>
+      </figure>
+
+      <h3>Bước 2: Kiểm tra số tiền</h3>
+      <p>Trên form, kiểm tra:</p>
+      <ul>
+        <li><span class="ui-label">Linked Expense Claim</span> — đề nghị thanh toán gốc</li>
+        <li><span class="ui-label">Purpose</span> và <span class="ui-label">Advance Amount</span></li>
+        <li><span class="ui-label">Paid Amount</span> — còn <span class="ui-label">0</span> thì chưa chi</li>
+      </ul>
+      <figure>
+        <img src="../expense-claim-advance-payment/images/02-advance-form.png" alt="Form Đề nghị tạm ứng với Paid Amount bằng 0" loading="lazy">
+        <figcaption>Kiểm Toán — Đề nghị tạm ứng chưa chi</figcaption>
+      </figure>
+
+      <h3>Bước 3: Tạo chứng từ chi</h3>
+      <p>Tạo <span class="ui-label">Payment Entry</span> kiểu <span class="ui-label">Pay</span>, đối tượng <span class="ui-label">Employee</span>, số tiền bằng <span class="ui-label">Advance Amount</span>, và tham chiếu đúng đề nghị tạm ứng này. Điền <span class="ui-label">Mode of Payment</span> và tài khoản ngân hàng, rồi nhấn <span class="ui-label">Submit</span>.</p>
+      <p>Chưa có chứng từ chi đã nộp thì chưa đánh dấu đề nghị tạm ứng đã trả.</p>
+
+      <h3>Bước 4: Duyệt đề nghị tạm ứng</h3>
+      <p>Quay lại <span class="ui-label">Employee Advance</span>. Mở <span class="ui-label">Actions</span> → <span class="ui-label">Approve Advance</span>. <span class="ui-label">Paid Amount</span> cập nhật theo chứng từ chi. <span class="ui-label">Reject</span> trả đề nghị tạm ứng khi chưa chi.</p>
+      <figure class="figure-focus">
+        <img src="../expense-claim-advance-payment/images/03-advance-actions.png" alt="Menu Actions với Approve Advance và Reject" loading="lazy">
+        <figcaption>Kiểm Toán — Actions → Approve Advance</figcaption>
+      </figure>
+
+      <h3>Bước 5: Đánh dấu đã chi trên đề nghị thanh toán</h3>
+      <p>Mở <span class="ui-label">Expense Claim</span> (Đề nghị thanh toán) liên kết. Khi bước chờ đề nghị tạm ứng đang sáng, mở <span class="ui-label">Actions</span> → <span class="ui-label">Advance Paid</span>. Hệ thống kiểm tra đề nghị tạm ứng đã có số đã chi. Sau đó nhân viên được nhập chi tiết chi phí thực tế.</p>
+      <div class="note"><strong>Chưa chi mà bấm Advance Paid:</strong> hệ thống báo đề nghị tạm ứng chưa có payment. Tạo và nộp <span class="ui-label">Payment Entry</span> trước, rồi thử lại.</div>
+    </section>
+
+    <section id="auditor-payment">
+      <h2>Kiểm Toán chi sau khi duyệt</h2>
+      <p>Làm bước này sau khi Kiểm Soát Trưởng chọn <span class="ui-label">Final Approve</span>. Bước <span class="ui-label">Approved</span> đã hoàn tất. Nếu số tiền được duyệt lớn hơn đề nghị tạm ứng đã chi, còn khoản <span class="ui-label">Additional payment</span> phải trả nhân viên.</p>
+      <p>Kiểm Soát Trưởng mở tab <span class="ui-label">Tasks</span>, chọn Auditor và tạo việc. Hệ thống tạo <span class="ui-label">ToDo</span> và <span class="ui-label">Payment Entry</span> bản nháp kiểu <span class="ui-label">Pay</span>. Bạn nộp chứng từ chi đó.</p>
+
+      <h3>Bước 1: Xem việc trên đề nghị đã duyệt</h3>
+      <p>Mở đề nghị thanh toán đã <span class="ui-label">Paid</span> / <span class="ui-label">Approved</span>. Tab <span class="ui-label">Tasks</span> có mục <span class="ui-label">Collect or pay</span>. Dòng <span class="ui-label">Pay</span> ghi số tiền, người được giao và mã <span class="ui-label">Payment Entry</span>. Trạng thái <span class="ui-label">ToDo</span> là <span class="ui-label">Open</span> khi chứng từ chi chưa nộp.</p>
+      <figure>
+        <img src="../expense-claim-payment/images/04-controller-tasks.png" alt="Tab Tasks với dòng Pay và Payment Entry bản nháp" loading="lazy">
+        <figcaption>Kiểm Toán — Việc chi trên đề nghị đã duyệt</figcaption>
+      </figure>
+      <p>Mô tả dòng việc nói rõ: nộp bản nháp <span class="ui-label">Payment Entry</span> kiểu <span class="ui-label">Pay</span>.</p>
+
+      <h3>Bước 2: Mở chứng từ chi</h3>
+      <p>Vào <span class="ui-label">Accounting</span> → <span class="ui-label">Payment Entry</span> và mở đúng mã trên việc. Chứng từ còn nhãn <span class="ui-label">Draft</span>.</p>
+      <p>Kiểm tra:</p>
+      <ul>
+        <li><span class="ui-label">Payment Type</span> = <span class="ui-label">Pay</span></li>
+        <li><span class="ui-label">Party Type</span> = <span class="ui-label">Employee</span> và đúng <span class="ui-label">Party</span></li>
+        <li><span class="ui-label">Linked Expense Claim</span> trùng đề nghị trên việc</li>
+      </ul>
+      <figure>
+        <img src="../expense-claim-payment/images/02-assigned-payment.png" alt="Payment Entry bản nháp kiểu Pay gắn với đề nghị thanh toán" loading="lazy">
+        <figcaption>Kiểm Toán — Payment Entry còn Draft</figcaption>
+      </figure>
+
+      <h3>Bước 3: Điền và nộp</h3>
+      <p>Điền <span class="ui-label">Mode of Payment</span>, <span class="ui-label">Company Bank Account</span> và <span class="ui-label">Party Bank Account</span> nếu chuyển khoản. Thanh trên cùng báo <span class="ui-label">Submit this document to confirm</span>.</p>
+      <p>Nhấn <span class="ui-label">Submit</span>. Sau khi nộp, việc trên tab <span class="ui-label">Tasks</span> đóng. Không sửa số tiền khác với dòng việc trừ khi Kiểm Soát Trưởng tạo lại việc.</p>
     </section>
 
     <section id="workflow-bar">
@@ -500,12 +572,12 @@
         <tbody>
           <tr><td>Nhân viên gửi kế hoạch</td><td>Quản lý ghi trên phiếu</td><td><span class="ui-label">Duyệt kế hoạch</span></td></tr>
           <tr><td>Người duyệt kế hoạch có đề nghị tạm ứng</td><td>Kiểm Toán</td><td><span class="ui-label">Tạm ứng</span></td></tr>
-          <tr><td>Sẵn sàng nhập chi tiết chi phí thực tế</td><td>Nhân viên tạo phiếu</td><td><span class="ui-label">Tiếp tục claim</span></td></tr>
+          <tr><td>Sẵn sàng nhập chi tiết chi phí thực tế</td><td>Nhân viên tạo phiếu</td><td><span class="ui-label">Tiếp tục đề nghị</span></td></tr>
           <tr><td>Nhân viên gửi chi tiết chi phí thực tế</td><td>Người duyệt ghi trên phiếu</td><td><span class="ui-label">Duyệt chi phí</span></td></tr>
           <tr><td>Người duyệt chi tiết chi phí thực tế</td><td>Kiểm Toán</td><td><span class="ui-label">Kế toán duyệt</span></td></tr>
           <tr><td>Kiểm Toán chuyển Kiểm Soát Trưởng</td><td>Kiểm Soát Trưởng</td><td><span class="ui-label">FM duyệt</span></td></tr>
-          <tr><td>Phiếu bị từ chối</td><td>Nhân viên tạo phiếu</td><td><span class="ui-label">Claim bị từ chối</span></td></tr>
-          <tr><td>Kiểm Soát Trưởng duyệt cuối</td><td>Nhân viên tạo phiếu</td><td><span class="ui-label">Claim đã duyệt</span></td></tr>
+          <tr><td>Phiếu bị từ chối</td><td>Nhân viên tạo phiếu</td><td><span class="ui-label">Đề nghị bị từ chối</span></td></tr>
+          <tr><td>Kiểm Soát Trưởng duyệt cuối</td><td>Nhân viên tạo phiếu</td><td><span class="ui-label">Đề nghị đã duyệt</span></td></tr>
         </tbody>
       </table>
     </section>
@@ -517,7 +589,7 @@
         <li>Sau <span class="ui-label">Submit Plan</span>: phiếu chờ người duyệt. Bạn không sửa kế hoạch</li>
         <li>Sau khi kế hoạch được duyệt và không đề nghị tạm ứng: bước <span class="ui-label">Execute</span> (Triển Khai) sáng, tab <span class="ui-label">Actual expense</span> (Chi tiết chi phí thực tế) mở</li>
         <li>Sau <span class="ui-label">Submit Actual</span>: phiếu đi tiếp Người duyệt → Kiểm Toán → Kiểm Soát Trưởng</li>
-        <li>Khi xong, bước <span class="ui-label">Approved</span> hoàn tất trên thanh quy trình và bạn nhận thông báo <span class="ui-label">Claim đã duyệt</span></li>
+        <li>Khi xong, bước <span class="ui-label">Approved</span> hoàn tất trên thanh quy trình và bạn nhận thông báo <span class="ui-label">Đề nghị đã duyệt</span></li>
         <li>Mọi lần chuyển bước quan trọng nằm trong <span class="ui-label">Activity</span> và trên chuông thông báo</li>
       </ul>
     </section>
