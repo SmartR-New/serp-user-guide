@@ -1,0 +1,112 @@
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  width: 1440px;
+  height: 900px;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: #eef1f4;
+  overflow: hidden;
+}
+.erp-shot {
+  height: 520px;
+  background: url("../images/01-open-devtools.png") center top / 1440px auto no-repeat;
+  border-bottom: 1px solid #c9cdd3;
+}
+.devtools {
+  height: 380px;
+  background: #1e1e1e;
+  color: #cccccc;
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+}
+.dt-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #252526;
+  border-bottom: 1px solid #333;
+  padding: 4px 8px;
+  min-height: 28px;
+}
+.dt-title { color: #ccc; font-size: 11px; }
+.dt-close {
+  width: 24px;
+  height: 22px;
+  line-height: 20px;
+  text-align: center;
+  color: #ccc;
+  border-radius: 3px;
+  font-size: 14px;
+}
+.dt-close.highlight {
+  outline: 2px solid #e53935;
+  outline-offset: 2px;
+  background: rgba(229, 57, 53, 0.15);
+}
+.dt-tabs {
+  display: flex;
+  gap: 0;
+  background: #252526;
+  border-bottom: 1px solid #333;
+  padding: 0 8px;
+}
+.dt-tab {
+  padding: 6px 12px;
+  color: #969696;
+  border-bottom: 2px solid transparent;
+}
+.dt-tab.active {
+  color: #fff;
+  border-bottom-color: #0078d4;
+  background: #1e1e1e;
+}
+.dt-tab.highlight {
+  outline: 2px solid #e53935;
+  outline-offset: -2px;
+}
+.dt-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 12px;
+  background: #1e1e1e;
+  border-bottom: 1px solid #333;
+  flex-wrap: wrap;
+}
+.dt-toolbar label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #e0e0e0;
+}
+.dt-toolbar label.highlight {
+  outline: 2px solid #e53935;
+  outline-offset: 3px;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+.dt-toolbar input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  accent-color: #0078d4;
+}
+.dt-grid {
+  flex: 1;
+  padding: 8px 12px;
+  color: #888;
+  font-family: Consolas, monospace;
+  font-size: 11px;
+}
+.dt-hint {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  background: rgba(0, 120, 212, 0.92);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.35);
+}
+.wrap { position: relative; width: 1440px; height: 900px; }

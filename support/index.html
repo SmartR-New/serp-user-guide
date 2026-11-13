@@ -163,7 +163,7 @@
       <h2>Trước khi bắt đầu</h2>
       <ul class="checklist">
         <li>Bạn đã đăng nhập ERP</li>
-        <li>Tài khoản có vai trò <strong>iMED Service User</strong> (workspace Support, Service Job / Service Time / Instrument)</li>
+        <li>Tài khoản có vai trò <strong>iMED Service User</strong> (workspace Service, Service Job / Service Time / Instrument)</li>
         <li>Xem báo cáo <span class="ui-label">Service Job Report</span> / <span class="ui-label">Service Time Report</span>: cần <strong>iMED Service Leader</strong> hoặc <strong>iMED Service Manager</strong></li>
       </ul>
     </section>
@@ -171,11 +171,11 @@
     <section id="steps">
       <h2>Các bước thực hiện</h2>
 
-      <h3>Bước 1: Mở workspace Support</h3>
-      <p>Trên thanh tìm kiếm Desk (Ctrl + G), gõ <em>Support</em>. Hoặc chọn <span class="ui-label">Support</span> ở sidebar.</p>
+      <h3>Bước 1: Mở workspace Service</h3>
+      <p>Trên thanh tìm kiếm Desk (Ctrl + G), gõ <em>Service</em> (hoặc <em>Support</em>). Hoặc chọn <span class="ui-label">Service</span> ở sidebar (route Desk vẫn là <code>/app/support</code>).</p>
       <figure>
         <img src="images/01-open-workspace.png" alt="Workspace Support với Support Dashboard và các thẻ KPI" loading="lazy">
-        <figcaption>Bước 1 — Mở workspace Support</figcaption>
+        <figcaption>Bước 1 — Mở workspace Service</figcaption>
       </figure>
       <div class="note"><strong>Lưu ý:</strong> Kỳ mặc định trên dashboard thường là <span class="ui-label">Tháng hiện tại</span>. Ảnh minh họa chụp trên dev-erp; số KPI và số dòng danh sách có thể khác production. Sidebar chỉ hiện module bạn được phân quyền.</div>
 
@@ -277,7 +277,7 @@
       <table>
         <thead><tr><th>Triệu chứng</th><th>Nguyên nhân có thể</th><th>Cách xử lý</th></tr></thead>
         <tbody>
-          <tr><td>Không mở được workspace <span class="ui-label">Support</span></td><td>Thiếu vai trò dịch vụ</td><td>Nhờ quản trị gán <strong>iMED Service User</strong> (hoặc Leader / Manager)</td></tr>
+          <tr><td>Không mở được workspace <span class="ui-label">Service</span></td><td>Thiếu vai trò dịch vụ</td><td>Nhờ quản trị gán <strong>iMED Service User</strong> (hoặc Leader / Manager)</td></tr>
           <tr><td>Dashboard toàn số 0</td><td>Kỳ hẹp hoặc chưa có job/time trong kỳ</td><td>Chọn kỳ rộng hơn (<span class="ui-label">Quý này</span>, <span class="ui-label">Năm nay</span>, hoặc tùy chọn ngày)</td></tr>
           <tr><td>Nhấn thẻ KPI không mở list</td><td>Lỗi tạm hoặc thiếu quyền xem dữ liệu</td><td>Tải lại workspace; liên hệ IT nếu không mở được Service Job / Service Time / Task</td></tr>
           <tr><td>Không thấy báo cáo</td><td>Chỉ Leader/Manager</td><td>Service User dùng dashboard + list; yêu cầu role báo cáo nếu cần</td></tr>

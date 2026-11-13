@@ -1,16 +1,122 @@
 {
-  "mode": "ad-hoc",
+  "scenario": "E:\\smartr-workspace\\imed-project\\.cursor\\skills\\serp-create-user-guide\\scripts\\scenarios\\support-ticket-workflow.yaml",
+  "title": "Support — Ticket, Service Job, Service Time",
   "output_dir": "e:\\smartr-workspace\\imed-project\\serp-user-guide\\support-ticket-workflow\\images",
   "captured": [
     {
+      "id": "01-ticket-list",
+      "file": "01-ticket-list.png",
+      "caption": "Mở danh sách Ticket",
+      "url": "https://dev-erp.smartr.co/app/ticket?customers=",
+      "focus": false,
+      "highlight": false
+    },
+    {
+      "id": "02-ticket-new",
+      "file": "02-ticket-new.png",
+      "caption": "Tạo Ticket mới — Customers, Status, Approver, CSEs",
+      "url": "https://dev-erp.smartr.co/app/ticket/new-ticket-jmruhthwgk",
+      "focus": false,
+      "highlight": false
+    },
+    {
+      "id": "03-ticket-approver-cses",
+      "file": "03-ticket-approver-cses.png",
+      "caption": "Approver và CSEs trên Ticket",
+      "url": "https://dev-erp.smartr.co/app/ticket/new-ticket-jmruhthwgk",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "04-ticket-open-first",
+      "file": "04-ticket-open-first.png",
+      "caption": "04-ticket-open-first",
+      "url": "https://dev-erp.smartr.co/app/ticket?customers=",
+      "focus": false,
+      "highlight": false
+    },
+    {
       "id": "05-ticket-detail",
       "file": "05-ticket-detail.png",
-      "caption": "05-ticket-detail",
-      "url": "https://dev-erp.smartr.co/app/ticket/TKT-00001",
+      "caption": "Mở một Ticket — xem Service Job liên kết",
+      "url": "https://dev-erp.smartr.co/app/ticket/TKT-00015",
       "focus": false,
+      "highlight": false
+    },
+    {
+      "id": "06-service-job-list",
+      "file": "06-service-job-list.png",
+      "caption": "Danh sách Service Job",
+      "url": "https://dev-erp.smartr.co/app/service-job/view/report",
+      "focus": false,
+      "highlight": false
+    },
+    {
+      "id": "07-service-job-new",
+      "file": "07-service-job-new.png",
+      "caption": "Tạo Service Job mới",
+      "url": "https://dev-erp.smartr.co/app/service-job/new-service-job-hczeomeznk",
+      "focus": false,
+      "highlight": false
+    },
+    {
+      "id": "08-service-job-ticket-cses",
+      "file": "08-service-job-ticket-cses.png",
+      "caption": "Chọn Ticket và CSEs (theo Ticket)",
+      "url": "https://dev-erp.smartr.co/app/service-job/new-service-job-hczeomeznk",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "08b-service-job-open-existing",
+      "file": "08b-service-job-open-existing.png",
+      "caption": "08b-service-job-open-existing",
+      "url": "https://dev-erp.smartr.co/app/service-job/view/report",
+      "focus": false,
+      "highlight": false
+    },
+    {
+      "id": "08c-service-job-open-first",
+      "file": "08c-service-job-open-first.png",
+      "caption": "08c-service-job-open-first",
+      "url": "https://dev-erp.smartr.co/app/service-job/JOB00046",
+      "focus": false,
+      "highlight": false
+    },
+    {
+      "id": "09-service-job-schedule",
+      "file": "09-service-job-schedule.png",
+      "caption": "Khối Schedule — nhãn theo Job Type trên phiếu đã lưu",
+      "url": "https://dev-erp.smartr.co/app/service-job/JOB00046",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "10-service-time-list",
+      "file": "10-service-time-list.png",
+      "caption": "Danh sách Service Time",
+      "url": "https://dev-erp.smartr.co/app/service-time/view/report",
+      "focus": false,
+      "highlight": false
+    },
+    {
+      "id": "11-service-time-new",
+      "file": "11-service-time-new.png",
+      "caption": "Tạo Service Time mới",
+      "url": "https://dev-erp.smartr.co/app/service-time/new-service-time-lewulkxyvh",
+      "focus": false,
+      "highlight": false
+    },
+    {
+      "id": "12-service-time-cse",
+      "file": "12-service-time-cse.png",
+      "caption": "Service Job và CSE Name (theo CSEs của Job)",
+      "url": "https://dev-erp.smartr.co/app/service-time/new-service-time-lewulkxyvh",
+      "focus": true,
       "highlight": false
     }
   ],
-  "timestamp": "2026-11-04T10:50:30.030Z",
-  "status": "success"
+  "timestamp": "2026-11-13T09:00:23.768Z",
+  "status": "success",
+  "summary": "Captured 14 screenshot(s)"
 }

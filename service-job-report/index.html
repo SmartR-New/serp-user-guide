@@ -137,7 +137,7 @@
       <div class="meta">
         <span><strong>Dành cho:</strong> iMED Service Leader, iMED Service Manager</span>
         <span><strong>Môi trường:</strong> dev-erp.smartr.co</span>
-        <span><strong>Cập nhật:</strong> 2026-11-06</span>
+        <span><strong>Cập nhật:</strong> 2026-11-13 (xuất CSV)</span>
       </div>
     </header>
 
@@ -148,6 +148,7 @@
         <a href="#concepts">Service Job trên báo cáo</a>
         <a href="#prerequisites">Trước khi bắt đầu</a>
         <a href="#steps">Các bước</a>
+        <a href="#export-csv">Xuất CSV</a>
         <a href="#metrics">Giải thích metrics</a>
         <a href="#charts">Giải thích biểu đồ</a>
         <a href="#roles">Phân quyền</a>
@@ -161,7 +162,7 @@
     <section id="purpose">
       <h2>Mục đích</h2>
       <p><strong>Service Job Report</strong> (tiêu đề trên màn hình: <span class="ui-label">Report &amp; Dashboard</span>) giúp lãnh đạo và trưởng nhóm dịch vụ theo dõi <strong>Service Job</strong> (phiếu công việc dịch vụ) trong khoảng thời gian và theo khách hàng, kỹ sư phụ trách (CSE), trạng thái và loại công việc.</p>
-      <p>Trang gồm: <span class="ui-label">Filter</span> (full width), <span class="ui-label">Filter results</span> (thẻ KPI + <span class="ui-label">By job type</span>), <span class="ui-label">Job List</span>, và ba biểu đồ: <span class="ui-label">Job Chart List</span>, <span class="ui-label">Job Chart CSE</span>, <span class="ui-label">Job Chart Status</span>.</p>
+      <p>Trang gồm: <span class="ui-label">Filter</span> (full width), <span class="ui-label">Filter results</span> (thẻ KPI + <span class="ui-label">By job type</span>), <span class="ui-label">Job List</span> (có <span class="ui-label">Export to CSV</span>), và ba biểu đồ: <span class="ui-label">Job Chart List</span>, <span class="ui-label">Job Chart CSE</span>, <span class="ui-label">Job Chart Status</span>.</p>
       <div class="note"><strong>Lưu ý:</strong> Chỉ tài khoản có vai trò <strong>iMED Service Leader</strong> hoặc <strong>iMED Service Manager</strong> (hoặc quản trị hệ thống) mới mở được trang. <strong>iMED Service User</strong> không truy cập báo cáo này.</div>
     </section>
 
@@ -245,30 +246,49 @@
       </figure>
       <ul>
         <li>Dùng <span class="ui-label">Prev</span> / <span class="ui-label">Next</span> khi có nhiều hơn 50 phiếu.</li>
-        <li>Biểu tượng mở rộng góc phải tiêu đề Job List xem bảng toàn màn hình.</li>
+        <li>Góc phải tiêu đề Job List: <span class="ui-label">Export to CSV</span> và biểu tượng mở rộng bảng toàn màn hình.</li>
       </ul>
 
-      <h3>Bước 6: Xem biểu đồ</h3>
+      <h3>Bước 6: Xuất CSV (tùy chọn)</h3>
+      <p>Chi tiết quy trình: mục <a href="#export-csv">Xuất danh sách Job ra CSV</a>.</p>
+
+      <h3>Bước 7: Xem biểu đồ</h3>
       <p>Ba biểu đồ phía dưới luôn phản ánh <strong>cùng bộ lọc</strong> với Filter results. Nhấn biểu tượng mở rộng trên từng thẻ để xem fullscreen.</p>
 
       <p><strong>Job Chart List</strong> — cột theo từng loại Job Type.</p>
       <figure class="figure-focus">
         <img src="images/06-chart-list.png" alt="Biểu đồ cột Job Chart List theo Job Type" loading="lazy">
-        <figcaption>Bước 6a — Job Chart List</figcaption>
+        <figcaption>Bước 7a — Job Chart List</figcaption>
       </figure>
 
       <p><strong>Job Chart CSE</strong> — cột theo CSE gán trên job.</p>
       <figure class="figure-focus">
         <img src="images/07-chart-cse.png" alt="Biểu đồ cột Job Chart CSE — số phiếu job theo kỹ sư trên job" loading="lazy">
-        <figcaption>Bước 6b — Job Chart CSE</figcaption>
+        <figcaption>Bước 7b — Job Chart CSE</figcaption>
       </figure>
 
       <p><strong>Job Chart Status</strong> — biểu đồ tròn Open / Close (theo job có Job Type hợp lệ).</p>
       <figure class="figure-focus">
         <img src="images/08-chart-status.png" alt="Biểu đồ tròn Job Chart Status Open và Close" loading="lazy">
-        <figcaption>Bước 6c — Job Chart Status</figcaption>
+        <figcaption>Bước 7c — Job Chart Status</figcaption>
       </figure>
       <p>Giải thích cách đếm và cách đọc: mục <a href="#charts">Giải thích biểu đồ</a>.</p>
+    </section>
+
+    <section id="export-csv">
+      <h2>Xuất danh sách Job ra CSV</h2>
+      <p>Nút <span class="ui-label">Export to CSV</span> trên tiêu đề <span class="ui-label">Job List</span> tải <strong>toàn bộ phiếu Service Job khớp bộ lọc</strong> (không chỉ 50 dòng đang xem), dạng file CSV mở được trong Excel.</p>
+      <div class="note"><strong>Trước khi xuất:</strong> Chỉnh bộ lọc và nhấn <span class="ui-label">Filter</span> để số liệu trên màn hình khớp với file. Xuất dùng các giá trị đang chọn trong khối Filter tại thời điểm bạn bấm <span class="ui-label">Export to CSV</span>.</div>
+      <ol>
+        <li>Nhấn <span class="ui-label">Export to CSV</span> → hộp thoại <span class="ui-label">Export Job List</span>.</li>
+        <li>Đọc dòng số lượng (ví dụ <em>X jobs ready for export (of Y matching)</em>). Nếu không có job → <span class="ui-label">Download CSV</span> bị tắt.</li>
+        <li>Xem trước tối đa <strong>6</strong> dòng đầu trong bảng nhỏ trong hộp thoại.</li>
+        <li>Nhấn <span class="ui-label">Download CSV</span> — trình duyệt lưu file tên dạng <span class="ui-label">service-jobs-YYYY-MM-DD-YYYY-MM-DD.csv</span> (theo <span class="ui-label">From Date</span> / <span class="ui-label">To Date</span> đang chọn).</li>
+        <li><span class="ui-label">Cancel</span>, nút × hoặc nhấn nền tối bên ngoài để đóng không tải file.</li>
+      </ol>
+      <p><strong>Cột trong file</strong> (cùng thứ tự với Job List): Job ID, Job Status, Job Type, Customer, Territory, Ticket Approver, Created On, Last Updated On. Tiếng Việt trên file dùng định dạng ngày giờ Desk; file mã UTF-8 có BOM để Excel đọc đúng chữ Việt.</p>
+      <p><strong>Giới hạn:</strong> Tối đa <strong>10.000</strong> phiếu mỗi lần tải. Nếu kết quả lọc nhiều hơn, hệ thống cảnh báo và chỉ xuất 10.000 dòng đầu — hãy thu hẹp kỳ ngày hoặc bộ lọc (Customer, CSEs, Job Type, …) rồi xuất lại.</p>
+      <p><strong>Không xuất:</strong> KPI Filter results và biểu đồ — chỉ danh sách job.</p>
     </section>
 
     <section id="metrics">
@@ -357,8 +377,8 @@
       <p>Sau khi nhấn <span class="ui-label">Filter</span>:</p>
       <ul>
         <li>Filter results, Job List (trang 1), và cả ba biểu đồ đồng bộ cùng một tập dữ liệu.</li>
-        <li>Job List sắp xếp phiếu mới tạo trước; phân trang 50 phiếu/trang.</li>
-        <li>Nếu không có dữ liệu: metrics = 0; biểu đồ trống; bảng job không có dòng.</li>
+        <li>Job List sắp xếp phiếu mới tạo trước; phân trang 50 phiếu/trang; CSV xuất cùng bộ lọc, tối đa 10.000 dòng.</li>
+        <li>Nếu không có dữ liệu: metrics = 0; biểu đồ trống; bảng job không có dòng; xuất CSV không tải được file.</li>
       </ul>
     </section>
 
@@ -374,12 +394,15 @@
           <tr><td>Job Chart CSE trống</td><td>Job chưa gán <span class="ui-label">CSEs</span> hoặc thiếu Job Type</td><td>Cập nhật CSEs trên Service Job</td></tr>
           <tr><td>Biểu đồ <em>No data</em></td><td>Bộ lọc quá hẹp hoặc không có job đủ điều kiện</td><td>Mở rộng kỳ ngày hoặc nới bộ lọc</td></tr>
           <tr><td>Trang job trống nhưng metrics &gt; 0</td><td>Đang ở trang pagination cuối sau khi thu hẹp lọc</td><td>Nhấn Filter lại (về trang 1) hoặc Prev về trang 1</td></tr>
+          <tr><td>CSV ít dòng hơn tổng job trên màn hình</td><td>Chỉ xuất tối đa 10.000 job hoặc bộ lọc lúc xuất khác lúc Filter</td><td>Thu hẹp lọc; nhấn Filter; xuất lại. Kiểm tra cảnh báo truncation trong hộp thoại</td></tr>
+          <tr><td>Excel mở CSV lỗi font tiếng Việt</td><td>Mở bằng double-click không nhận UTF-8</td><td>Trong Excel: Data → From Text/CSV và chọn UTF-8, hoặc mở bằng Google Sheets</td></tr>
+          <tr><td><span class="ui-label">Download CSV</span> không bấm được</td><td>Không có job khớp lọc</td><td>Nới kỳ ngày / bộ lọc; nhấn Filter rồi thử lại</td></tr>
         </tbody>
       </table>
     </section>
 
     <footer>
-      Captured: 2026-11-04 · Environment: dev-erp.smartr.co · Screenshot account: demo10@smartr.co (iMED Service Manager)
+      Captured: 2026-11-13 · Environment: dev-erp.smartr.co · Viewport: 1440×900 · Screenshot account: demo10@smartr.co (iMED Service Manager)
     </footer>
     </div>
     </div>

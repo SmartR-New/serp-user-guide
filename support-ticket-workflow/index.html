@@ -121,7 +121,7 @@
       <div class="meta">
         <span><strong>Dành cho:</strong> iMED Service User / Service Leader / Service Manager</span>
         <span><strong>Môi trường:</strong> dev-erp.smartr.co</span>
-        <span><strong>Cập nhật:</strong> 2026-11-06 (phân quyền chi tiết)</span>
+        <span><strong>Cập nhật:</strong> 2026-11-13 (Schedule theo Job Type; plan Ticket chỉ PM; CM/Update)</span>
       </div>
     </header>
 
@@ -131,12 +131,15 @@
         <a href="#purpose">Mục đích</a>
         <a href="#hierarchy">Quan hệ dữ liệu</a>
         <a href="#roles">Vai trò &amp; phân quyền</a>
+        <a href="#role-admin" style="padding-left:22px;font-size:12px">↳ Service Admin</a>
         <a href="#role-manager" style="padding-left:22px;font-size:12px">↳ Service Manager</a>
         <a href="#role-leader" style="padding-left:22px;font-size:12px">↳ Service Leader</a>
         <a href="#role-user" style="padding-left:22px;font-size:12px">↳ Service User</a>
         <a href="#field-rules">Quy tắc Approver &amp; CSE</a>
         <a href="#ticket">1. Tạo Ticket</a>
         <a href="#service-job">2. Tạo Service Job</a>
+        <a href="#schedule-by-job-type" style="padding-left:22px;font-size:12px">↳ Schedule theo Job Type</a>
+        <a href="#cm-update-details" style="padding-left:22px;font-size:12px">↳ CM &amp; Update</a>
         <a href="#service-time">3. Tạo Service Time</a>
         <a href="#outcome">Kết quả mong đợi</a>
         <a href="#troubleshooting">Xử lý sự cố</a>
@@ -154,8 +157,8 @@
     <section id="hierarchy">
       <h2>Quan hệ dữ liệu</h2>
       <div class="diagram">
-        <strong>Ticket</strong> (danh sách khách hàng, trạng thái, người duyệt, danh sách kỹ sư CSE)<br>
-        &nbsp;&nbsp;└─ <strong>Service Job</strong> (gắn Ticket; kỹ sư trên job phải nằm trong danh sách CSE của Ticket; có lịch Schedule)<br>
+        <strong>Ticket</strong> (danh sách khách hàng, trạng thái, người duyệt, danh sách kỹ sư CSE; tùy chọn <span class="ui-label">Plan Start Date</span> / <span class="ui-label">Plan End Date</span>)<br>
+        &nbsp;&nbsp;└─ <strong>Service Job</strong> (gắn Ticket; kỹ sư trên job phải nằm trong danh sách CSE của Ticket; <strong>chỉ job Preventive Maintenance</strong> bị kiểm tra Plan Start/End trong phạm vi ngày plan của Ticket khi Ticket đã nhập đủ hai ngày)<br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ <strong>Service Time</strong> (gắn Service Job; kỹ sư ghi giờ phải nằm trong danh sách CSE của Job)
       </div>
       <p>Sau khi lưu Ticket, mở lại phiếu để thấy khu vực <span class="ui-label">Connections</span> → <span class="ui-label">Service Job</span> (số badge = số job đã tạo) và nút <strong>+</strong> để thêm job mới từ Ticket.</p>
@@ -169,6 +172,13 @@
       <h2>Vai trò &amp; phân quyền</h2>
       <p>Phân quyền trên workspace <strong>Support</strong> được áp dụng theo <strong>từng phiếu</strong> (Ticket, Service Job, Service Time), không chỉ theo vai trò đăng nhập. Nếu bạn không thấy nút <span class="ui-label">Save</span> hoặc form ở chế độ chỉ đọc, đó là do bạn không có quyền <strong>sửa</strong> phiếu đó — không phải lỗi trình duyệt.</p>
       <p>Các cột dưới đây dùng ký hiệu: <strong>Có</strong> = toàn quyền trên loại phiếu đó; <strong>Chỉ xem</strong> = mở form/danh sách nhưng không lưu; <strong>Có điều kiện</strong> = chỉ khi thỏa điều kiện ghi trong ngoặc.</p>
+
+      <h3 id="role-admin">iMED Service Admin — Quản trị vận hành dịch vụ</h3>
+      <p>Giống <strong>Service Manager</strong> trên nghiệp vụ Support (Ticket, Service Job, Service Time, Instrument, Task, Maintenance…), nhưng <strong>không</strong> mở <span class="ui-label">Service Job Report</span> / <span class="ui-label">Service Time Report</span>.</p>
+      <ul>
+        <li><strong>Ticket, Service Job, Service Time, Instrument</strong> — toàn quyền như Manager.</li>
+        <li><strong>Báo cáo</strong> — <strong>Không</strong> (liên kết workspace có thể hiện nhưng hệ thống từ chối khi mở trang).</li>
+      </ul>
 
       <h3 id="role-manager">iMED Service Manager — Quản lý dịch vụ</h3>
       <p>Vai trò điều phối: mở phiếu hỗ trợ, gán khách hàng / CSE / người duyệt, giám sát job và báo cáo.</p>
@@ -194,7 +204,7 @@
       <p>Vai trò thực hiện công việc và ghi giờ. User <strong>không</strong> quản lý nội dung Ticket (khách hàng, approver, danh sách CSE cấp ticket).</p>
       <ul>
         <li><strong>Ticket</strong> — <strong>Chỉ xem</strong> ticket có tên bạn trong <span class="ui-label">CSEs</span> (Customers / CSEs hiển thị dạng danh sách, không sửa). <strong>Không</strong> tạo, sửa, xóa ticket.</li>
-        <li><strong>Service Job</strong> — Xem <strong>danh sách tất cả</strong> job. <strong>Tạo</strong> job mới (chọn Ticket đọc được, Customer trong phạm vi ticket, CSEs ⊆ CSEs của ticket). <strong>Sửa / xóa</strong> job chỉ khi bạn nằm trong <span class="ui-label">CSEs</span> của job đó hoặc là <span class="ui-label">Secondary CSE</span>. <strong>Job Status</strong> — đổi Open/Close chỉ trên job bạn được giao (CSE / Secondary CSE); các trường khác vẫn theo quyền sửa job.</li>
+        <li><strong>Service Job</strong> — Xem <strong>danh sách tất cả</strong> job. <strong>Tạo</strong> job mới (chọn Ticket đọc được, Customer trong phạm vi ticket, CSEs ⊆ CSEs của ticket). <strong>Sửa / xóa</strong> job chỉ khi bạn nằm trong <span class="ui-label">CSEs</span> của job đó . <strong>Job Status</strong> — đổi Open/Close chỉ trên job bạn được giao (CSE / Secondary CSE); các trường khác vẫn theo quyền sửa job.</li>
         <li><strong>Service Time</strong> — Xem <strong>tất cả</strong> bản ghi. <strong>Tạo</strong> giờ mới. <strong>Sửa / xóa</strong> chỉ bản ghi mà <span class="ui-label">CSE Name</span> = chính bạn.</li>
         <li><strong>Instrument</strong> — <strong>Chỉ xem / chọn</strong> trên form (không tạo/sửa master thiết bị).</li>
         <li><strong>Báo cáo</strong> — <strong>Không</strong> mở Service Job Report / Service Time Report (dù vẫn tạo job và ghi giờ trên form).</li>
@@ -206,6 +216,7 @@
           <tr>
             <th>Đối tượng</th>
             <th>iMED Service Manager</th>
+            <th>iMED Service Admin</th>
             <th>iMED Service Leader</th>
             <th>iMED Service User</th>
           </tr>
@@ -214,11 +225,13 @@
           <tr>
             <td><strong>Ticket</strong> — xem</td>
             <td>Tất cả</td>
+            <td>Tất cả</td>
             <td>Có điều kiện (Approver hoặc trong CSEs)</td>
             <td>Có điều kiện (trong CSEs)</td>
           </tr>
           <tr>
             <td><strong>Ticket</strong> — tạo / sửa / xóa</td>
+            <td>Có / Có / Có</td>
             <td>Có / Có / Có</td>
             <td>Không / Có điều kiện (chỉ khi Approver) / Không</td>
             <td>Không / Không / Không</td>
@@ -228,9 +241,11 @@
             <td>Tất cả</td>
             <td>Tất cả</td>
             <td>Tất cả</td>
+            <td>Tất cả</td>
           </tr>
           <tr>
             <td><strong>Service Job</strong> — tạo</td>
+            <td>Có</td>
             <td>Có</td>
             <td>Có</td>
             <td>Có</td>
@@ -239,16 +254,19 @@
             <td><strong>Service Job</strong> — sửa / xóa</td>
             <td>Có</td>
             <td>Có</td>
-            <td>Có điều kiện (CSE hoặc Secondary CSE trên job)</td>
+            <td>Có</td>
+            <td>Có điều kiện (CSEs)</td>
           </tr>
           <tr>
             <td><strong>Job Status</strong> (Open/Close)</td>
             <td>Có</td>
             <td>Có</td>
-            <td>Có điều kiện (CSE hoặc Secondary CSE trên job)</td>
+            <td>Có</td>
+            <td>Có điều kiện (CSEs)</td>
           </tr>
           <tr>
             <td><strong>Service Time</strong> — tạo</td>
+            <td>Có</td>
             <td>Có</td>
             <td>Có</td>
             <td>Có</td>
@@ -257,10 +275,12 @@
             <td><strong>Service Time</strong> — sửa / xóa</td>
             <td>Có (mọi bản ghi)</td>
             <td>Có (mọi bản ghi)</td>
+            <td>Có (mọi bản ghi)</td>
             <td>Có điều kiện (chỉ bản ghi của mình)</td>
           </tr>
           <tr>
             <td><strong>Instrument</strong></td>
+            <td>Toàn quyền (dịch vụ)</td>
             <td>Toàn quyền (dịch vụ)</td>
             <td>Toàn quyền (dịch vụ)</td>
             <td>Chỉ xem / chọn</td>
@@ -268,6 +288,7 @@
           <tr>
             <td><strong>Service Job &amp; Time Report</strong></td>
             <td>Có</td>
+            <td>Không</td>
             <td>Có</td>
             <td>Không</td>
           </tr>
@@ -286,7 +307,7 @@
           <tr>
             <td><span class="ui-label">Approver</span></td>
             <td>Ticket</td>
-            <td><strong>iMED Service Leader</strong>, <strong>iMED Service Manager</strong></td>
+            <td><strong>iMED Service Leader</strong>, <strong>iMED Service Manager</strong>, <strong>iMED Service Admin</strong></td>
           </tr>
           <tr>
             <td><span class="ui-label">CSEs</span></td>
@@ -336,6 +357,7 @@
         <li><span class="ui-label">Status</span> — <span class="ui-label">Open</span> hoặc <span class="ui-label">Closed</span>.</li>
         <li><span class="ui-label">Approver</span> — chọn Trưởng nhóm hoặc Quản lý dịch vụ (xem bảng vai trò ở trên).</li>
         <li><span class="ui-label">CSEs</span> — chọn một hoặc nhiều kỹ sư dịch vụ tham gia ticket; bắt buộc có ít nhất một người.</li>
+        <li><span class="ui-label">Plan Start Date</span> / <span class="ui-label">Plan End Date</span> (khối <span class="ui-label">Schedule</span>) — tùy chọn; khi nhập <strong>đủ cả hai</strong>, chỉ các job <strong>Preventive Maintenance</strong> có <span class="ui-label">Plan Start/End Date</span> trên Service Job phải nằm trong phạm vi ngày này (QC, Update deadline, … không bị ràng buộc theo Ticket).</li>
       </ol>
       <figure>
         <img src="images/02-ticket-new.png" alt="Form New Ticket với Customer Status Approver CSEs" loading="lazy">
@@ -352,7 +374,7 @@
 
     <section id="service-job">
       <h2>2. Tạo Service Job</h2>
-      <p><strong>Ai thực hiện:</strong> <strong>Manager</strong> và <strong>Leader</strong> — tạo/sửa/xóa mọi Service Job. <strong>Service User</strong> — được <strong>tạo</strong> job mới và <strong>sửa/xóa</strong> job khi bạn nằm trong <span class="ui-label">CSEs</span> (hoặc <span class="ui-label">Secondary CSE</span>) của job đó (<a href="#role-user">chi tiết</a>).</p>
+      <p><strong>Ai thực hiện:</strong> <strong>Manager</strong> và <strong>Leader</strong> — tạo/sửa/xóa mọi Service Job. <strong>Service User</strong> — được <strong>tạo</strong> job mới và <strong>sửa/xóa</strong> job khi bạn nằm trong <span class="ui-label">CSEs</span> của job đó (<a href="#role-user">chi tiết</a>).</p>
       <p>Mỗi job là một công việc cụ thể (QC, bảo trì, hỗ trợ, …) thuộc cùng Ticket. Có thể tạo nhiều job cho một Ticket.</p>
 
       <h3>Bước 2.1 — Mở form Service Job</h3>
@@ -372,6 +394,7 @@
         <li><span class="ui-label">Customer</span> — chọn <strong>một</strong> khách hàng trong danh sách <span class="ui-label">Customers</span> của Ticket (bắt buộc). Nếu ticket chỉ có một khách hàng, hệ thống có thể tự điền.</li>
         <li><span class="ui-label">Job Status</span> — thường <span class="ui-label">Open</span> khi bắt đầu; chuyển <span class="ui-label">Close</span> khi hoàn tất (Trưởng nhóm / Quản lý dịch vụ, hoặc kỹ sư CSE được giao trên job).</li>
         <li><span class="ui-label">Job Type</span> — loại công việc (QC, PM, CM, Support, …).</li>
+        <li><span class="ui-label">Requested by</span> — <strong>tùy chọn</strong>; người yêu cầu (Sales / Sales Manager / Sales Leader hoặc BU Manager); chỉ chọn được user thuộc các vai trò đó.</li>
         <li><span class="ui-label">Instrument</span> — thiết bị liên quan (nếu có).</li>
         <li><span class="ui-label">CSEs</span> — chỉ hiện sau khi chọn Ticket. Danh sách gợi ý <strong>chỉ gồm CSE đã khai trên Ticket</strong>; không thể chọn kỹ sư ngoài ticket.</li>
       </ol>
@@ -381,19 +404,55 @@
       </figure>
       <div class="note"><strong>Lưu ý:</strong> Nếu chưa thấy <span class="ui-label">CSEs</span>, hãy chọn <span class="ui-label">Ticket</span> trước. Khi đổi Ticket, hệ thống có thể xóa CSE job không còn thuộc ticket mới.</div>
 
-      <h3>Bước 2.3 — Khối Schedule (lịch kế hoạch / thực tế)</h3>
-      <p>Service Job có thêm phần <span class="ui-label">Schedule</span>:</p>
-      <ul>
-        <li><span class="ui-label">Plan Start DateTime</span> / <span class="ui-label">Plan End DateTime</span> — <strong>tùy chọn</strong>; có thể để trống khi tạo mới. Nếu điền cả hai, Plan End phải không sớm hơn Plan Start.</li>
-        <li><span class="ui-label">Actual Start DateTime</span> / <span class="ui-label">Actual End DateTime</span> — tùy chọn; điền khi biết thời gian thực tế.</li>
-      </ul>
+      <h3 id="schedule-by-job-type">Bước 2.3 — Khối Schedule (theo Job Type)</h3>
+      <p>Service Job dùng <strong>bốn ô ngày chung</strong> trong khối <span class="ui-label">Schedule</span>. Khi đổi <span class="ui-label">Job Type</span>, hệ thống <strong>đổi nhãn</strong>, <strong>ẩn</strong> hoặc <strong>bắt buộc</strong> từng ô cho đúng loại công việc (ví dụ QC chỉ còn Plan Date + QC Date; lắp đặt chỉ Start/End thực tế).</p>
+      <div class="note"><strong>Ticket plan:</strong> Nếu Ticket có đủ <span class="ui-label">Plan Start Date</span> và <span class="ui-label">Plan End Date</span>, <strong>chỉ</strong> job <strong>Preventive Maintenance</strong> bị kiểm tra <span class="ui-label">Plan Start Date</span> / <span class="ui-label">Plan End Date</span> trên job phải nằm trong khoảng đó. Các loại khác (QC, Demo, Update deadline, …) vẫn nhập ngày plan/deadline bình thường <strong>mà không</strong> bị chặn vì ngoài phạm vi Ticket. Gợi ý dưới hai ô Plan chỉ hiện với PM.</div>
+      <p><strong>Tóm tắt theo loại (nhãn trên form):</strong></p>
+      <table>
+        <thead><tr><th>Job Type</th><th>Schedule trên form</th><th>Ghi chú</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Preventive Maintenance</td>
+            <td>Plan Start / Plan End; hàng 2: Actual Start / Actual End</td>
+            <td>Plan phải trong phạm vi Ticket (nếu Ticket có đủ hai ngày plan)</td>
+          </tr>
+          <tr>
+            <td>Corrective Maintenance</td>
+            <td><span class="ui-label">1st On Site Arrival</span> · <span class="ui-label">On Site Repair</span></td>
+            <td>Hai mốc nằm trong Schedule (Actual); không còn ô ngày riêng trong Details</td>
+          </tr>
+          <tr>
+            <td>Update</td>
+            <td>Deadline for Update · Update Completed Date</td>
+            <td>Completed Date thường bắt buộc khi lưu</td>
+          </tr>
+          <tr>
+            <td>Quality Control In/Out, Demo, Meeting…</td>
+            <td>Cặp Plan Date + ngày thực hiện (QC Date, Demo Date, …)</td>
+            <td>Không ràng plan theo Ticket</td>
+          </tr>
+          <tr>
+            <td>Installation, Training, Site Survey, Support</td>
+            <td>Chủ yếu Start / End thực tế (hoặc Support Start/End)</td>
+            <td>Một số loại bắt buộc đủ Start (và End tùy loại)</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Khi điền cả hai ngày “plan” đang hiển thị: ngày kết thúc không được sớm hơn ngày bắt đầu. Tương tự với cặp Actual khi cả hai đều hiện và có giá trị.</p>
       <figure class="figure-focus">
-        <img src="images/09-service-job-schedule.png" alt="Khối Schedule Plan và Actual DateTime trên Service Job" loading="lazy">
-        <figcaption>Schedule — Plan và Actual DateTime</figcaption>
+        <img src="images/09-service-job-schedule.png" alt="Khối Schedule trên Service Job — nhãn thay đổi theo Job Type" loading="lazy">
+        <figcaption>Schedule — ví dụ QC (Plan Date + QC Date); đổi Job Type để xem PM (2 hàng), CM (On Site), Update (Deadline), …</figcaption>
       </figure>
+      <p>Sau khi đổi Job Type, nếu layout Schedule lệch, làm mới trình duyệt (Ctrl+Shift+R), đặc biệt sau khi admin vừa cập nhật app.</p>
 
-      <h3>Bước 2.4 — Chi tiết theo loại job &amp; lưu</h3>
-      <p>Điền các trường ở khối <span class="ui-label">Details</span> (liên kết QC / Installation Note / bảo trì, loại Support, ghi chú …) tùy <span class="ui-label">Job Type</span>. Không còn trường ngày riêng theo từng loại job trên form; dùng <span class="ui-label">Schedule</span> hoặc <span class="ui-label">Note</span> nếu cần ghi thời điểm. Nhấn <span class="ui-label">Save</span>.</p>
+      <h3 id="cm-update-details">Bước 2.4 — Chi tiết CM, Update &amp; lưu</h3>
+      <p>Điền khối <span class="ui-label">Details</span> theo <span class="ui-label">Job Type</span> (liên kết QC / Installation Note / Maintenance Visit, loại Support, …).</p>
+      <ul>
+        <li><strong>Corrective Maintenance</strong> — <span class="ui-label">Problem Description</span> (một dòng); hàng 2: <span class="ui-label">Breakdown Date</span> và <span class="ui-label">System Condition</span>; hàng 3: <span class="ui-label">CM Support Type</span> / <span class="ui-label">Resolution Type</span>; hàng 4: <span class="ui-label">Support Long Text</span> / <span class="ui-label">Resolution Long Text</span>. Ngày đến / sửa tại site: dùng Schedule (<span class="ui-label">1st On Site Arrival</span>, <span class="ui-label">On Site Repair</span>).</li>
+        <li><strong>Update</strong> — thêm <span class="ui-label">Update Number</span> và <span class="ui-label">Update Description</span> (mô tả bản cập nhật); deadline và ngày hoàn tất ở Schedule.</li>
+        <li>Các loại khác — giữ quy tắc liên kết bảo trì/QC như trước; thời gian ghi ở <span class="ui-label">Schedule</span>, không tách field ngày lẻ trong Details.</li>
+      </ul>
+      <p>Nhấn <span class="ui-label">Save</span>.</p>
     </section>
 
     <section id="service-time">
@@ -436,7 +495,7 @@
         <li>Đúng phân vai: Manager — Ticket + Job; Leader — đọc/sửa Ticket (Approver), Job; User — đọc Ticket, tạo/sửa Job được giao (+ Job Status), ghi Service Time.</li>
         <li>Ticket lưu với Customers (≥1), Status, Approver (Leader/Manager) và ít nhất một CSE (User/Leader).</li>
         <li>Mỗi Service Job chọn đúng một Customer thuộc Ticket; Instrument (nếu có) lọc theo Customer trên job.</li>
-        <li>Nhiều Service Job cùng trỏ một Ticket; kỹ sư trên từng job chỉ được chọn trong danh sách CSE của Ticket; có lịch dự kiến Plan (và thực tế Actual nếu bạn ghi thêm).</li>
+        <li>Nhiều Service Job cùng trỏ một Ticket; kỹ sư trên từng job chỉ được chọn trong danh sách CSE của Ticket; Schedule hiển thị đúng nhãn theo Job Type; ràng buộc plan với Ticket chỉ áp dụng <strong>Preventive Maintenance</strong>.</li>
         <li>Nhiều Service Time trỏ một Service Job; mỗi dòng ghi đúng một kỹ sư (<span class="ui-label">CSE Name</span>) đã có trên job đó.</li>
         <li>Trên Ticket, badge <span class="ui-label">Service Job</span> trong Connections phản ánh số job đã tạo.</li>
       </ul>
@@ -485,8 +544,23 @@
           </tr>
           <tr>
             <td>Không lưu Service Job — Schedule</td>
-            <td>Plan End sớm hơn Plan Start</td>
-            <td>Chỉnh lại thời gian Plan hoặc xóa một trong hai trường Plan</td>
+            <td>Plan End sớm hơn Plan Start (hoặc Actual End sớm hơn Actual Start)</td>
+            <td>Chỉnh lại ngày hoặc xóa một trong hai ô của cặp đang hiển thị</td>
+          </tr>
+          <tr>
+            <td>Không lưu PM — Plan ngoài Ticket</td>
+            <td>Job <strong>Preventive Maintenance</strong> có Plan ngoài <span class="ui-label">Plan Start/End Date</span> của Ticket</td>
+            <td>Điều chỉnh plan trên job hoặc mở rộng ngày plan trên Ticket (Manager/Approver)</td>
+          </tr>
+          <tr>
+            <td>QC/Update lưu được dù deadline ngoài Ticket</td>
+            <td>Đúng thiết kế — chỉ PM bị ràng plan theo Ticket</td>
+            <td>Không cần sửa; PM mới cần nằm trong phạm vi Ticket</td>
+          </tr>
+          <tr>
+            <td>Đổi Job Type mà Schedule trống / nhãn lệch</td>
+            <td>Cache JS/CSS hoặc form chưa refresh</td>
+            <td>Ctrl+Shift+R; đổi lại Job Type một lần; nhờ admin <code>bench build --app imed_crm</code> nếu vừa nâng cấp</td>
           </tr>
           <tr>
             <td>Ticket read-only — Customers/CSEs dính một dòng ID</td>
@@ -503,7 +577,7 @@
     </section>
 
     <footer>
-      Captured: 2026-11-04 · Environment: dev-erp.smartr.co · Screenshot account: demo9@smartr.co (iMED Service Leader)
+      Captured: 2026-11-13 · Environment: dev-erp.smartr.co · Viewport: 1440×900 · Screenshot account: demo10@smartr.co (iMED Service Manager)
     </footer>
     </div>
     </div>

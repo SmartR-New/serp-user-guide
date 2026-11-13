@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ERP — Làm mới trang sau khi cập nhật hệ thống | iMED ERP</title>
+    <meta
+      name="description"
+      content="Hướng dẫn tắt cache trong DevTools và hard reload (Ctrl+Shift+R) để thấy giao diện ERP mới nhất sau khi admin cập nhật app."
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,420;14..32,600;14..32,700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --font: "Inter", system-ui, sans-serif;
+        --surface: #fff;
+        --bg: #f8fafc;
+        --text: #0f172a;
+        --muted: #64748b;
+        --border: #e2e8f0;
+        --blue: #2490ef;
+        --amber-soft: #fffbeb;
+        --amber: #b45309;
+        --radius: 8px;
+        --max: 900px;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font: 420 15px/1.6 var(--font);
+        color: var(--text);
+        background: var(--bg);
+      }
+      a {
+        color: var(--blue);
+      }
+      .shell {
+        max-width: var(--max);
+        margin: 0 auto;
+        padding: 0 20px 64px;
+      }
+      .page {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 200px;
+        grid-template-areas: "header rail" "content rail";
+        column-gap: 40px;
+        align-items: start;
+      }
+      header.page-header {
+        grid-area: header;
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        background: rgba(248, 250, 252, 0.92);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--border);
+        padding: 14px 0;
+        margin-bottom: 28px;
+      }
+      .content {
+        grid-area: content;
+        min-width: 0;
+      }
+      .back {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      h1 {
+        margin: 8px 0 0;
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        line-height: 1.25;
+      }
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 16px;
+        margin-top: 12px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .meta strong {
+        color: var(--text);
+        font-weight: 600;
+      }
+      section {
+        margin-top: 32px;
+        scroll-margin-top: 160px;
+      }
+      h2 {
+        margin: 0 0 12px;
+        font-size: 20px;
+        font-weight: 700;
+        padding-bottom: 8px;
+        border-bottom: 2px solid var(--border);
+      }
+      h3 {
+        margin: 24px 0 8px;
+        font-size: 17px;
+        font-weight: 600;
+      }
+      p {
+        margin: 0 0 12px;
+      }
+      ul,
+      ol {
+        margin: 0 0 16px;
+        padding-left: 1.25rem;
+      }
+      li {
+        margin-bottom: 6px;
+      }
+      .note {
+        margin: 12px 0 20px;
+        padding: 12px 14px;
+        background: var(--amber-soft);
+        border-left: 4px solid var(--amber);
+        border-radius: 0 var(--radius) var(--radius) 0;
+        font-size: 14px;
+      }
+      .note strong {
+        color: var(--amber);
+      }
+      figure {
+        margin: 16px 0 24px;
+        padding: 12px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      }
+      figure img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 4px;
+        border: 1px solid var(--border);
+      }
+      figcaption {
+        margin-top: 10px;
+        font-size: 13px;
+        color: var(--muted);
+        text-align: center;
+      }
+      figure.figure-focus img {
+        box-shadow:
+          0 0 0 2px #e53935,
+          0 8px 24px rgba(15, 23, 42, 0.12);
+      }
+      figure.figure-focus figcaption::before {
+        content: "Focus · ";
+        color: #e53935;
+        font-weight: 600;
+      }
+      .ui-label {
+        font-family: ui-monospace, monospace;
+        font-size: 0.92em;
+        background: #f1f5f9;
+        padding: 1px 6px;
+        border-radius: 4px;
+      }
+      kbd {
+        font-family: ui-monospace, monospace;
+        font-size: 0.9em;
+        background: #f1f5f9;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 1px 6px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        margin: 12px 0 20px;
+      }
+      th,
+      td {
+        padding: 10px 12px;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+        vertical-align: top;
+      }
+      th {
+        background: #f1f5f9;
+        font-weight: 600;
+        font-size: 13px;
+      }
+      tr:last-child td {
+        border-bottom: none;
+      }
+      footer {
+        margin-top: 48px;
+        padding-top: 16px;
+        border-top: 1px solid var(--border);
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .on-this-page {
+        grid-area: rail;
+        position: sticky;
+        top: 24px;
+        padding-top: 8px;
+      }
+      .on-this-page p {
+        margin: 0 0 8px;
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .on-this-page nav {
+        display: flex;
+        flex-direction: column;
+        border-left: 1px solid var(--border);
+      }
+      .on-this-page a {
+        display: block;
+        margin-left: -1px;
+        padding: 6px 8px 6px 14px;
+        border-left: 2px solid transparent;
+        color: var(--muted);
+        font-size: 13px;
+        text-decoration: none;
+      }
+      .on-this-page a:hover {
+        color: var(--text);
+      }
+      @media (max-width: 860px) {
+        .page {
+          grid-template-columns: 1fr;
+          grid-template-areas: "header" "rail" "content";
+        }
+        .on-this-page {
+          position: static;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <div class="page">
+        <header class="page-header">
+          <a class="back" href="../index.html">← Tài liệu hướng dẫn iMED ERP</a>
+          <h1>ERP — Làm mới trang sau khi cập nhật (tắt cache trình duyệt)</h1>
+          <div class="meta">
+            <span
+              ><strong>Dành cho:</strong> mọi người dùng ERP (Chrome, Edge,
+              …)</span
+            >
+            <span
+              ><strong>Môi trường:</strong> erp-imed.smartr.co hoặc
+              dev-erp.smartr.co</span
+            >
+            <span><strong>Cập nhật:</strong> 2026-11-13</span>
+          </div>
+        </header>
+
+        <aside class="on-this-page">
+          <p>Trên trang này</p>
+          <nav aria-label="Trên trang này">
+            <a href="#steps">Các bước</a>
+            <a href="#troubleshooting">Xử lý sự cố</a>
+          </nav>
+        </aside>
+
+        <div class="content">
+          <section id="steps">
+            <h2>Các bước (trên trang ERP đang làm việc)</h2>
+            <h3>Bước 1 — Mở DevTools</h3>
+            <p>Chọn <strong>một</strong> trong hai cách:</p>
+            <ul>
+              <li>Nhấn phím <kbd>F12</kbd> trên bàn phím; hoặc</li>
+              <li>
+                Nhấn chuột phải lên vùng trống trên trang → chọn
+                <span class="ui-label">Inspect</span> (tiếng Anh) hoặc
+                <strong>Kiểm tra</strong> (Microsoft Edge tiếng Việt).
+              </li>
+            </ul>
+            <figure>
+              <img
+                src="images/01-open-devtools.png"
+                alt="Trang ERP trước khi mở DevTools"
+                loading="lazy"
+              />
+              <figcaption>
+                Trang ERP — ví dụ Report Ticket (trước khi mở DevTools)
+              </figcaption>
+            </figure>
+            <figure class="figure-focus">
+              <img
+                src="images/01b-open-devtools.png"
+                alt="Menu chuột phải Inspect hoặc Kiểm tra"
+                loading="lazy"
+              />
+              <figcaption>
+                Bước 1 — Chuột phải → Inspect / Kiểm tra (minh họa trên nền ERP)
+              </figcaption>
+            </figure>
+
+            <h3>Bước 2 — Chuyển sang tab Network</h3>
+            <p>
+              Trên thanh tab của DevTools, nhấn
+              <span class="ui-label">Network</span> (Mạng).
+            </p>
+            <figure class="figure-focus">
+              <img
+                src="images/02-network-tab.png"
+                alt="Tab Network trên DevTools"
+                loading="lazy"
+              />
+              <figcaption>Bước 2 — Chọn tab Network</figcaption>
+            </figure>
+
+            <h3>Bước 3 — Bật Disable cache</h3>
+            <p>
+              Trên thanh công cụ của tab Network, tick vào ô
+              <span class="ui-label">Disable cache</span> (Tắt bộ nhớ đệm).
+            </p>
+            <figure class="figure-focus">
+              <img
+                src="images/03-disable-cache.png"
+                alt="Tick Disable cache trên Network tab"
+                loading="lazy"
+              />
+              <figcaption>Bước 3 — Chọn Disable cache</figcaption>
+            </figure>
+
+            <h3>Bước 4 — Hard refresh trang ERP</h3>
+            <p>
+              Click vào vùng trang ERP (phía trên DevTools), rồi nhấn tổ hợp
+              phím <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd>.
+            </p>
+            <p>
+              Trên Mac, dùng <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd>.
+            </p>
+            <figure class="figure-focus">
+              <img
+                src="images/04-hard-reload.png"
+                alt="Sau hard reload với Disable cache đã bật"
+                loading="lazy"
+              />
+              <figcaption>
+                Bước 4 — Ctrl + Shift + R (hard reload) khi Disable cache đang
+                bật
+              </figcaption>
+            </figure>
+
+            <h3>Bước 5 — Đóng DevTools</h3>
+            <p>
+              Nhấn nút <strong>Close</strong> (<strong>✕</strong>) góc DevTools,
+              hoặc nhấn lại <kbd>F12</kbd>.
+            </p>
+            <figure>
+              <img
+                src="images/05-close-devtools.png"
+                alt="Trang ERP sau khi đóng DevTools"
+                loading="lazy"
+              />
+              <figcaption>
+                Bước 5 — Đóng DevTools và làm việc bình thường trên ERP
+              </figcaption>
+            </figure>
+          </section>
+
+          <section id="troubleshooting">
+            <h2>Xử lý sự cố</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Triệu chứng</th>
+                  <th>Cách xử lý</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Không thấy tab <span class="ui-label">Network</span></td>
+                  <td>
+                    Mở rộng DevTools (kéo mép panel) hoặc nhấn » / dấu ⋮ → More
+                    tools → Network
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="ui-label">Disable cache</span> bị xám / không
+                    tick được
+                  </td>
+                  <td>
+                    Đảm bảo DevTools vẫn mở; thử tắt chế độ Docked thu nhỏ
+                  </td>
+                </tr>
+                <tr>
+                  <td>Ctrl+Shift+R không đổi giao diện</td>
+                  <td>
+                    Thử đóng tab ERP và mở lại; hoặc đăng xuất → đăng nhập lại
+                    sau khi IT xác nhận đã
+                    <span class="ui-label">clear-cache</span> server
+                  </td>
+                </tr>
+                <tr>
+                  <td>Chỉ một máy bị lệch</td>
+                  <td>
+                    Lặp lại 5 bước trên; kiểm tra không dùng proxy/extension
+                    chặn JS
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <footer>
+            Captured: 2026-11-13 · Environment: dev-erp.smartr.co · Viewport:
+            1440×900 · Ảnh ERP: demo10@smartr.co · DevTools: minh họa chuẩn
+            Chrome/Edge
+          </footer>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

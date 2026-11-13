@@ -1,47 +1,74 @@
 {
-  "guide": "service-job-report",
-  "title": "Service Job Report — filters, Filter results, charts",
-  "capturedAt": "2026-11-04",
-  "images": [
+  "scenario": "E:\\smartr-workspace\\imed-project\\.cursor\\skills\\serp-create-user-guide\\scripts\\scenarios\\service-job-report.yaml",
+  "title": "Service Job Report — filters, metrics, charts, job list",
+  "output_dir": "e:\\smartr-workspace\\imed-project\\serp-user-guide\\service-job-report\\images",
+  "captured": [
     {
       "id": "01-open-page",
       "file": "01-open-page.png",
-      "caption": "Mở trang Service Job Report"
+      "caption": "Mở trang Service Job Report",
+      "url": "https://dev-erp.smartr.co/app/service_job_report",
+      "focus": false,
+      "highlight": false
     },
     {
       "id": "02-filters",
       "file": "02-filters.png",
-      "caption": "Bộ lọc — kỳ ngày, Customer, Ticket Approver, Job Status, Job Type, CSEs"
+      "caption": "Khu vực Filter — kỳ, From/To Date, Customer, Ticket Approver, CSEs, Job Status, Job Type",
+      "url": "https://dev-erp.smartr.co/app/service_job_report",
+      "focus": true,
+      "highlight": false
     },
     {
       "id": "03-metrics",
       "file": "03-metrics.png",
-      "caption": "Filter results — Total / Open / Closed jobs và By job type"
+      "caption": "Filter results — KPI và By job type",
+      "url": "https://dev-erp.smartr.co/app/service_job_report",
+      "focus": true,
+      "highlight": false
     },
     {
-      "id": "04-job-list",
-      "file": "04-job-list.png",
-      "caption": "Job List — danh sách phiếu Service Job"
+      "id": "04-apply-filter",
+      "file": "04-apply-filter.png",
+      "caption": "Nhấn Filter để áp dụng bộ lọc",
+      "url": "https://dev-erp.smartr.co/app/service_job_report",
+      "focus": true,
+      "highlight": false
     },
     {
-      "id": "05-chart-list",
-      "file": "05-chart-list.png",
-      "caption": "Job Chart List — số phiếu theo Job Type"
+      "id": "05-job-list",
+      "file": "05-job-list.png",
+      "caption": "Job List — danh sách Service Job đã lọc (Export to CSV trên tiêu đề)",
+      "url": "https://dev-erp.smartr.co/app/service_job_report",
+      "focus": false,
+      "highlight": false
     },
     {
-      "id": "06-chart-status",
-      "file": "06-chart-status.png",
-      "caption": "Job Chart Status — Open vs Close"
+      "id": "06-chart-list",
+      "file": "06-chart-list.png",
+      "caption": "Job Chart List — số Service Job theo Job Type",
+      "url": "https://dev-erp.smartr.co/app/service_job_report",
+      "focus": true,
+      "highlight": false
     },
     {
       "id": "07-chart-cse",
       "file": "07-chart-cse.png",
-      "caption": "Job Chart CSE — số phiếu job theo kỹ sư (CSEs trên job)"
+      "caption": "Job Chart CSE — số Service Job theo CSEs trên job",
+      "url": "https://dev-erp.smartr.co/app/service_job_report",
+      "focus": true,
+      "highlight": false
     },
     {
-      "id": "08-full-page",
-      "file": "08-full-page.png",
-      "caption": "Toàn trang sau khi lọc"
+      "id": "08-chart-status",
+      "file": "08-chart-status.png",
+      "caption": "Job Chart Status — tỷ lệ Service Job Open/Close",
+      "url": "https://dev-erp.smartr.co/app/service_job_report",
+      "focus": true,
+      "highlight": false
     }
-  ]
+  ],
+  "timestamp": "2026-11-13T09:01:53.827Z",
+  "status": "success",
+  "summary": "Captured 8 screenshot(s)"
 }

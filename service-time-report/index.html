@@ -137,7 +137,7 @@
       <div class="meta">
         <span><strong>Dành cho:</strong> iMED Service Leader, iMED Service Manager</span>
         <span><strong>Môi trường:</strong> dev-erp.smartr.co</span>
-        <span><strong>Cập nhật:</strong> 2026-11-04</span>
+        <span><strong>Cập nhật:</strong> 2026-11-13 (xuất CSV)</span>
       </div>
     </header>
 
@@ -148,6 +148,7 @@
         <a href="#concepts">Khái niệm</a>
         <a href="#prerequisites">Trước khi bắt đầu</a>
         <a href="#steps">Các bước</a>
+        <a href="#export-csv">Xuất CSV</a>
         <a href="#metrics">Giải thích metrics</a>
         <a href="#charts">Giải thích biểu đồ</a>
         <a href="#roles">Phân quyền</a>
@@ -161,7 +162,7 @@
     <section id="purpose">
       <h2>Mục đích</h2>
       <p><strong>Service Time Report</strong> (tiêu đề trên màn hình: <span class="ui-label">Report &amp; Dashboard</span>) giúp lãnh đạo dịch vụ theo dõi <strong>thời gian làm việc</strong> mà kỹ sư (CSE) ghi nhận trên các bản ghi <strong>Service Time</strong>: tổng giờ, phân loại theo giờ hành chính / ngoài giờ / ngày lễ, và phân bổ theo loại hoạt động.</p>
-      <p>Trang gồm: <span class="ui-label">Filter</span>, <span class="ui-label">Filter results</span> (bốn thẻ giờ), bảng <span class="ui-label">Time List</span>, và ba biểu đồ: <span class="ui-label">Time Chart List</span>, <span class="ui-label">Time Chart Activity</span>, <span class="ui-label">Time Chart Attendance</span>.</p>
+      <p>Trang gồm: <span class="ui-label">Filter</span>, <span class="ui-label">Filter results</span> (bốn thẻ giờ), bảng <span class="ui-label">Time List</span> (có <span class="ui-label">Export to CSV</span>), và ba biểu đồ: <span class="ui-label">Time Chart List</span>, <span class="ui-label">Time Chart Activity</span>, <span class="ui-label">Time Chart Attendance</span>.</p>
       <div class="note"><strong>Lưu ý:</strong> Chỉ <strong>iMED Service Leader</strong>, <strong>iMED Service Manager</strong> (hoặc quản trị) mới mở được trang. <strong>iMED Service User</strong> không truy cập báo cáo này (dù vẫn có thể ghi Service Time trên phiếu công việc).</div>
     </section>
 
@@ -237,30 +238,51 @@
       </figure>
       <ul>
         <li>Dùng <span class="ui-label">Prev</span> / <span class="ui-label">Next</span> khi có hơn 50 bản ghi.</li>
+        <li>Góc phải tiêu đề <span class="ui-label">Time List</span>: <span class="ui-label">Export to CSV</span>.</li>
         <li>Nhấn <span class="ui-label">Time ID</span> (nếu có link) để mở chi tiết bản ghi trên ERP.</li>
       </ul>
 
-      <h3>Bước 6: Xem biểu đồ</h3>
+      <h3>Bước 6: Xuất CSV (tùy chọn)</h3>
+      <p>Chi tiết: mục <a href="#export-csv">Xuất danh sách Time ra CSV</a>.</p>
+
+      <h3>Bước 7: Xem biểu đồ</h3>
       <p>Ba biểu đồ dùng <strong>cùng bộ lọc</strong>. Di chuột lên cột hoặc lát pie để xem tooltip (giờ + phút). Nút mở rộng góc phải mỗi thẻ → xem fullscreen.</p>
 
       <p><strong>Time Chart List</strong> — tổng thời gian theo từng CSE.</p>
       <figure class="figure-focus">
         <img src="images/06-chart-list.png" alt="Biểu đồ cột Time Chart List theo CSE" loading="lazy">
-        <figcaption>Bước 6a — Time Chart List</figcaption>
+        <figcaption>Bước 7a — Time Chart List</figcaption>
       </figure>
 
       <p><strong>Time Chart Activity</strong> — tỷ lệ thời gian theo Activity Type.</p>
       <figure class="figure-focus">
         <img src="images/07-chart-activity.png" alt="Biểu đồ tròn Time Chart Activity" loading="lazy">
-        <figcaption>Bước 6b — Time Chart Activity</figcaption>
+        <figcaption>Bước 7b — Time Chart Activity</figcaption>
       </figure>
 
       <p><strong>Time Chart Attendance</strong> — tỷ lệ theo Normal / After / Holiday.</p>
       <figure class="figure-focus">
         <img src="images/08-chart-attendance.png" alt="Biểu đồ tròn Time Chart Attendance" loading="lazy">
-        <figcaption>Bước 6c — Time Chart Attendance</figcaption>
+        <figcaption>Bước 7c — Time Chart Attendance</figcaption>
       </figure>
       <p>Giải thích chi tiết: <a href="#charts">Giải thích biểu đồ</a>.</p>
+    </section>
+
+    <section id="export-csv">
+      <h2>Xuất danh sách Time ra CSV</h2>
+      <p>Nút <span class="ui-label">Export to CSV</span> trên tiêu đề <span class="ui-label">Time List</span> tải <strong>mọi bản ghi Service Time khớp bộ lọc</strong> (không chỉ trang hiện tại).</p>
+      <div class="note"><strong>Trước khi xuất:</strong> Chỉnh Filter và nhấn <span class="ui-label">Filter</span>. Xuất lấy giá trị đang có trong các ô lọc khi bạn bấm <span class="ui-label">Export to CSV</span>.</div>
+      <ol>
+        <li>Nhấn <span class="ui-label">Export to CSV</span> → hộp thoại <span class="ui-label">Export Time List</span>.</li>
+        <li>Đọc số lượng bản ghi sẵn sàng xuất. Không có dữ liệu → <span class="ui-label">Download CSV</span> tắt.</li>
+        <li>Xem trước <strong>6</strong> dòng đầu trong bảng thu nhỏ.</li>
+        <li>Nhấn <span class="ui-label">Download CSV</span> — file <span class="ui-label">service-times-YYYY-MM-DD-YYYY-MM-DD.csv</span> (theo From/To Date).</li>
+        <li>Đóng bằng Cancel, × hoặc click ra ngoài hộp thoại.</li>
+      </ol>
+      <p><strong>Cột trong file</strong> (giống Time List): Time ID, CSE Name, Activity Type, Attendance Type, Time Total (chuỗi đọc được, ví dụ <em>2 giờ 30 phút</em>). File UTF-8 có BOM cho Excel.</p>
+      <p><strong>Lưu ý:</strong> CSV <strong>không</strong> gồm cột Start / End — chỉ <span class="ui-label">Time Total</span> đã tính. Muốn sửa chi tiết từng dòng, mở <span class="ui-label">Time ID</span> trên ERP.</p>
+      <p><strong>Giới hạn:</strong> Tối đa <strong>10.000</strong> dòng/lần; vượt ngưỡng → cảnh báo và chỉ 10.000 dòng đầu — thu hẹp kỳ hoặc lọc CSE / Activity / Attendance.</p>
+      <p><strong>Không xuất:</strong> KPI giờ và biểu đồ — chỉ danh sách Service Time.</p>
     </section>
 
     <section id="metrics">
@@ -285,10 +307,11 @@
 
       <div class="note"><strong>Nhớ nhanh:</strong> Mỗi dòng Service Time chỉ một loại giờ. Normal + After + Holiday = Total hours. Làm tròn hiển thị có thể lệch nhẹ — xem tooltip biểu đồ nếu cần.</div>
 
-      <h3>Filter results và bảng Time List</h3>
+      <h3>Filter results, Time List và CSV</h3>
       <ul>
         <li><strong>Filter results</strong> = cộng tất cả dòng thỏa lọc thành bốn con số trên thẻ.</li>
         <li><strong>Time List</strong> = liệt kê từng dòng (50 dòng/trang). Cộng cột <span class="ui-label">Time Total</span> của mọi trang sẽ khớp tổng giờ (trừ làm tròn hiển thị).</li>
+        <li><strong>Export to CSV</strong> = cùng bộ lọc, tối đa <strong>10.000</strong> dòng mỗi file; xem <a href="#export-csv">Xuất CSV</a>.</li>
       </ul>
 
       <h3>Activity Type — khi lọc hoặc đọc Time List</h3>
@@ -356,8 +379,8 @@
       <p>Sau khi nhấn <span class="ui-label">Filter</span>:</p>
       <ul>
         <li>Filter results, Time List (trang 1) và ba biểu đồ đồng bộ một tập bản ghi.</li>
-        <li>Time List: 50 dòng/trang, sắp xếp Start giảm dần.</li>
-        <li>Không có dữ liệu: metrics = <em>0 Giờ</em>; biểu đồ trống; bảng không có dòng.</li>
+        <li>Time List: 50 dòng/trang, sắp xếp Start giảm dần; CSV cùng bộ lọc, tối đa 10.000 dòng.</li>
+        <li>Không có dữ liệu: metrics = <em>0 Giờ</em>; biểu đồ trống; bảng không có dòng; không tải được CSV.</li>
       </ul>
     </section>
 
@@ -372,12 +395,15 @@
           <tr><td>Pie Attendance ≠ cộng tay Normal+After+Holiday</td><td>Làm tròn hiển thị giờ</td><td>Dùng tooltip phút trên biểu đồ hoặc xem Time List</td></tr>
           <tr><td>Biểu đồ <em>No data</em></td><td>Lọc quá hẹp</td><td>Bỏ Activity/Attendance/CSE hoặc nới ngày</td></tr>
           <tr><td>Time List trống, metrics &gt; 0</td><td>Đang ở trang pagination sai</td><td>Nhấn Filter lại hoặc Prev về trang 1</td></tr>
+          <tr><td>CSV thiếu dòng so với tổng lọc</td><td>Giới hạn 10.000 dòng hoặc lọc lúc xuất khác lúc Filter</td><td>Thu hẹp From/To hoặc CSE; đọc cảnh báo truncation; Filter rồi xuất lại</td></tr>
+          <tr><td>CSV không có giờ Start/End</td><td>Thiết kế — chỉ Time Total trên export</td><td>Mở từng Time ID trên ERP nếu cần Start/End</td></tr>
+          <tr><td><span class="ui-label">Download CSV</span> không bấm được</td><td>Không có bản ghi khớp lọc</td><td>Mở rộng ngày hoặc bỏ bớt điều kiện Activity/Attendance</td></tr>
         </tbody>
       </table>
     </section>
 
     <footer>
-      Captured: 2026-11-04 · Environment: dev-erp.smartr.co · Screenshot account: demo10@smartr.co (iMED Service Manager)
+      Captured: 2026-11-13 · Environment: dev-erp.smartr.co · Viewport: 1440×900 · Screenshot account: demo10@smartr.co (iMED Service Manager)
     </footer>
     </div>
     </div>

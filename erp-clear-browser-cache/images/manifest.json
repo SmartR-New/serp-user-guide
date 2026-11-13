@@ -1,0 +1,15 @@
+{
+  "feature": "erp-clear-browser-cache",
+  "capturedAt": "2026-11-13",
+  "viewport": "1440x900",
+  "environment": "dev-erp.smartr.co",
+  "notes": "01-open-devtools.png = Playwright ERP; 01b–05 = mockups với nền ERP thật",
+  "files": [
+    "01-open-devtools.png",
+    "01b-open-devtools.png",
+    "02-network-tab.png",
+    "03-disable-cache.png",
+    "04-hard-reload.png",
+    "05-close-devtools.png"
+  ]
+}
