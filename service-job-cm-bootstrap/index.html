@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Service Job CM — tự tạo Ticket khi lưu | iMED ERP — Service
+    </title>
+    <meta
+      name="description"
+      content="Tạo Service Job Corrective Maintenance không chọn Ticket: hệ thống ẩn ô Ticket, dùng Customer và CSEs trên job để tạo Ticket mới khi Save."
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,420;14..32,600;14..32,700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --font: "Inter", system-ui, sans-serif;
+        --surface: #fff;
+        --bg: #f8fafc;
+        --text: #0f172a;
+        --muted: #64748b;
+        --border: #e2e8f0;
+        --blue: #2490ef;
+        --amber-soft: #fffbeb;
+        --amber: #b45309;
+        --radius: 8px;
+        --max: 1080px;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font: 420 15px/1.6 var(--font);
+        color: var(--text);
+        background: var(--bg);
+      }
+      a {
+        color: var(--blue);
+      }
+      .shell {
+        max-width: var(--max);
+        margin: 0 auto;
+        padding: 0 20px 64px;
+      }
+      .page {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 220px;
+        grid-template-areas: "header rail" "content rail";
+        column-gap: 48px;
+        align-items: start;
+      }
+      header.page-header {
+        grid-area: header;
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        background: rgba(248, 250, 252, 0.92);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--border);
+        padding: 14px 0;
+        margin-bottom: 28px;
+      }
+      .content {
+        grid-area: content;
+        min-width: 0;
+      }
+      h1 {
+        margin: 8px 0 0;
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        line-height: 1.2;
+      }
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 16px;
+        margin-top: 12px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .meta strong {
+        color: var(--text);
+        font-weight: 600;
+      }
+      section {
+        margin-top: 36px;
+        scroll-margin-top: 168px;
+      }
+      h2 {
+        margin: 0 0 12px;
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        padding-bottom: 8px;
+        border-bottom: 2px solid var(--border);
+      }
+      h3 {
+        margin: 20px 0 8px;
+        font-size: 17px;
+        font-weight: 600;
+      }
+      p {
+        margin: 0 0 12px;
+      }
+      ol,
+      ul {
+        margin: 0 0 16px;
+        padding-left: 1.25rem;
+      }
+      li {
+        margin-bottom: 8px;
+      }
+      .steps {
+        counter-reset: step;
+        list-style: none;
+        padding: 0;
+        margin: 0 0 8px;
+      }
+      .steps > li {
+        counter-increment: step;
+        margin: 0 0 28px;
+        padding: 0;
+      }
+      .steps > li h2::before {
+        content: counter(step) ". ";
+        color: var(--muted);
+        font-weight: 700;
+      }
+      figure {
+        margin: 16px 0 0;
+        padding: 12px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      }
+      figure img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 4px;
+        border: 1px solid var(--border);
+      }
+      figcaption {
+        margin-top: 10px;
+        font-size: 13px;
+        color: var(--muted);
+        text-align: center;
+      }
+      figure.figure-focus img {
+        box-shadow:
+          0 0 0 2px #e53935,
+          0 8px 24px rgba(15, 23, 42, 0.15);
+      }
+      figure.figure-focus figcaption::before {
+        content: "Focus · ";
+        color: #e53935;
+        font-weight: 600;
+      }
+      .note {
+        margin: 16px 0;
+        padding: 12px 14px;
+        background: var(--amber-soft);
+        border-left: 4px solid var(--amber);
+        border-radius: 0 var(--radius) var(--radius) 0;
+        font-size: 14px;
+      }
+      .note strong {
+        color: var(--amber);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        margin: 12px 0 20px;
+      }
+      th,
+      td {
+        padding: 10px 12px;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+        vertical-align: top;
+      }
+      th {
+        background: #f1f5f9;
+        font-weight: 600;
+        font-size: 13px;
+      }
+      tr:last-child td {
+        border-bottom: none;
+      }
+      .ui-label {
+        font-family: ui-monospace, monospace;
+        font-size: 0.92em;
+        background: #f1f5f9;
+        padding: 1px 6px;
+        border-radius: 4px;
+      }
+      footer {
+        margin-top: 48px;
+        padding-top: 16px;
+        border-top: 1px solid var(--border);
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .on-this-page {
+        grid-area: rail;
+        position: sticky;
+        top: 24px;
+        max-height: calc(100vh - 40px);
+        overflow: auto;
+        padding-top: 8px;
+      }
+      .on-this-page p {
+        margin: 0 0 8px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text);
+      }
+      .on-this-page nav {
+        display: flex;
+        flex-direction: column;
+        border-left: 1px solid var(--border);
+      }
+      .on-this-page a {
+        display: block;
+        margin-left: -1px;
+        padding: 6px 8px 6px 14px;
+        border-left: 2px solid transparent;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.4;
+        text-decoration: none;
+      }
+      .on-this-page a:hover {
+        color: var(--text);
+      }
+      .on-this-page a.active {
+        border-left-color: #171717;
+        color: #171717;
+        font-weight: 600;
+        background: #f3f3f3;
+      }
+      @media (max-width: 860px) {
+        .page {
+          grid-template-columns: 1fr;
+          grid-template-areas: "header" "rail" "content";
+        }
+        .on-this-page {
+          position: static;
+          max-height: none;
+          margin-bottom: 8px;
+        }
+      }
+      .guide-nav {
+        margin: 16px 0 0;
+        padding: 12px 14px;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        font-size: 13px;
+      }
+      .guide-nav a {
+        margin-right: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <div class="page">
+        <header class="page-header">
+          <h1>Service Job CM — tự tạo Ticket khi lưu</h1>
+          <div class="meta">
+            <span><strong>Dành cho:</strong> iMED Service Manager</span>
+            <span><strong>Module:</strong> Service — Service Job</span>
+            <span><strong>Cập nhật:</strong> 2026-11-16</span>
+          </div>
+          <p class="guide-nav">
+            <a href="../service/service-job/index.html">Service Job (tổng quan)</a>
+            <a href="../service/ticket/index.html">Ticket</a>
+            <a href="../ticket-generate-schedule/index.html">Generate Schedule (PM)</a>
+            <a href="../service/overview/index.html">Tổng quan luồng</a>
+          </p>
+        </header>
+
+        <aside class="on-this-page">
+          <p>Trên trang này</p>
+          <nav aria-label="Trên trang này">
+            <a href="#when">Khi nào dùng</a>
+            <a href="#step-add">Add Service Job</a>
+            <a href="#step-cm">Chọn Corrective Maintenance</a>
+            <a href="#step-fill">Điền thông tin</a>
+            <a href="#step-save">Lưu &amp; map sang Ticket</a>
+            <a href="#troubleshoot">Xử lý sự cố</a>
+          </nav>
+        </aside>
+
+        <div class="content">
+          <p>
+            Với job <strong>Corrective Maintenance (CM)</strong> mới, bạn có thể
+            tạo job <strong>trước</strong> mà <strong>không</strong> chọn
+            <span class="ui-label">Ticket</span>. Sau khi lưu, hệ thống tự tạo một
+            Ticket mới và gắn vào job. Luồng này khác với
+            <strong>Preventive Maintenance</strong> (bắt buộc có Ticket, hoặc job
+            sinh từ <span class="ui-label">Generate Schedule</span> trên Ticket).
+          </p>
+          <div class="note" id="when">
+            <strong>Điều kiện tự tạo Ticket:</strong> Form
+            <strong>mới</strong>, <span class="ui-label">Job Type</span> =
+            <strong>Corrective Maintenance</strong>, và ô
+            <span class="ui-label">Ticket</span> <strong>trống</strong> (ô Ticket
+            được ẩn trên form). Nếu bạn đã chọn Ticket trước khi đổi loại CM —
+            hệ thống <strong>không</strong> tạo Ticket thêm.
+          </div>
+
+          <ol class="steps">
+            <li>
+              <section id="step-add">
+                <h2>Mở danh sách và Add Service Job</h2>
+                <p>
+                  Trên Desk, nhấn <kbd>Ctrl</kbd>+<kbd>G</kbd>, gõ
+                  <em>Service Job</em> (hoặc mở từ workspace Service). Trên danh
+                  sách, nhấn <span class="ui-label">+ Add Service Job</span>.
+                </p>
+                <figure>
+                  <img
+                    src="images/01-add-service-job.png"
+                    alt="Danh sách Service Job — nút Add"
+                    loading="lazy"
+                    width="1440"
+                    height="900"
+                  />
+                  <figcaption>Danh sách Service Job</figcaption>
+                </figure>
+              </section>
+            </li>
+
+            <li>
+              <section id="step-cm">
+                <h2>Chọn Job Type Corrective Maintenance</h2>
+                <p>
+                  Trên form job mới, chọn
+                  <span class="ui-label">Job Type</span> =
+                  <strong>Corrective Maintenance</strong>
+                  <em>trước</em> khi làm việc với Ticket. Ô
+                  <span class="ui-label">Ticket</span> sẽ <strong>ẩn</strong> (bạn
+                  không bắt buộc chọn ticket có sẵn).
+                </p>
+                <figure>
+                  <img
+                    src="images/02-new-job-form.png"
+                    alt="Form Service Job mới"
+                    loading="lazy"
+                    width="1440"
+                    height="900"
+                  />
+                  <figcaption>Form Service Job mới — trước khi chọn loại</figcaption>
+                </figure>
+                <figure class="figure-focus">
+                  <img
+                    src="images/03-select-cm-job-type.png"
+                    alt="Chọn Corrective Maintenance"
+                    loading="lazy"
+                    width="1440"
+                    height="900"
+                  />
+                  <figcaption>Sau khi chọn Corrective Maintenance</figcaption>
+                </figure>
+              </section>
+            </li>
+
+            <li>
+              <section id="step-fill">
+                <h2>Điền Customer, CSEs và Schedule</h2>
+                <p>
+                  Khi CM và chưa có Ticket, các trường sau hiển thị để bạn điền
+                  trực tiếp trên job (không lấy từ ticket có sẵn):
+                </p>
+                <ul>
+                  <li>
+                    <span class="ui-label">Customer</span> — <strong>bắt buộc</strong>
+                    (một khách hàng).
+                  </li>
+                  <li>
+                    <span class="ui-label">CSEs</span> — kỹ sư dịch vụ (danh sách
+                    đầy đủ, không giới hạn theo ticket khi chưa gắn ticket).
+                  </li>
+                  <li>
+                    <span class="ui-label">Job Status</span> — Open hoặc Close
+                    (ảnh hưởng trạng thái Ticket khi tạo).
+                  </li>
+                  <li>
+                    Khối <span class="ui-label">Schedule</span> — ngày plan và các
+                    trường CM (Problem, Breakdown, On Site, …) theo quy trình CM
+                    thông thường.
+                  </li>
+                </ul>
+                <figure class="figure-focus">
+                  <img
+                    src="images/04-cm-customer-cses.png"
+                    alt="CM không Ticket — Customer và CSEs"
+                    loading="lazy"
+                    width="1440"
+                    height="900"
+                  />
+                  <figcaption>
+                    Corrective Maintenance — Customer và CSEs trên job (không chọn
+                    Ticket)
+                  </figcaption>
+                </figure>
+              </section>
+            </li>
+
+            <li>
+              <section id="step-save">
+                <h2>Lưu job — hệ thống tạo Ticket</h2>
+                <p>
+                  Nhấn <span class="ui-label">Save</span>. Hệ thống tạo Ticket mới
+                  (mã dạng <span class="ui-label">TKT-…</span>), map dữ liệu từ
+                  job sang Ticket, rồi gắn mã Ticket vào ô
+                  <span class="ui-label">Ticket</span> trên job đã lưu.
+                </p>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Trường trên Service Job</th>
+                      <th>Sang Ticket</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="ui-label">Customer</span></td>
+                      <td>
+                        <span class="ui-label">Customers</span> (mảng JSON, một
+                        khách hàng)
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><span class="ui-label">CSEs</span></td>
+                      <td><span class="ui-label">CSEs</span> (giữ nguyên)</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span class="ui-label">Job Status</span> Open / Close
+                      </td>
+                      <td>
+                        <span class="ui-label">Status</span> Open / Closed
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><span class="ui-label">Plan Start Date</span> (Schedule)</td>
+                      <td><span class="ui-label">Plan Start Date</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="ui-label">Plan End Date</span> (Schedule)</td>
+                      <td><span class="ui-label">Plan End Date</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p>
+                  Mở Ticket vừa tạo từ <span class="ui-label">Ticket</span> trên
+                  job (link) hoặc từ danh sách Ticket để bổ sung Approver, mô tả
+                  và các trường khác nếu quy trình nội bộ yêu cầu.
+                </p>
+                <div class="note">
+                  <strong>PM khác CM:</strong> Job
+                  <strong>Preventive Maintenance</strong> luôn cần Ticket sẵn có.
+                  Để tạo hàng loạt job PM từ Ticket, dùng hướng dẫn
+                  <a href="../ticket-generate-schedule/index.html">Generate Schedule (Ticket PM)</a>.
+                </div>
+              </section>
+            </li>
+          </ol>
+
+          <section id="troubleshoot">
+            <h2>Xử lý sự cố</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Triệu chứng</th>
+                  <th>Gợi ý</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Vẫn thấy ô Ticket bắt buộc</td>
+                  <td>
+                    Chọn <strong>Corrective Maintenance</strong> trên form
+                    <strong>mới</strong>; đảm bảo chưa chọn Ticket trước đó.
+                    Làm mới form (Add Service Job mới).
+                  </td>
+                </tr>
+                <tr>
+                  <td>Không thấy <span class="ui-label">CSEs</span></td>
+                  <td>
+                    Xác nhận <span class="ui-label">Job Type</span> là CM và chưa
+                    gắn Ticket. Nếu vừa đổi loại job, chờ form cập nhật hoặc tải
+                    lại trang job mới.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Lỗi khi Save — Customer</td>
+                  <td>
+                    <span class="ui-label">Customer</span> bắt buộc với mọi
+                    Service Job; điền trước khi lưu.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Save xong nhưng không có Ticket mới</td>
+                  <td>
+                    Chỉ job <strong>mới</strong> + <strong>CM</strong> + ticket
+                    trống mới bootstrap. Job đã lưu hoặc đã có Ticket sẽ không tạo
+                    thêm.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <footer>Captured: 2026-11-16 · Môi trường: dev-erp.smartr.co</footer>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const links = Array.from(document.querySelectorAll(".on-this-page a"));
+        const sections = links
+          .map((l) => document.querySelector(l.getAttribute("href")))
+          .filter(Boolean);
+        function mark(id) {
+          links.forEach((link) => {
+            link.classList.toggle(
+              "active",
+              link.getAttribute("href") === "#" + id,
+            );
+          });
+        }
+        function currentId() {
+          const marker = 180;
+          let current = sections[0];
+          sections.forEach((s) => {
+            if (s.getBoundingClientRect().top <= marker) current = s;
+          });
+          return current ? current.id : "";
+        }
+        document.addEventListener("scroll", () => mark(currentId()), {
+          passive: true,
+        });
+        mark(currentId());
+      })();
+    </script>
+    <script src="../assets/catalog.js"></script>
+  </body>
+</html>

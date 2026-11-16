@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tổng quan — Ticket, Service Job, Service Time | iMED ERP — Service</title>
+  <meta name="description" content="Quan hệ ba tầng và luồng dữ liệu dịch vụ iMED.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,420;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font: "Inter", system-ui, sans-serif;
+      --surface: #fff;
+      --bg: #f8fafc;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --blue: #2490ef;
+      --amber-soft: #fffbeb;
+      --amber: #b45309;
+      --radius: 8px;
+      --max: 1080px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font: 420 15px/1.6 var(--font); color: var(--text); background: var(--bg); }
+    a { color: var(--blue); }
+    .shell { max-width: var(--max); margin: 0 auto; padding: 0 20px 64px; }
+    .page {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 220px;
+      grid-template-areas: "header rail" "content rail";
+      column-gap: 48px;
+      align-items: start;
+    }
+    header.page-header {
+      grid-area: header;
+      position: sticky; top: 0; z-index: 5;
+      background: rgba(248,250,252,.92); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0; margin-bottom: 28px;
+    }
+    .content { grid-area: content; min-width: 0; }
+    .back { font-size: 13px; color: var(--muted); }
+    h1 { margin: 8px 0 0; font-size: 28px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 12px; font-size: 13px; color: var(--muted); }
+    .meta strong { color: var(--text); font-weight: 600; }
+    section { margin-top: 36px; scroll-margin-top: 168px; }
+    h2 { margin: 0 0 12px; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+    h3 { margin: 28px 0 8px; font-size: 17px; font-weight: 600; }
+    p { margin: 0 0 12px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.25rem; }
+    li { margin-bottom: 6px; }
+    .checklist { list-style: none; padding: 0; }
+    .checklist li::before { content: "☐ "; color: var(--muted); }
+    figure {
+      margin: 16px 0 24px; padding: 12px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: 0 1px 3px rgba(0,0,0,.04);
+    }
+    figure img { display: block; width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border); }
+    figcaption { margin-top: 10px; font-size: 13px; color: var(--muted); text-align: center; }
+    figure.figure-focus img {
+      box-shadow: 0 0 0 2px #e53935, 0 8px 24px rgba(15,23,42,.15);
+    }
+    figure.figure-focus figcaption::before {
+      content: "Focus · ";
+      color: #e53935;
+      font-weight: 600;
+    }
+    .note {
+      margin: 12px 0 20px; padding: 12px 14px;
+      background: var(--amber-soft); border-left: 4px solid var(--amber);
+      border-radius: 0 var(--radius) var(--radius) 0; font-size: 14px;
+    }
+    .note strong { color: var(--amber); }
+    table {
+      width: 100%; border-collapse: collapse; font-size: 14px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden; margin: 12px 0 20px;
+    }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: #f1f5f9; font-weight: 600; font-size: 13px; }
+    tr:last-child td { border-bottom: none; }
+    .ui-label { font-family: ui-monospace, monospace; font-size: 0.92em; background: #f1f5f9; padding: 1px 6px; border-radius: 4px; }
+    .diagram {
+      margin: 16px 0 24px; padding: 16px 20px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); font-size: 14px; line-height: 1.5;
+    }
+    footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+    .on-this-page {
+      grid-area: rail;
+      position: sticky;
+      top: 24px;
+      max-height: calc(100vh - 40px);
+      overflow: auto;
+      padding-top: 8px;
+    }
+    .on-this-page p { margin: 0 0 8px; font-size: 13px; font-weight: 600; color: var(--text); }
+    .on-this-page nav { display: flex; flex-direction: column; border-left: 1px solid var(--border); }
+    .on-this-page a {
+      display: block; margin-left: -1px; padding: 6px 8px 6px 14px;
+      border-left: 2px solid transparent; color: var(--muted);
+      font-size: 13px; line-height: 1.4; text-decoration: none;
+    }
+    .on-this-page a:hover { color: var(--text); }
+    .on-this-page a.active {
+      border-left-color: #171717; color: #171717; font-weight: 600; background: #f3f3f3;
+    }
+    @media (max-width: 860px) {
+      .page { grid-template-columns: 1fr; grid-template-areas: "header" "rail" "content"; }
+      .on-this-page { position: static; max-height: none; margin-bottom: 8px; }
+    }
+  
+    .guide-nav { margin: 0 0 24px; padding: 12px 14px; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 13px; }
+    .guide-nav a { margin-right: 12px; }
+</style>
+</head>
+<body>
+  <div class="shell">
+    <div class="page">
+    <header class="page-header">
+      <a class="back" href="../../index.html#module-service">← Tài liệu hướng dẫn iMED ERP</a>
+      <h1>Tổng quan — Ticket, Service Job, Service Time</h1>
+      <div class="meta">
+        <span><strong>Module:</strong> Service</span>
+        <span><strong>Cập nhật:</strong> 2026-11-16</span>
+      </div>
+      <p class="guide-nav"><a href="../roles/index.html">Phân quyền</a> · <a href="../ticket/index.html">Ticket</a> · <a href="../service-job/index.html">Service Job</a> · <a href="../service-time/index.html">Service Time</a></p>
+    </header>
+    <aside class="on-this-page">
+      <p>Trên trang này</p>
+      <nav aria-label="Trên trang này">
+        <a href="#purpose">Purpose</a>
+        <a href="#hierarchy">Hierarchy</a>
+      </nav>
+    </aside>
+    <div class="content">
+<section id="purpose">
+      <h2>Mục đích</h2>
+      <p>Hướng dẫn này mô tả quy trình ghi nhận công việc dịch vụ theo ba tầng: <strong>Ticket</strong> (phiếu hỗ trợ — có thể gắn <strong>nhiều khách hàng</strong>) → <strong>Service Job</strong> (công việc cụ thể — chọn <strong>một</strong> khách hàng trong danh sách của Ticket) → <strong>Service Time</strong> (giờ làm việc của kỹ sư).</p>
+      <p>Một Ticket có thể có <strong>nhiều</strong> Service Job; mỗi Service Job có thể có <strong>nhiều</strong> Service Time. Danh sách CSE được thu hẹp dần theo từng tầng để tránh gán nhầm người không thuộc ca làm việc.</p>
+    </section>
+<section id="hierarchy">
+      <h2>Quan hệ dữ liệu</h2>
+      <div class="diagram">
+        <strong>Ticket</strong> (danh sách khách hàng, trạng thái, người duyệt, danh sách kỹ sư CSE; tùy chọn <span class="ui-label">Plan Start Date</span> / <span class="ui-label">Plan End Date</span>)<br>
+        &nbsp;&nbsp;└─ <strong>Service Job</strong> (gắn Ticket; kỹ sư trên job phải nằm trong danh sách CSE của Ticket; <strong>chỉ job Preventive Maintenance</strong> bị kiểm tra Plan Start/End trong phạm vi ngày plan của Ticket khi Ticket đã nhập đủ hai ngày)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ <strong>Service Time</strong> (gắn Service Job; kỹ sư ghi giờ phải nằm trong danh sách CSE của Job)
+      </div>
+      <p>Sau khi lưu Ticket, mở lại phiếu để thấy khu vực <span class="ui-label">Connections</span> → <span class="ui-label">Service Job</span> (số badge = số job đã tạo) và nút <strong>+</strong> để thêm job mới từ Ticket.</p>
+      <figure>
+        <img src="../../support-ticket-workflow/images/05-ticket-detail.png" alt="Ticket đã lưu với Connections Service Job và các trường Customer Status Approver CSEs" loading="lazy">
+        <figcaption>Ticket đã lưu — liên kết Service Job và danh sách CSEs</figcaption>
+      </figure>
+    </section>
+    <footer>
+      Nội dung tách từ hướng dẫn Service · Ảnh: support-ticket-workflow/images · Cập nhật 2026-11-16
+    </footer>
+    </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const links = Array.from(document.querySelectorAll(".on-this-page a"));
+      const sections = links.map((l) => document.querySelector(l.getAttribute("href"))).filter(Boolean);
+      function mark(id) {
+        links.forEach((link) => {
+          const on = link.getAttribute("href") === "#" + id;
+          link.classList.toggle("active", on);
+        });
+      }
+      function currentId() {
+        const marker = 180;
+        let current = sections[0];
+        sections.forEach((s) => { if (s.getBoundingClientRect().top <= marker) current = s; });
+        return current ? current.id : "";
+      }
+      document.addEventListener("scroll", () => mark(currentId()), { passive: true });
+      mark(currentId());
+    })();
+  </script>
+
+  <script src="../../assets/catalog.js"></script>
+</body>
+</html>

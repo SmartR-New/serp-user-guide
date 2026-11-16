@@ -4,114 +4,52 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>iMED ERP — Tài liệu hướng dẫn sử dụng</title>
-  <meta name="description" content="Hướng dẫn sử dụng iMED ERP theo module HR, CRM và Support — cho người dùng cuối.">
+  <meta name="description" content="Hướng dẫn sử dụng iMED ERP cho người dùng cuối — HR, CRM, Service trên nền Frappe.">
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,420;14..32,600;14..32,700&display=swap" rel="stylesheet">
-  <style>
-    :root { --font: "Inter", system-ui, sans-serif; --text: #0f172a; --muted: #64748b; --border: #e2e8f0; --blue: #2490ef; }
-    body { margin: 0; font: 420 15px/1.5 var(--font); color: var(--text); background: #f8fafc; }
-    .shell { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    h1 { margin: 0 0 8px; font-size: 26px; font-weight: 700; letter-spacing: -0.03em; }
-    .lead { margin: 0 0 32px; color: var(--muted); font-size: 14px; }
-    .module { margin-bottom: 36px; }
-    .module:last-child { margin-bottom: 0; }
-    .module-head {
-      margin: 0 0 4px;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .module-desc {
-      margin: 0 0 12px;
-      font-size: 13px;
-      color: var(--muted);
-    }
-    .guide-list { list-style: none; margin: 0; padding: 0; background: #fff; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-    .guide-list li { border-bottom: 1px solid var(--border); }
-    .guide-list li:last-child { border-bottom: none; }
-    a.card { display: block; padding: 14px 16px; color: inherit; text-decoration: none; }
-    a.card:hover { background: #f8fafc; color: var(--blue); }
-    .title { font-weight: 600; font-size: 15px; display: block; }
-    .desc { margin: 4px 0 0; font-size: 13px; color: var(--muted); line-height: 1.45; }
-    .date { float: right; font-size: 12px; color: var(--muted); font-weight: 400; }
-    a.card:hover .date { color: var(--muted); }
-  </style>
+  <link rel="stylesheet" href="assets/catalog.css">
 </head>
 <body>
-  <div class="shell">
-    <h1>iMED ERP — Tài liệu hướng dẫn</h1>
-    <p class="lead">Hướng dẫn sử dụng cho người dùng cuối, theo từng module. Ảnh minh họa từ dev-erp.smartr.co.</p>
+  <div class="guide-layout">
+    <aside id="guide-sidebar" class="guide-sidebar" aria-label="Mục lục hướng dẫn theo module"></aside>
+    <main class="guide-main guide-main--home">
+      <div class="guide-main__inner guide-home">
+        <h1>iMED ERP — Tài liệu hướng dẫn</h1>
+        <p class="lead">
+          Bộ tài liệu dành cho <strong>người dùng cuối</strong> trên hệ thống <strong>iMED ERP</strong> — giải pháp quản trị doanh nghiệp, truy cập qua trình duyệt (Desk). Mỗi bài mô tả thao tác thực tế trên màn hình, kèm ảnh minh họa (môi trường tham chiếu: dev-erp.smartr.co).
+        </p>
 
-    <section class="module" aria-labelledby="module-general">
-      <h2 class="module-head" id="module-general">Chung</h2>
-      <p class="module-desc">Thao tác trình duyệt — áp dụng mọi màn hình ERP.</p>
-      <ul class="guide-list">
-        <li>
-          <a class="card" href="erp-clear-browser-cache/index.html">
-            <span class="title">Làm mới trang ERP (tắt cache DevTools) <span class="date">2026-11-13</span></span>
-            <p class="desc">F12 → Network → Disable cache → Ctrl+Shift+R — dùng sau khi IT cập nhật app, tránh giao diện cũ.</p>
-          </a>
-        </li>
-      </ul>
-    </section>
+        <section aria-labelledby="home-about">
+          <h2 id="home-about">iMED ERP là gì?</h2>
+          <p>
+            iMED ERP gom quy trình nội bộ — nhân sự, kinh doanh, dịch vụ hiện trường — vào một workspace thống nhất. Người dùng đăng nhập bằng tài khoản công ty, làm việc theo <strong>vai trò</strong> (role) được IT gán: mỗi role chỉ thấy và thao tác được phần dữ liệu phù hợp.
+          </p>
+          <p>
+            Tài liệu này <strong>không</strong> thay thế đào tạo trực tiếp hay chính sách nội bộ; dùng khi cần nhớ lại bước thao tác hoặc quyền trên form cụ thể.
+          </p>
+        </section>
 
-    <section class="module" aria-labelledby="module-hr">
-      <h2 class="module-head" id="module-hr">HR</h2>
-      <p class="module-desc">Nhân sự — đề nghị thanh toán và quy trình duyệt.</p>
-      <ul class="guide-list">
-        <li>
-          <a class="card" href="expense-claim/index.html">
-          <span class="title">Đề nghị thanh toán <span class="date">2026-11-09</span></span>
-          <p class="desc">Nhân viên lưu phiếu và quay lại sau. Người duyệt, Kiểm Toán và Kiểm Soát Trưởng duyệt. Kiểm Toán chi đề nghị tạm ứng và chi phần còn lại sau khi duyệt.</p>
-          </a>
-        </li>
-      </ul>
-    </section>
+        <section aria-labelledby="home-nav">
+          <h2 id="home-nav">Cách tra cứu</h2>
+          <p>
+            Dùng <strong>thanh bên trái</strong>: chọn module lớn (<em>Chung</em>, <em>HR</em>, <em>CRM</em>, <em>Service</em>), bấm để mở danh sách bài. Sidebar giữ nguyên khi bạn đọc từng tài liệu — chuyển bài bất kỳ lúc nào mà không mất mục lục.
+          </p>
+          <ul>
+            <li><strong>Chung</strong> — thao tác trình duyệt áp dụng mọi màn hình ERP.</li>
+            <li><strong>HR</strong> — đề nghị thanh toán và luồng duyệt/chi.</li>
+            <li><strong>CRM</strong> — dashboard pipeline cá nhân và quản lý team.</li>
+            <li><strong>Service</strong> — ticket, job hiện trường, ghi giờ, workspace và báo cáo dịch vụ.</li>
+          </ul>
+        </section>
 
-    <section class="module" aria-labelledby="module-crm">
-      <h2 class="module-head" id="module-crm">CRM</h2>
-      <p class="module-desc">Kinh doanh — pipeline cá nhân và dashboard quản lý team.</p>
-      <ul class="guide-list">
-        <li>
-          <a class="card" href="my-sales-dashboard/index.html">
-            <span class="title">My Sales Dashboard <span class="date">2026-11-04</span></span>
-            <p class="desc">Pipeline cá nhân của nhân viên kinh doanh — lọc kỳ chốt, chỉ tiêu, KPI và danh sách cơ hội.</p>
-          </a>
-        </li>
-        <li>
-          <a class="card" href="management-dashboard/index.html">
-            <span class="title">Management Dashboard <span class="date">2026-09-28</span></span>
-            <p class="desc">Dashboard quản lý pipeline toàn team — Sales Manager, BU Manager.</p>
-          </a>
-        </li>
-      </ul>
-    </section>
-
-    <section class="module" aria-labelledby="module-support">
-      <h2 class="module-head" id="module-support">Support</h2>
-      <p class="module-desc">Dịch vụ — ticket, công việc hiện trường, ghi giờ và báo cáo.</p>
-      <ul class="guide-list">
-        <li>
-          <a class="card" href="support-ticket-workflow/index.html">
-            <span class="title">Support — Ticket, Service Job, Service Time <span class="date">2026-11-13</span></span>
-            <p class="desc">Ticket → Service Job → Service Time; mục phân quyền chi tiết Manager / Leader / User.</p>
-          </a>
-        </li>
-        <li>
-          <a class="card" href="service-job-report/index.html">
-            <span class="title">Service Job Report <span class="date">2026-11-13</span></span>
-            <p class="desc">Báo cáo phiếu Service Job — bộ lọc, Filter results, biểu đồ và danh sách job (Leader / Manager).</p>
-          </a>
-        </li>
-        <li>
-          <a class="card" href="service-time-report/index.html">
-            <span class="title">Service Time Report <span class="date">2026-11-13</span></span>
-            <p class="desc">Báo cáo giờ làm việc CSE — tổng giờ, giờ hành chính / ngoài giờ / lễ, biểu đồ và Time List.</p>
-          </a>
-        </li>
-      </ul>
-    </section>
+        <section aria-labelledby="home-desk">
+          <h2 id="home-desk">Làm việc trên Desk</h2>
+          <p>
+            Sau khi đăng nhập, màn hình chính là <strong>Desk</strong>: thanh tìm kiếm (<kbd>Ctrl</kbd>+<kbd>G</kbd>), workspace theo phòng ban (ví dụ <em>Service</em>), và danh sách Doctype (phiếu, job, báo cáo). Nếu giao diện không đổi sau khi IT cập nhật phần mềm, xem mục <em>Chung → Làm mới trang ERP</em> trong sidebar.
+          </p>
+        </section>
+      </div>
+    </main>
   </div>
+  <script src="assets/catalog.js"></script>
 </body>
 </html>

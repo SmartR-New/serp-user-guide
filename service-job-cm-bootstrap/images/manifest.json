@@ -1,0 +1,34 @@
+{
+  "scenario": "E:\\smartr-workspace\\imed-project\\.cursor\\skills\\serp-create-user-guide\\scripts\\scenarios\\service-job-cm-bootstrap.yaml",
+  "title": "Service Job CM — tạo Ticket khi Save (không chọn Ticket)",
+  "output_dir": "e:\\smartr-workspace\\imed-project\\serp-user-guide\\service-job-cm-bootstrap\\images",
+  "captured": [
+    {
+      "id": "02-new-job-form",
+      "file": "02-new-job-form.png",
+      "caption": "Form Service Job mới",
+      "url": "https://dev-erp.smartr.co/app/service-job/new-service-job-rfqczzpnkj",
+      "focus": false,
+      "highlight": false
+    },
+    {
+      "id": "03-select-cm-job-type",
+      "file": "03-select-cm-job-type.png",
+      "caption": "Chọn Job Type Corrective Maintenance",
+      "url": "https://dev-erp.smartr.co/app/service-job/new-service-job-rfqczzpnkj",
+      "focus": true,
+      "highlight": false
+    },
+    {
+      "id": "04-cm-customer-cses",
+      "file": "04-cm-customer-cses.png",
+      "caption": "CM không Ticket — Customer và CSEs",
+      "url": "https://dev-erp.smartr.co/app/service-job/new-service-job-rfqczzpnkj",
+      "focus": true,
+      "highlight": false
+    }
+  ],
+  "timestamp": "2026-11-16T03:31:20.501Z",
+  "status": "success",
+  "summary": "Captured 3 screenshot(s)"
+}

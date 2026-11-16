@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Job — tạo công việc & Schedule | iMED ERP — Service</title>
+  <meta name="description" content="Gắn Ticket, Job Type, Schedule theo loại, CM/Update, CM auto-ticket khi job mới không ticket.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,420;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font: "Inter", system-ui, sans-serif;
+      --surface: #fff;
+      --bg: #f8fafc;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --blue: #2490ef;
+      --amber-soft: #fffbeb;
+      --amber: #b45309;
+      --radius: 8px;
+      --max: 1080px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font: 420 15px/1.6 var(--font); color: var(--text); background: var(--bg); }
+    a { color: var(--blue); }
+    .shell { max-width: var(--max); margin: 0 auto; padding: 0 20px 64px; }
+    .page {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 220px;
+      grid-template-areas: "header rail" "content rail";
+      column-gap: 48px;
+      align-items: start;
+    }
+    header.page-header {
+      grid-area: header;
+      position: sticky; top: 0; z-index: 5;
+      background: rgba(248,250,252,.92); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0; margin-bottom: 28px;
+    }
+    .content { grid-area: content; min-width: 0; }
+    .back { font-size: 13px; color: var(--muted); }
+    h1 { margin: 8px 0 0; font-size: 28px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 12px; font-size: 13px; color: var(--muted); }
+    .meta strong { color: var(--text); font-weight: 600; }
+    section { margin-top: 36px; scroll-margin-top: 168px; }
+    h2 { margin: 0 0 12px; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+    h3 { margin: 28px 0 8px; font-size: 17px; font-weight: 600; }
+    p { margin: 0 0 12px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.25rem; }
+    li { margin-bottom: 6px; }
+    .checklist { list-style: none; padding: 0; }
+    .checklist li::before { content: "☐ "; color: var(--muted); }
+    figure {
+      margin: 16px 0 24px; padding: 12px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: 0 1px 3px rgba(0,0,0,.04);
+    }
+    figure img { display: block; width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border); }
+    figcaption { margin-top: 10px; font-size: 13px; color: var(--muted); text-align: center; }
+    figure.figure-focus img {
+      box-shadow: 0 0 0 2px #e53935, 0 8px 24px rgba(15,23,42,.15);
+    }
+    figure.figure-focus figcaption::before {
+      content: "Focus · ";
+      color: #e53935;
+      font-weight: 600;
+    }
+    .note {
+      margin: 12px 0 20px; padding: 12px 14px;
+      background: var(--amber-soft); border-left: 4px solid var(--amber);
+      border-radius: 0 var(--radius) var(--radius) 0; font-size: 14px;
+    }
+    .note strong { color: var(--amber); }
+    table {
+      width: 100%; border-collapse: collapse; font-size: 14px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden; margin: 12px 0 20px;
+    }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: #f1f5f9; font-weight: 600; font-size: 13px; }
+    tr:last-child td { border-bottom: none; }
+    .ui-label { font-family: ui-monospace, monospace; font-size: 0.92em; background: #f1f5f9; padding: 1px 6px; border-radius: 4px; }
+    .diagram {
+      margin: 16px 0 24px; padding: 16px 20px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); font-size: 14px; line-height: 1.5;
+    }
+    footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+    .on-this-page {
+      grid-area: rail;
+      position: sticky;
+      top: 24px;
+      max-height: calc(100vh - 40px);
+      overflow: auto;
+      padding-top: 8px;
+    }
+    .on-this-page p { margin: 0 0 8px; font-size: 13px; font-weight: 600; color: var(--text); }
+    .on-this-page nav { display: flex; flex-direction: column; border-left: 1px solid var(--border); }
+    .on-this-page a {
+      display: block; margin-left: -1px; padding: 6px 8px 6px 14px;
+      border-left: 2px solid transparent; color: var(--muted);
+      font-size: 13px; line-height: 1.4; text-decoration: none;
+    }
+    .on-this-page a:hover { color: var(--text); }
+    .on-this-page a.active {
+      border-left-color: #171717; color: #171717; font-weight: 600; background: #f3f3f3;
+    }
+    @media (max-width: 860px) {
+      .page { grid-template-columns: 1fr; grid-template-areas: "header" "rail" "content"; }
+      .on-this-page { position: static; max-height: none; margin-bottom: 8px; }
+    }
+  
+    .guide-nav { margin: 0 0 24px; padding: 12px 14px; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 13px; }
+    .guide-nav a { margin-right: 12px; }
+</style>
+</head>
+<body>
+  <div class="shell">
+    <div class="page">
+    <header class="page-header">
+      <a class="back" href="../../index.html#module-service">← Tài liệu hướng dẫn iMED ERP</a>
+      <h1>Service Job — tạo công việc & Schedule</h1>
+      <div class="meta">
+        <span><strong>Module:</strong> Service</span>
+        <span><strong>Cập nhật:</strong> 2026-11-16</span>
+      </div>
+      <p class="guide-nav"><a href="../overview/index.html">Tổng quan</a> · <a href="../roles/index.html">Phân quyền</a> · <a href="../ticket/index.html">Ticket</a> · <a href="../../service-job-cm-bootstrap/index.html">CM — tạo Ticket khi Save</a> · <a href="../service-time/index.html">Service Time</a></p>
+    </header>
+    <aside class="on-this-page">
+      <p>Trên trang này</p>
+      <nav aria-label="Trên trang này">
+        <a href="#service-job">Service Job</a>
+        <a href="#cm-job-auto-ticket">CM &amp; Ticket</a>
+        <a href="#schedule-by-job-type">Schedule By Job Type</a>
+        <a href="#cm-update-details">Cm Update Details</a>
+      </nav>
+    </aside>
+    <div class="content">
+<section id="service-job">
+      <h2>2. Tạo Service Job</h2>
+      <p><strong>Ai thực hiện:</strong> <strong>Manager</strong> và <strong>Leader</strong> — tạo/sửa/xóa mọi Service Job. <strong>Service User</strong> — được <strong>tạo</strong> job mới và <strong>sửa/xóa</strong> job khi bạn nằm trong <span class="ui-label">CSEs</span> của job đó (<a href="../roles/index.html#role-user">chi tiết</a>).</p>
+      <p>Mỗi job là một công việc cụ thể (QC, bảo trì, hỗ trợ, …) thuộc cùng Ticket. Có thể tạo nhiều job cho một Ticket.</p>
+
+      <h3>Bước 2.1 — Mở form Service Job</h3>
+      <p>Tìm <em>Service Job</em> trên Desk → <span class="ui-label">+ Add Service Job</span>. Hoặc từ Ticket đã lưu: <span class="ui-label">Connections</span> → <span class="ui-label">Service Job</span> → <strong>+</strong>.</p>
+      <figure>
+        <img src="../../support-ticket-workflow/images/06-service-job-list.png" alt="Danh sách Service Job dạng Report" loading="lazy">
+        <figcaption>Danh sách Service Job</figcaption>
+      </figure>
+      <figure>
+        <img src="../../support-ticket-workflow/images/07-service-job-new.png" alt="Form New Service Job" loading="lazy">
+        <figcaption>Form Service Job mới</figcaption>
+      </figure>
+
+      <h3 id="cm-job-auto-ticket">Bước 2.2 — Gắn Ticket và thông tin chung</h3>
+      <div class="note"><strong>Corrective Maintenance (CM) — tạo job trước:</strong> Trên form <strong>mới</strong>, chọn <span class="ui-label">Job Type</span> = <strong>Corrective Maintenance</strong> <em>trước</em> khi chọn Ticket — ô <span class="ui-label">Ticket</span> được ẩn; chọn <span class="ui-label">Customer</span> và <span class="ui-label">CSEs</span> (toàn bộ kỹ sư dịch vụ hợp lệ, không giới hạn theo ticket). Schedule (plan), rồi <span class="ui-label">Save</span>. Hệ thống tự tạo một <strong>Ticket</strong> mới và gắn vào job (copy customer → Customers, CSEs, trạng thái Open/Close, ngày plan). Nếu bạn <strong>đã chọn Ticket</strong> trước hoặc gắn Ticket trên form CM — <strong>không</strong> tạo ticket thêm. <strong>Preventive Maintenance</strong> luôn bắt buộc chọn Ticket (hoặc job PM tạo từ <span class="ui-label">Generate Schedule</span> trên Ticket). <a href="../../service-job-cm-bootstrap/index.html">Hướng dẫn chi tiết CM + ảnh màn hình</a>.</div>
+      <ol>
+        <li><span class="ui-label">Ticket</span> (bắt buộc với hầu hết loại job, gồm <strong>PM</strong>) — chọn Ticket. <em>Ngoại lệ CM mới không ticket — xem hộp trên.</em></li>
+        <li><span class="ui-label">Customer</span> — chọn <strong>một</strong> khách hàng trong danh sách <span class="ui-label">Customers</span> của Ticket (bắt buộc). Nếu ticket chỉ có một khách hàng, hệ thống có thể tự điền.</li>
+        <li><span class="ui-label">Job Status</span> — thường <span class="ui-label">Open</span> khi bắt đầu; chuyển <span class="ui-label">Close</span> khi hoàn tất (Trưởng nhóm / Quản lý dịch vụ, hoặc kỹ sư CSE được giao trên job).</li>
+        <li><span class="ui-label">Job Type</span> — loại công việc (QC, PM, CM, Support, …).</li>
+        <li><span class="ui-label">Requested by</span> — <strong>tùy chọn</strong>; người yêu cầu (Sales / Sales Manager / Sales Leader hoặc BU Manager); chỉ chọn được user thuộc các vai trò đó.</li>
+        <li><span class="ui-label">Instrument</span> — thiết bị liên quan (nếu có).</li>
+        <li><span class="ui-label">CSEs</span> — chỉ hiện sau khi chọn Ticket. Danh sách gợi ý <strong>chỉ gồm CSE đã khai trên Ticket</strong>; không thể chọn kỹ sư ngoài ticket.</li>
+      </ol>
+      <figure class="figure-focus">
+        <img src="../../support-ticket-workflow/images/08-service-job-ticket-cses.png" alt="Chọn Ticket trên Service Job trước khi chọn CSEs" loading="lazy">
+        <figcaption>Chọn Ticket trước — sau đó chọn CSEs trong phạm vi Ticket</figcaption>
+      </figure>
+      <div class="note"><strong>Lưu ý:</strong> Nếu chưa thấy <span class="ui-label">CSEs</span>, hãy chọn <span class="ui-label">Ticket</span> trước. Khi đổi Ticket, hệ thống có thể xóa CSE job không còn thuộc ticket mới.</div>
+
+      <h3 id="schedule-by-job-type">Bước 2.3 — Khối Schedule (theo Job Type)</h3>
+      <p>Service Job dùng <strong>bốn ô ngày chung</strong> trong khối <span class="ui-label">Schedule</span>. Khi đổi <span class="ui-label">Job Type</span>, hệ thống <strong>đổi nhãn</strong>, <strong>ẩn</strong> hoặc <strong>bắt buộc</strong> từng ô cho đúng loại công việc (ví dụ QC chỉ còn Plan Date + QC Date; lắp đặt chỉ Start/End thực tế).</p>
+      <div class="note"><strong>Ticket plan:</strong> Nếu Ticket có đủ <span class="ui-label">Plan Start Date</span> và <span class="ui-label">Plan End Date</span>, <strong>chỉ</strong> job <strong>Preventive Maintenance</strong> bị kiểm tra <span class="ui-label">Plan Start Date</span> / <span class="ui-label">Plan End Date</span> trên job phải nằm trong khoảng đó. Các loại khác (QC, Demo, Update deadline, …) vẫn nhập ngày plan/deadline bình thường <strong>mà không</strong> bị chặn vì ngoài phạm vi Ticket. Gợi ý dưới hai ô Plan chỉ hiện với PM.</div>
+      <p><strong>Tóm tắt theo loại (nhãn trên form):</strong></p>
+      <table>
+        <thead><tr><th>Job Type</th><th>Schedule trên form</th><th>Ghi chú</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Preventive Maintenance</td>
+            <td>Plan Start / Plan End; hàng 2: Actual Start / Actual End</td>
+            <td>Plan phải trong phạm vi Ticket (nếu Ticket có đủ hai ngày plan)</td>
+          </tr>
+          <tr>
+            <td>Corrective Maintenance</td>
+            <td><span class="ui-label">1st On Site Arrival</span> · <span class="ui-label">On Site Repair</span></td>
+            <td>Hai mốc nằm trong Schedule (Actual); không còn ô ngày riêng trong Details</td>
+          </tr>
+          <tr>
+            <td>Update</td>
+            <td>Deadline for Update · Update Completed Date</td>
+            <td>Completed Date thường bắt buộc khi lưu</td>
+          </tr>
+          <tr>
+            <td>Quality Control In/Out, Demo, Meeting…</td>
+            <td>Cặp Plan Date + ngày thực hiện (QC Date, Demo Date, …)</td>
+            <td>Không ràng plan theo Ticket</td>
+          </tr>
+          <tr>
+            <td>Installation, Training, Site Survey, Support</td>
+            <td>Chủ yếu Start / End thực tế (hoặc Support Start/End)</td>
+            <td>Một số loại bắt buộc đủ Start (và End tùy loại)</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Khi điền cả hai ngày “plan” đang hiển thị: ngày kết thúc không được sớm hơn ngày bắt đầu. Tương tự với cặp Actual khi cả hai đều hiện và có giá trị.</p>
+      <figure class="figure-focus">
+        <img src="../../support-ticket-workflow/images/09-service-job-schedule.png" alt="Khối Schedule trên Service Job — nhãn thay đổi theo Job Type" loading="lazy">
+        <figcaption>Schedule — ví dụ QC (Plan Date + QC Date); đổi Job Type để xem PM (2 hàng), CM (On Site), Update (Deadline), …</figcaption>
+      </figure>
+      <p>Sau khi đổi Job Type, nếu layout Schedule lệch, làm mới trình duyệt (Ctrl+Shift+R), đặc biệt sau khi admin vừa cập nhật app.</p>
+
+      <h3 id="cm-update-details">Bước 2.4 — Chi tiết CM, Update &amp; lưu</h3>
+      <p>Điền khối <span class="ui-label">Details</span> theo <span class="ui-label">Job Type</span> (liên kết QC / Installation Note / Maintenance Visit, loại Support, …).</p>
+      <ul>
+        <li><strong>Corrective Maintenance</strong> — <span class="ui-label">Problem Description</span> (một dòng); hàng 2: <span class="ui-label">Breakdown Date</span> và <span class="ui-label">System Condition</span>; hàng 3: <span class="ui-label">CM Support Type</span> / <span class="ui-label">Resolution Type</span>; hàng 4: <span class="ui-label">Support Long Text</span> / <span class="ui-label">Resolution Long Text</span>. Ngày đến / sửa tại site: dùng Schedule (<span class="ui-label">1st On Site Arrival</span>, <span class="ui-label">On Site Repair</span>).</li>
+        <li><strong>Update</strong> — thêm <span class="ui-label">Update Number</span> và <span class="ui-label">Update Description</span> (mô tả bản cập nhật); deadline và ngày hoàn tất ở Schedule.</li>
+        <li>Các loại khác — giữ quy tắc liên kết bảo trì/QC như trước; thời gian ghi ở <span class="ui-label">Schedule</span>, không tách field ngày lẻ trong Details.</li>
+      </ul>
+      <p>Nhấn <span class="ui-label">Save</span>.</p>
+    </section>
+    <footer>
+      Nội dung tách từ hướng dẫn Service · Ảnh: support-ticket-workflow/images · Cập nhật 2026-11-16
+    </footer>
+    </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const links = Array.from(document.querySelectorAll(".on-this-page a"));
+      const sections = links.map((l) => document.querySelector(l.getAttribute("href"))).filter(Boolean);
+      function mark(id) {
+        links.forEach((link) => {
+          const on = link.getAttribute("href") === "#" + id;
+          link.classList.toggle("active", on);
+        });
+      }
+      function currentId() {
+        const marker = 180;
+        let current = sections[0];
+        sections.forEach((s) => { if (s.getBoundingClientRect().top <= marker) current = s; });
+        return current ? current.id : "";
+      }
+      document.addEventListener("scroll", () => mark(currentId()), { passive: true });
+      mark(currentId());
+    })();
+  </script>
+
+  <script src="../../assets/catalog.js"></script>
+</body>
+</html>

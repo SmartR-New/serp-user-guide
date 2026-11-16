@@ -1,0 +1,8 @@
+{
+  "mode": "ad-hoc",
+  "output_dir": "e:\\smartr-workspace\\imed-project\\serp-user-guide\\ticket-generate-schedule\\images",
+  "captured": [],
+  "timestamp": "2026-11-16T02:53:20.051Z",
+  "status": "error",
+  "error": "Error: page.evaluate: SyntaxError: Failed to execute 'querySelector' on 'Document': 'button[data-label=Generate%20Schedule]' is not a valid selector.\n    at eval (eval at evaluate (:311:30), <anonymous>:2:25)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+}

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vai trò & phân quyền | iMED ERP — Service</title>
+  <meta name="description" content="Service Manager, Leader, User, Admin — ma trận quyền và quy tắc Approver/CSE.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,420;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font: "Inter", system-ui, sans-serif;
+      --surface: #fff;
+      --bg: #f8fafc;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --blue: #2490ef;
+      --amber-soft: #fffbeb;
+      --amber: #b45309;
+      --radius: 8px;
+      --max: 1080px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font: 420 15px/1.6 var(--font); color: var(--text); background: var(--bg); }
+    a { color: var(--blue); }
+    .shell { max-width: var(--max); margin: 0 auto; padding: 0 20px 64px; }
+    .page {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 220px;
+      grid-template-areas: "header rail" "content rail";
+      column-gap: 48px;
+      align-items: start;
+    }
+    header.page-header {
+      grid-area: header;
+      position: sticky; top: 0; z-index: 5;
+      background: rgba(248,250,252,.92); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0; margin-bottom: 28px;
+    }
+    .content { grid-area: content; min-width: 0; }
+    .back { font-size: 13px; color: var(--muted); }
+    h1 { margin: 8px 0 0; font-size: 28px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 12px; font-size: 13px; color: var(--muted); }
+    .meta strong { color: var(--text); font-weight: 600; }
+    section { margin-top: 36px; scroll-margin-top: 168px; }
+    h2 { margin: 0 0 12px; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+    h3 { margin: 28px 0 8px; font-size: 17px; font-weight: 600; }
+    p { margin: 0 0 12px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.25rem; }
+    li { margin-bottom: 6px; }
+    .checklist { list-style: none; padding: 0; }
+    .checklist li::before { content: "☐ "; color: var(--muted); }
+    figure {
+      margin: 16px 0 24px; padding: 12px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: 0 1px 3px rgba(0,0,0,.04);
+    }
+    figure img { display: block; width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border); }
+    figcaption { margin-top: 10px; font-size: 13px; color: var(--muted); text-align: center; }
+    figure.figure-focus img {
+      box-shadow: 0 0 0 2px #e53935, 0 8px 24px rgba(15,23,42,.15);
+    }
+    figure.figure-focus figcaption::before {
+      content: "Focus · ";
+      color: #e53935;
+      font-weight: 600;
+    }
+    .note {
+      margin: 12px 0 20px; padding: 12px 14px;
+      background: var(--amber-soft); border-left: 4px solid var(--amber);
+      border-radius: 0 var(--radius) var(--radius) 0; font-size: 14px;
+    }
+    .note strong { color: var(--amber); }
+    table {
+      width: 100%; border-collapse: collapse; font-size: 14px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden; margin: 12px 0 20px;
+    }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: #f1f5f9; font-weight: 600; font-size: 13px; }
+    tr:last-child td { border-bottom: none; }
+    .ui-label { font-family: ui-monospace, monospace; font-size: 0.92em; background: #f1f5f9; padding: 1px 6px; border-radius: 4px; }
+    .diagram {
+      margin: 16px 0 24px; padding: 16px 20px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); font-size: 14px; line-height: 1.5;
+    }
+    footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+    .on-this-page {
+      grid-area: rail;
+      position: sticky;
+      top: 24px;
+      max-height: calc(100vh - 40px);
+      overflow: auto;
+      padding-top: 8px;
+    }
+    .on-this-page p { margin: 0 0 8px; font-size: 13px; font-weight: 600; color: var(--text); }
+    .on-this-page nav { display: flex; flex-direction: column; border-left: 1px solid var(--border); }
+    .on-this-page a {
+      display: block; margin-left: -1px; padding: 6px 8px 6px 14px;
+      border-left: 2px solid transparent; color: var(--muted);
+      font-size: 13px; line-height: 1.4; text-decoration: none;
+    }
+    .on-this-page a:hover { color: var(--text); }
+    .on-this-page a.active {
+      border-left-color: #171717; color: #171717; font-weight: 600; background: #f3f3f3;
+    }
+    @media (max-width: 860px) {
+      .page { grid-template-columns: 1fr; grid-template-areas: "header" "rail" "content"; }
+      .on-this-page { position: static; max-height: none; margin-bottom: 8px; }
+    }
+  
+    .guide-nav { margin: 0 0 24px; padding: 12px 14px; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 13px; }
+    .guide-nav a { margin-right: 12px; }
+</style>
+</head>
+<body>
+  <div class="shell">
+    <div class="page">
+    <header class="page-header">
+      <a class="back" href="../../index.html#module-service">← Tài liệu hướng dẫn iMED ERP</a>
+      <h1>Vai trò & phân quyền</h1>
+      <div class="meta">
+        <span><strong>Module:</strong> Service</span>
+        <span><strong>Cập nhật:</strong> 2026-11-16</span>
+      </div>
+      <p class="guide-nav"><a href="../overview/index.html">Tổng quan</a> · <a href="../ticket/index.html">Ticket</a> · <a href="../service-job/index.html">Service Job</a> · <a href="../service-time/index.html">Service Time</a></p>
+    </header>
+    <aside class="on-this-page">
+      <p>Trên trang này</p>
+      <nav aria-label="Trên trang này">
+        <a href="#roles">Roles</a>
+        <a href="#role-admin">Role Admin</a>
+        <a href="#role-manager">Role Manager</a>
+        <a href="#role-leader">Role Leader</a>
+        <a href="#role-user">Role User</a>
+        <a href="#roles-matrix">Roles Matrix</a>
+        <a href="#field-rules">Field Rules</a>
+      </nav>
+    </aside>
+    <div class="content">
+<section id="roles">
+      <h2>Vai trò &amp; phân quyền</h2>
+      <p>Phân quyền trên workspace <strong>Support</strong> được áp dụng theo <strong>từng phiếu</strong> (Ticket, Service Job, Service Time), không chỉ theo vai trò đăng nhập. Nếu bạn không thấy nút <span class="ui-label">Save</span> hoặc form ở chế độ chỉ đọc, đó là do bạn không có quyền <strong>sửa</strong> phiếu đó — không phải lỗi trình duyệt.</p>
+      <p>Các cột dưới đây dùng ký hiệu: <strong>Có</strong> = toàn quyền trên loại phiếu đó; <strong>Chỉ xem</strong> = mở form/danh sách nhưng không lưu; <strong>Có điều kiện</strong> = chỉ khi thỏa điều kiện ghi trong ngoặc.</p>
+
+      <h3 id="role-admin">iMED Service Admin — Quản trị vận hành dịch vụ</h3>
+      <p>Giống <strong>Service Manager</strong> trên nghiệp vụ Support (Ticket, Service Job, Service Time, Instrument, Task, Maintenance…), nhưng <strong>không</strong> mở <span class="ui-label">Service Job Report</span> / <span class="ui-label">Service Time Report</span>.</p>
+      <ul>
+        <li><strong>Ticket, Service Job, Service Time, Instrument</strong> — toàn quyền như Manager.</li>
+        <li><strong>Báo cáo</strong> — <strong>Không</strong> (liên kết workspace có thể hiện nhưng hệ thống từ chối khi mở trang).</li>
+      </ul>
+
+      <h3 id="role-manager">iMED Service Manager — Quản lý dịch vụ</h3>
+      <p>Vai trò điều phối: mở phiếu hỗ trợ, gán khách hàng / CSE / người duyệt, giám sát job và báo cáo.</p>
+      <ul>
+        <li><strong>Ticket</strong> — Xem <strong>tất cả</strong>; <strong>tạo</strong>, <strong>sửa</strong>, <strong>xóa</strong> (Customers, Status, Approver, CSEs, …).</li>
+        <li><strong>Service Job</strong> — Xem <strong>tất cả</strong>; <strong>tạo</strong>, <strong>sửa</strong>, <strong>xóa</strong> mọi job (Customer trên job, CSEs, Schedule, Job Type, <span class="ui-label">Job Status</span>, …).</li>
+        <li><strong>Service Time</strong> — Xem <strong>tất cả</strong>; <strong>tạo</strong>, <strong>sửa</strong>, <strong>xóa</strong> mọi bản ghi giờ.</li>
+        <li><strong>Instrument</strong> — Toàn quyền theo cấu hình dịch vụ (tạo/sửa thiết bị nếu được cấp thêm quyền ERP).</li>
+        <li><strong>Báo cáo</strong> — Truy cập <span class="ui-label">Service Job Report</span> và <span class="ui-label">Service Time Report</span> (Report &amp; Dashboard).</li>
+      </ul>
+
+      <h3 id="role-leader">iMED Service Leader — Trưởng nhóm dịch vụ</h3>
+      <p>Vai trò triển khai hiện trường và thường được chọn làm <span class="ui-label">Approver</span> trên Ticket. Leader cũng có thể nằm trong <span class="ui-label">CSEs</span> của ticket.</p>
+      <ul>
+        <li><strong>Ticket</strong> — <strong>Chỉ xem</strong> ticket mà bạn là <span class="ui-label">Approver</span> <em>hoặc</em> có tên trong <span class="ui-label">CSEs</span>. <strong>Sửa / lưu</strong> ticket chỉ khi bạn là <span class="ui-label">Approver</span> trên ticket đó (thêm/bớt Customers, CSEs, đóng ticket, …). <strong>Không</strong> tạo ticket mới, <strong>không</strong> xóa ticket.</li>
+        <li><strong>Service Job</strong> — Xem <strong>tất cả</strong> job; <strong>tạo</strong>, <strong>sửa</strong>, <strong>xóa</strong> mọi job; đổi <span class="ui-label">Job Status</span> trên bất kỳ job nào.</li>
+        <li><strong>Service Time</strong> — Xem <strong>tất cả</strong>; <strong>tạo</strong>, <strong>sửa</strong>, <strong>xóa</strong> mọi bản ghi giờ (kể cả của CSE khác).</li>
+        <li><strong>Instrument</strong> — Toàn quyền theo cấu hình dịch vụ (tương tự Manager).</li>
+        <li><strong>Báo cáo</strong> — Truy cập Service Job Report và Service Time Report.</li>
+      </ul>
+
+      <h3 id="role-user">iMED Service User — Kỹ sư dịch vụ (CSE)</h3>
+      <p>Vai trò thực hiện công việc và ghi giờ. User <strong>không</strong> quản lý nội dung Ticket (khách hàng, approver, danh sách CSE cấp ticket).</p>
+      <ul>
+        <li><strong>Ticket</strong> — <strong>Chỉ xem</strong> ticket có tên bạn trong <span class="ui-label">CSEs</span> (Customers / CSEs hiển thị dạng danh sách, không sửa). <strong>Không</strong> tạo, sửa, xóa ticket.</li>
+        <li><strong>Service Job</strong> — Xem <strong>danh sách tất cả</strong> job. <strong>Tạo</strong> job mới (chọn Ticket đọc được, Customer trong phạm vi ticket, CSEs ⊆ CSEs của ticket). <strong>Sửa / xóa</strong> job chỉ khi bạn nằm trong <span class="ui-label">CSEs</span> của job đó . <strong>Job Status</strong> — đổi Open/Close chỉ trên job bạn được giao (CSE / Secondary CSE); các trường khác vẫn theo quyền sửa job.</li>
+        <li><strong>Service Time</strong> — Xem <strong>tất cả</strong> bản ghi. <strong>Tạo</strong> giờ mới. <strong>Sửa / xóa</strong> chỉ bản ghi mà <span class="ui-label">CSE Name</span> = chính bạn.</li>
+        <li><strong>Instrument</strong> — <strong>Chỉ xem / chọn</strong> trên form (không tạo/sửa master thiết bị).</li>
+        <li><strong>Báo cáo</strong> — <strong>Không</strong> mở Service Job Report / Service Time Report (dù vẫn tạo job và ghi giờ trên form).</li>
+      </ul>
+
+      <h3 id="roles-matrix">Bảng tóm tắt</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Đối tượng</th>
+            <th>iMED Service Manager</th>
+            <th>iMED Service Admin</th>
+            <th>iMED Service Leader</th>
+            <th>iMED Service User</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Ticket</strong> — xem</td>
+            <td>Tất cả</td>
+            <td>Tất cả</td>
+            <td>Có điều kiện (Approver hoặc trong CSEs)</td>
+            <td>Có điều kiện (trong CSEs)</td>
+          </tr>
+          <tr>
+            <td><strong>Ticket</strong> — tạo / sửa / xóa</td>
+            <td>Có / Có / Có</td>
+            <td>Có / Có / Có</td>
+            <td>Không / Có điều kiện (chỉ khi Approver) / Không</td>
+            <td>Không / Không / Không</td>
+          </tr>
+          <tr>
+            <td><strong>Service Job</strong> — xem</td>
+            <td>Tất cả</td>
+            <td>Tất cả</td>
+            <td>Tất cả</td>
+            <td>Tất cả</td>
+          </tr>
+          <tr>
+            <td><strong>Service Job</strong> — tạo</td>
+            <td>Có</td>
+            <td>Có</td>
+            <td>Có</td>
+            <td>Có</td>
+          </tr>
+          <tr>
+            <td><strong>Service Job</strong> — sửa / xóa</td>
+            <td>Có</td>
+            <td>Có</td>
+            <td>Có</td>
+            <td>Có điều kiện (CSEs)</td>
+          </tr>
+          <tr>
+            <td><strong>Job Status</strong> (Open/Close)</td>
+            <td>Có</td>
+            <td>Có</td>
+            <td>Có</td>
+            <td>Có điều kiện (CSEs)</td>
+          </tr>
+          <tr>
+            <td><strong>Service Time</strong> — tạo</td>
+            <td>Có</td>
+            <td>Có</td>
+            <td>Có</td>
+            <td>Có</td>
+          </tr>
+          <tr>
+            <td><strong>Service Time</strong> — sửa / xóa</td>
+            <td>Có (mọi bản ghi)</td>
+            <td>Có (mọi bản ghi)</td>
+            <td>Có (mọi bản ghi)</td>
+            <td>Có điều kiện (chỉ bản ghi của mình)</td>
+          </tr>
+          <tr>
+            <td><strong>Instrument</strong></td>
+            <td>Toàn quyền (dịch vụ)</td>
+            <td>Toàn quyền (dịch vụ)</td>
+            <td>Toàn quyền (dịch vụ)</td>
+            <td>Chỉ xem / chọn</td>
+          </tr>
+          <tr>
+            <td><strong>Service Job &amp; Time Report</strong></td>
+            <td>Có</td>
+            <td>Không</td>
+            <td>Có</td>
+            <td>Không</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="note"><strong>Gợi ý quy trình:</strong> Manager tạo Ticket (Customers, Approver, CSEs) và có thể tạo job; Leader thường là Approver — sửa ticket khi cần bổ sung khách hàng/CSE — và quản lý mọi job; User đọc ticket được giao, tạo/sửa job của mình, ghi Service Time.</div>
+    </section>
+<section id="field-rules">
+      <h2>Quy tắc chọn Approver &amp; CSE</h2>
+      <p>Ngoài phân quyền theo vai trò, một số trường chỉ cho phép chọn đúng loại tài khoản. Chọn sai, bạn sẽ không lưu được.</p>
+      <table>
+        <thead><tr><th>Trường</th><th>Màn hình</th><th>Ai được chọn</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="ui-label">Approver</span></td>
+            <td>Ticket</td>
+            <td><strong>iMED Service Leader</strong>, <strong>iMED Service Manager</strong>, <strong>iMED Service Admin</strong></td>
+          </tr>
+          <tr>
+            <td><span class="ui-label">CSEs</span></td>
+            <td>Ticket</td>
+            <td><strong>iMED Service User</strong>, <strong>iMED Service Leader</strong> (chọn ít nhất một người)</td>
+          </tr>
+          <tr>
+            <td><span class="ui-label">Customers</span></td>
+            <td>Ticket</td>
+            <td>Một hoặc nhiều <strong>Customer</strong> (bắt buộc ≥1). Chỉ Manager hoặc Leader (Approver) sửa được ticket.</td>
+          </tr>
+          <tr>
+            <td><span class="ui-label">Customer</span></td>
+            <td>Service Job</td>
+            <td>Phải là một khách hàng đã khai trên Ticket đã chọn (dropdown thu hẹp theo ticket).</td>
+          </tr>
+          <tr>
+            <td><span class="ui-label">CSEs</span></td>
+            <td>Service Job</td>
+            <td>Chỉ user nằm trong <span class="ui-label">CSEs</span> của Ticket đã chọn (và vẫn phải thuộc vai trò dịch vụ như trên)</td>
+          </tr>
+          <tr>
+            <td><span class="ui-label">CSE Name</span></td>
+            <td>Service Time</td>
+            <td>Chỉ user nằm trong <span class="ui-label">CSEs</span> của Service Job đã chọn</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="note"><strong>Gợi ý tài khoản demo:</strong> Service Leader <code>demo9@smartr.co</code>, Service Manager <code>demo10@smartr.co</code>, Service User <code>demo8@smartr.co</code> — mật khẩu chung trên dev-erp.</div>
+    </section>
+    <footer>
+      Nội dung tách từ hướng dẫn Service · Ảnh: support-ticket-workflow/images · Cập nhật 2026-11-16
+    </footer>
+    </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const links = Array.from(document.querySelectorAll(".on-this-page a"));
+      const sections = links.map((l) => document.querySelector(l.getAttribute("href"))).filter(Boolean);
+      function mark(id) {
+        links.forEach((link) => {
+          const on = link.getAttribute("href") === "#" + id;
+          link.classList.toggle("active", on);
+        });
+      }
+      function currentId() {
+        const marker = 180;
+        let current = sections[0];
+        sections.forEach((s) => { if (s.getBoundingClientRect().top <= marker) current = s; });
+        return current ? current.id : "";
+      }
+      document.addEventListener("scroll", () => mark(currentId()), { passive: true });
+      mark(currentId());
+    })();
+  </script>
+
+  <script src="../../assets/catalog.js"></script>
+</body>
+</html>

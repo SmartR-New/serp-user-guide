@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ticket — tạo phiếu & Generate Schedule PM | iMED ERP — Service</title>
+  <meta name="description" content="Customers, Approver, CSEs, plan dates; nút Generate Schedule cho job PM.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,420;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font: "Inter", system-ui, sans-serif;
+      --surface: #fff;
+      --bg: #f8fafc;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --blue: #2490ef;
+      --amber-soft: #fffbeb;
+      --amber: #b45309;
+      --radius: 8px;
+      --max: 1080px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font: 420 15px/1.6 var(--font); color: var(--text); background: var(--bg); }
+    a { color: var(--blue); }
+    .shell { max-width: var(--max); margin: 0 auto; padding: 0 20px 64px; }
+    .page {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 220px;
+      grid-template-areas: "header rail" "content rail";
+      column-gap: 48px;
+      align-items: start;
+    }
+    header.page-header {
+      grid-area: header;
+      position: sticky; top: 0; z-index: 5;
+      background: rgba(248,250,252,.92); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0; margin-bottom: 28px;
+    }
+    .content { grid-area: content; min-width: 0; }
+    .back { font-size: 13px; color: var(--muted); }
+    h1 { margin: 8px 0 0; font-size: 28px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 12px; font-size: 13px; color: var(--muted); }
+    .meta strong { color: var(--text); font-weight: 600; }
+    section { margin-top: 36px; scroll-margin-top: 168px; }
+    h2 { margin: 0 0 12px; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+    h3 { margin: 28px 0 8px; font-size: 17px; font-weight: 600; }
+    p { margin: 0 0 12px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.25rem; }
+    li { margin-bottom: 6px; }
+    .checklist { list-style: none; padding: 0; }
+    .checklist li::before { content: "☐ "; color: var(--muted); }
+    figure {
+      margin: 16px 0 24px; padding: 12px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: 0 1px 3px rgba(0,0,0,.04);
+    }
+    figure img { display: block; width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border); }
+    figcaption { margin-top: 10px; font-size: 13px; color: var(--muted); text-align: center; }
+    figure.figure-focus img {
+      box-shadow: 0 0 0 2px #e53935, 0 8px 24px rgba(15,23,42,.15);
+    }
+    figure.figure-focus figcaption::before {
+      content: "Focus · ";
+      color: #e53935;
+      font-weight: 600;
+    }
+    .note {
+      margin: 12px 0 20px; padding: 12px 14px;
+      background: var(--amber-soft); border-left: 4px solid var(--amber);
+      border-radius: 0 var(--radius) var(--radius) 0; font-size: 14px;
+    }
+    .note strong { color: var(--amber); }
+    table {
+      width: 100%; border-collapse: collapse; font-size: 14px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden; margin: 12px 0 20px;
+    }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: #f1f5f9; font-weight: 600; font-size: 13px; }
+    tr:last-child td { border-bottom: none; }
+    .ui-label { font-family: ui-monospace, monospace; font-size: 0.92em; background: #f1f5f9; padding: 1px 6px; border-radius: 4px; }
+    .diagram {
+      margin: 16px 0 24px; padding: 16px 20px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); font-size: 14px; line-height: 1.5;
+    }
+    footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+    .on-this-page {
+      grid-area: rail;
+      position: sticky;
+      top: 24px;
+      max-height: calc(100vh - 40px);
+      overflow: auto;
+      padding-top: 8px;
+    }
+    .on-this-page p { margin: 0 0 8px; font-size: 13px; font-weight: 600; color: var(--text); }
+    .on-this-page nav { display: flex; flex-direction: column; border-left: 1px solid var(--border); }
+    .on-this-page a {
+      display: block; margin-left: -1px; padding: 6px 8px 6px 14px;
+      border-left: 2px solid transparent; color: var(--muted);
+      font-size: 13px; line-height: 1.4; text-decoration: none;
+    }
+    .on-this-page a:hover { color: var(--text); }
+    .on-this-page a.active {
+      border-left-color: #171717; color: #171717; font-weight: 600; background: #f3f3f3;
+    }
+    @media (max-width: 860px) {
+      .page { grid-template-columns: 1fr; grid-template-areas: "header" "rail" "content"; }
+      .on-this-page { position: static; max-height: none; margin-bottom: 8px; }
+    }
+  
+    .guide-nav { margin: 0 0 24px; padding: 12px 14px; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 13px; }
+    .guide-nav a { margin-right: 12px; }
+</style>
+</head>
+<body>
+  <div class="shell">
+    <div class="page">
+    <header class="page-header">
+      <a class="back" href="../../index.html#module-service">← Tài liệu hướng dẫn iMED ERP</a>
+      <h1>Ticket — tạo phiếu & Generate Schedule PM</h1>
+      <div class="meta">
+        <span><strong>Module:</strong> Service</span>
+        <span><strong>Cập nhật:</strong> 2026-11-16</span>
+      </div>
+      <p class="guide-nav"><a href="../overview/index.html">Tổng quan</a> · <a href="../roles/index.html">Phân quyền</a> · <a href="../service-job/index.html">Service Job</a> · <a href="../service-time/index.html">Service Time</a></p>
+    </header>
+    <aside class="on-this-page">
+      <p>Trên trang này</p>
+      <nav aria-label="Trên trang này">
+        <a href="#ticket">Ticket</a>
+        <a href="#generate-pm-schedule">Generate Pm Schedule</a>
+      </nav>
+    </aside>
+    <div class="content">
+<section id="ticket">
+      <h2>1. Tạo Ticket</h2>
+      <p><strong>Ai thực hiện:</strong> <strong>iMED Service Manager</strong> — tạo và sửa mọi Ticket. <strong>iMED Service Leader</strong> — chỉ sửa Ticket khi bạn là <span class="ui-label">Approver</span> trên phiếu đó (xem <a href="../roles/index.html#roles">phân quyền</a>). <strong>iMED Service User</strong> — không tạo/sửa Ticket.</p>
+
+      <h3>Bước 1.1 — Mở danh sách Ticket</h3>
+      <p>Trên Desk (Ctrl + G), gõ <em>Ticket</em> hoặc mở từ workspace Support. Nhấn <span class="ui-label">+ Add Ticket</span> để tạo mới.</p>
+      <figure>
+        <img src="../../support-ticket-workflow/images/01-ticket-list.png" alt="Danh sách Ticket với nút Add Ticket" loading="lazy">
+        <figcaption>Danh sách Ticket</figcaption>
+      </figure>
+
+      <h3>Bước 1.2 — Điền thông tin Ticket</h3>
+      <ol>
+        <li><span class="ui-label">Naming Series</span> — giữ mặc định <span class="ui-label">TKT-.#####</span> trừ khi quy trình nội bộ quy định khác.</li>
+        <li><span class="ui-label">Customers</span> — chọn một hoặc nhiều cơ sở y tế / khách hàng (bắt buộc ít nhất một).</li>
+        <li><span class="ui-label">Status</span> — <span class="ui-label">Open</span> hoặc <span class="ui-label">Closed</span>.</li>
+        <li><span class="ui-label">Approver</span> — chọn Trưởng nhóm hoặc Quản lý dịch vụ (xem bảng vai trò ở trên).</li>
+        <li><span class="ui-label">CSEs</span> — chọn một hoặc nhiều kỹ sư dịch vụ tham gia ticket; bắt buộc có ít nhất một người.</li>
+        <li><span class="ui-label">Plan Start Date</span> / <span class="ui-label">Plan End Date</span> (khối <span class="ui-label">Schedule</span>) — tùy chọn; khi nhập <strong>đủ cả hai</strong>, chỉ các job <strong>Preventive Maintenance</strong> có <span class="ui-label">Plan Start/End Date</span> trên Service Job phải nằm trong phạm vi ngày này (QC, Update deadline, … không bị ràng buộc theo Ticket).</li>
+        <li><span class="ui-label">Number of service jobs</span> — số lần PM dự kiến trong khoảng plan (mặc định 1); dùng cho nút <span class="ui-label">Generate Schedule</span> (xem bước 1.4).</li>
+      </ol>
+      <figure>
+        <img src="../../support-ticket-workflow/images/02-ticket-new.png" alt="Form New Ticket với Customer Status Approver CSEs" loading="lazy">
+        <figcaption>Form tạo Ticket mới</figcaption>
+      </figure>
+      <figure class="figure-focus">
+        <img src="../../support-ticket-workflow/images/03-ticket-approver-cses.png" alt="Trường Approver và CSEs trên Ticket" loading="lazy">
+        <figcaption>Approver và CSEs</figcaption>
+      </figure>
+
+      <h3>Bước 1.3 — Lưu Ticket</h3>
+      <p>Nhấn <span class="ui-label">Save</span>. Ghi nhớ mã Ticket (ví dụ <span class="ui-label">TKT-00001</span>) — bạn sẽ gắn mã này khi tạo Service Job.</p>
+
+      <h3 id="generate-pm-schedule">Bước 1.4 — Generate Schedule (Preventive Maintenance)</h3>
+      <p>Hướng dẫn chi tiết 4 bước (Add Ticket → điền trường → Save → Generate): <a href="../../ticket-generate-schedule/index.html">Generate Schedule — Ticket PM</a>.</p>
+      <p>Dành cho ticket PM có kế hoạch theo năm / nhiều đợt bảo trì. Sau khi Ticket <strong>đã lưu</strong>, có đủ <span class="ui-label">Plan Start Date</span>, <span class="ui-label">Plan End Date</span>, <span class="ui-label">Number of service jobs</span> (≥ 1), ít nhất một <span class="ui-label">Customer</span> và <span class="ui-label">CSEs</span>, và <strong>chưa</strong> có Service Job loại <strong>Preventive Maintenance</strong> nào gắn ticket:</p>
+      <ol>
+        <li>Mở lại Ticket đã lưu.</li>
+        <li>Nhấn <span class="ui-label">Generate Schedule</span> trên thanh hành động.</li>
+        <li>Hệ thống tạo <strong>N</strong> Service Job PM (<strong>N</strong> = Number of service jobs), mỗi job một ngày Plan Start = Plan End trong khoảng plan của Ticket (chia đều theo lịch ERPNext).</li>
+        <li><strong>Customer</strong> trên mọi job = khách hàng <strong>đầu tiên</strong> trong danh sách Customers của Ticket. CSEs được copy từ Ticket.</li>
+      </ol>
+      <div class="note"><strong>Một lần / ticket:</strong> Nếu đã có ít nhất một job <strong>Preventive Maintenance</strong> link ticket, nút Generate không hiện (hoặc server từ chối). Muốn tạo lại lịch, xóa các job PM cũ trước. Ticket <span class="ui-label">Closed</span> không generate được.</div>
+      <div class="note"><strong>Ngoài phạm vi v1:</strong> Không tự tạo Maintenance Visit/Schedule ERPNext; không chỉnh ngày theo ngày nghỉ (Holiday List). Liên kết bảo trì đặt thủ công trên từng job nếu cần.</div>
+    </section>
+    <footer>
+      Nội dung tách từ hướng dẫn Service · Ảnh: support-ticket-workflow/images · Cập nhật 2026-11-16
+    </footer>
+    </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const links = Array.from(document.querySelectorAll(".on-this-page a"));
+      const sections = links.map((l) => document.querySelector(l.getAttribute("href"))).filter(Boolean);
+      function mark(id) {
+        links.forEach((link) => {
+          const on = link.getAttribute("href") === "#" + id;
+          link.classList.toggle("active", on);
+        });
+      }
+      function currentId() {
+        const marker = 180;
+        let current = sections[0];
+        sections.forEach((s) => { if (s.getBoundingClientRect().top <= marker) current = s; });
+        return current ? current.id : "";
+      }
+      document.addEventListener("scroll", () => mark(currentId()), { passive: true });
+      mark(currentId());
+    })();
+  </script>
+
+  <script src="../../assets/catalog.js"></script>
+</body>
+</html>
