@@ -1,8 +1,25 @@
 {
-  "mode": "ad-hoc",
+  "scenario": "E:\\smartr-workspace\\imed-project\\.cursor\\skills\\serp-create-user-guide\\scripts\\scenarios\\ticket-generate-schedule.yaml",
+  "title": "Ticket — Generate Schedule (PM Service Jobs)",
   "output_dir": "e:\\smartr-workspace\\imed-project\\serp-user-guide\\ticket-generate-schedule\\images",
-  "captured": [],
-  "timestamp": "2026-11-16T02:53:20.051Z",
-  "status": "error",
-  "error": "Error: page.evaluate: SyntaxError: Failed to execute 'querySelector' on 'Document': 'button[data-label=Generate%20Schedule]' is not a valid selector.\n    at eval (eval at evaluate (:311:30), <anonymous>:2:25)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+  "captured": [
+    {
+      "id": "05-generate-schedule",
+      "file": null,
+      "caption": "05-generate-schedule",
+      "url": "https://dev-erp.smartr.co/app/ticket/TKT-00751",
+      "skipped_screenshot": true
+    },
+    {
+      "id": "05-generate-schedule-focus",
+      "file": "05-generate-schedule-focus.png",
+      "caption": "Ticket đã lưu — cần Instrument trước khi hiện Generate Schedule",
+      "url": "https://dev-erp.smartr.co/app/ticket/TKT-00751",
+      "focus": true,
+      "highlight": false
+    }
+  ],
+  "timestamp": "2026-11-27T03:29:16.341Z",
+  "status": "success",
+  "summary": "Captured 2 screenshot(s)"
 }

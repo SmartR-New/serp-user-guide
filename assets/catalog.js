@@ -13,8 +13,19 @@
     {
       id: "module-hr",
       label: "HR",
-      items: [
-        { href: "expense-claim/index.html", label: "Đề nghị thanh toán" },
+      groups: [
+        {
+          label: "Đề nghị thanh toán",
+          items: [
+            { href: "expense-claim/index.html", label: "Tổng quan (end-to-end)" },
+            { href: "expense-claim-employee/index.html", label: "Nhân viên" },
+            { href: "expense-claim-approver/index.html", label: "Người duyệt" },
+            { href: "expense-claim-auditor/index.html", label: "Kiểm Toán" },
+            { href: "expense-claim-controller/index.html", label: "Kiểm Soát Trưởng" },
+            { href: "expense-claim-advance-payment/index.html", label: "Chi đề nghị tạm ứng" },
+            { href: "expense-claim-payment/index.html", label: "Chi sau khi duyệt" },
+          ],
+        },
       ],
     },
     {

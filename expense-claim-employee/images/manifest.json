@@ -1,0 +1,42 @@
+{
+  "scenario": "E:\\smartr-workspace\\imed-project\\.cursor\\skills\\serp-create-user-guide\\scripts\\scenarios\\expense-claim-employee.yaml",
+  "title": "Đề nghị thanh toán — Nhân viên",
+  "output_dir": "e:\\smartr-workspace\\imed-project\\serp-user-guide\\expense-claim-employee\\images",
+  "captured": [
+    {
+      "id": "01-open-list",
+      "file": "01-open-list.png",
+      "caption": "Danh sách đề nghị thanh toán của nhân viên",
+      "url": "https://dev-erp.smartr.co/app/expense-claim?status=Open",
+      "focus": false,
+      "highlight": false
+    },
+    {
+      "id": "02-new-form",
+      "file": "02-new-form.png",
+      "caption": "Form mới tab Chung với thanh quy trình iMED",
+      "url": "https://dev-erp.smartr.co/app/expense-claim/new-expense-claim-ogxqtyavmm",
+      "focus": false,
+      "highlight": false
+    },
+    {
+      "id": "04-plan",
+      "file": "04-plan.png",
+      "caption": "Tab Kế hoạch — nội dung kế hoạch",
+      "url": "https://dev-erp.smartr.co/app/expense-claim/new-expense-claim-ogxqtyavmm",
+      "focus": false,
+      "highlight": false
+    },
+    {
+      "id": "04b-plan-advance",
+      "file": "04b-plan-advance.png",
+      "caption": "Yêu cầu tạm ứng ở cuối tab Kế hoạch",
+      "url": "https://dev-erp.smartr.co/app/expense-claim/new-expense-claim-ogxqtyavmm",
+      "focus": true,
+      "highlight": false
+    }
+  ],
+  "timestamp": "2026-11-27T03:10:48.659Z",
+  "status": "success",
+  "summary": "Captured 4 screenshot(s)"
+}

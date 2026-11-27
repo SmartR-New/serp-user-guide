@@ -1,0 +1,40 @@
+{
+  "scenario": "E:\\smartr-workspace\\imed-project\\.cursor\\skills\\serp-create-user-guide\\scripts\\scenarios\\expense-claim-auditor.yaml",
+  "title": "Đề nghị thanh toán — Kiểm Toán",
+  "output_dir": "e:\\smartr-workspace\\imed-project\\serp-user-guide\\expense-claim-auditor\\images",
+  "captured": [
+    {
+      "id": "01-open-list",
+      "file": "01-open-list.png",
+      "caption": "Danh sách đề nghị thanh toán — Kiểm Toán",
+      "url": "https://dev-erp.smartr.co/app/expense-claim",
+      "focus": false,
+      "highlight": false
+    },
+    {
+      "id": "_open-claim",
+      "file": null,
+      "caption": "(nav) mở phiếu",
+      "url": "https://dev-erp.smartr.co/app/expense-claim/HR-EXP-2026-00030",
+      "skipped_screenshot": true
+    },
+    {
+      "id": "_tab-accounting",
+      "file": null,
+      "caption": "(nav) tab Accounting",
+      "url": "https://dev-erp.smartr.co/app/expense-claim/HR-EXP-2026-00030",
+      "skipped_screenshot": true
+    },
+    {
+      "id": "02-accounting",
+      "file": "02-accounting.png",
+      "caption": "Tab Accounting — tổng hợp chi phí",
+      "url": "https://dev-erp.smartr.co/app/expense-claim/HR-EXP-2026-00030",
+      "focus": false,
+      "highlight": false
+    }
+  ],
+  "timestamp": "2026-11-27T02:59:04.774Z",
+  "status": "success",
+  "summary": "Captured 4 screenshot(s)"
+}

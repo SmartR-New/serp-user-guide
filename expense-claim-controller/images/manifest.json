@@ -1,0 +1,18 @@
+{
+  "scenario": "E:\\smartr-workspace\\imed-project\\.cursor\\skills\\serp-create-user-guide\\scripts\\scenarios\\expense-claim-controller.yaml",
+  "title": "Đề nghị thanh toán — Kiểm Soát Trưởng",
+  "output_dir": "e:\\smartr-workspace\\imed-project\\serp-user-guide\\expense-claim-controller\\images",
+  "captured": [
+    {
+      "id": "_open-pending-fm",
+      "file": null,
+      "caption": "_open-pending-fm",
+      "url": "https://dev-erp.smartr.co/app/expense-claim/HR-EXP-2026-00030",
+      "skipped_screenshot": true
+    }
+  ],
+  "timestamp": "2026-11-27T03:08:37.518Z",
+  "status": "error",
+  "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: 'Các thao tác' }).first() to be visible\n",
+  "debug_screenshot": "e:\\smartr-workspace\\imed-project\\serp-user-guide\\expense-claim-controller\\images\\_error_1795748957012.png"
+}

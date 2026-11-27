@@ -123,7 +123,7 @@
       <h1>Ticket — tạo phiếu & Generate Schedule PM</h1>
       <div class="meta">
         <span><strong>Module:</strong> Service</span>
-        <span><strong>Cập nhật:</strong> 2026-11-16</span>
+        <span><strong>Cập nhật:</strong> 2026-11-27</span>
       </div>
       <p class="guide-nav"><a href="../overview/index.html">Tổng quan</a> · <a href="../roles/index.html">Phân quyền</a> · <a href="../service-job/index.html">Service Job</a> · <a href="../service-time/index.html">Service Time</a></p>
     </header>
@@ -140,7 +140,7 @@
       <p><strong>Ai thực hiện:</strong> <strong>iMED Service Manager</strong> — tạo và sửa mọi Ticket. <strong>iMED Service Leader</strong> — chỉ sửa Ticket khi bạn là <span class="ui-label">Approver</span> trên phiếu đó (xem <a href="../roles/index.html#roles">phân quyền</a>). <strong>iMED Service User</strong> — không tạo/sửa Ticket.</p>
 
       <h3>Bước 1.1 — Mở danh sách Ticket</h3>
-      <p>Trên Desk (Ctrl + G), gõ <em>Ticket</em> hoặc mở từ workspace Support. Nhấn <span class="ui-label">+ Add Ticket</span> để tạo mới.</p>
+      <p>Trên Desk (Ctrl + G), gõ <em>Ticket</em> hoặc mở từ workspace Support. Nhấn <span class="ui-label">+ Add Ticket</span> để tạo mới. Ở chế độ <span class="ui-label">Report</span>, danh sách có thể thêm cột <span class="ui-label">No. of CSEs</span> (số CSE gán trên phiếu).</p>
       <figure>
         <img src="../../support-ticket-workflow/images/01-ticket-list.png" alt="Danh sách Ticket với nút Add Ticket" loading="lazy">
         <figcaption>Danh sách Ticket</figcaption>
@@ -170,7 +170,7 @@
 
       <h3 id="generate-pm-schedule">Bước 1.4 — Generate Schedule (Preventive Maintenance)</h3>
       <p>Hướng dẫn chi tiết 4 bước (Add Ticket → điền trường → Save → Generate): <a href="../../ticket-generate-schedule/index.html">Generate Schedule — Ticket PM</a>.</p>
-      <p>Dành cho ticket PM có kế hoạch theo năm / nhiều đợt bảo trì. Sau khi Ticket <strong>đã lưu</strong>, có đủ <span class="ui-label">Plan Start Date</span>, <span class="ui-label">Plan End Date</span>, <span class="ui-label">Number of service jobs</span> (≥ 1), ít nhất một <span class="ui-label">Customer</span> và <span class="ui-label">CSEs</span>, và <strong>chưa</strong> có Service Job loại <strong>Preventive Maintenance</strong> nào gắn ticket:</p>
+      <p>Dành cho ticket PM có kế hoạch theo năm / nhiều đợt bảo trì. Sau khi Ticket <strong>đã lưu</strong>, có đủ <span class="ui-label">Plan Start Date</span>, <span class="ui-label">Plan End Date</span>, <span class="ui-label">Number of service jobs</span> (≥ 1), <span class="ui-label">Instrument</span>, ít nhất một <span class="ui-label">Customer</span> và <span class="ui-label">CSEs</span>, và <strong>chưa</strong> có Service Job loại <strong>Preventive Maintenance</strong> nào gắn ticket:</p>
       <ol>
         <li>Mở lại Ticket đã lưu.</li>
         <li>Nhấn <span class="ui-label">Generate Schedule</span> trên thanh hành động.</li>
@@ -181,7 +181,7 @@
       <div class="note"><strong>Ngoài phạm vi v1:</strong> Không tự tạo Maintenance Visit/Schedule ERPNext; không chỉnh ngày theo ngày nghỉ (Holiday List). Liên kết bảo trì đặt thủ công trên từng job nếu cần.</div>
     </section>
     <footer>
-      Nội dung tách từ hướng dẫn Service · Ảnh: support-ticket-workflow/images · Cập nhật 2026-11-16
+      Nội dung tách từ hướng dẫn Service · Ảnh: support-ticket-workflow/images · Cập nhật 2026-11-27
     </footer>
     </div>
     </div>

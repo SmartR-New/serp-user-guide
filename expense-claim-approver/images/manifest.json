@@ -1,0 +1,16 @@
+{
+  "mode": "ad-hoc",
+  "output_dir": "e:\\smartr-workspace\\imed-project\\serp-user-guide\\expense-claim-approver\\images",
+  "captured": [
+    {
+      "id": "skip",
+      "file": "skip.png",
+      "caption": "skip",
+      "url": "https://dev-erp.smartr.co/app/expense-claim/HR-EXP-2026-00046",
+      "focus": false,
+      "highlight": false
+    }
+  ],
+  "timestamp": "2026-11-27T03:08:37.793Z",
+  "status": "success"
+}

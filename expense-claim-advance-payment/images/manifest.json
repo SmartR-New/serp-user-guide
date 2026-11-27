@@ -1,0 +1,34 @@
+{
+  "scenario": "E:\\smartr-workspace\\imed-project\\.cursor\\skills\\serp-create-user-guide\\scripts\\scenarios\\expense-claim-advance-payment.yaml",
+  "title": "Chi đề nghị tạm ứng — Kiểm Toán",
+  "output_dir": "e:\\smartr-workspace\\imed-project\\serp-user-guide\\expense-claim-advance-payment\\images",
+  "captured": [
+    {
+      "id": "01-advance-list",
+      "file": "01-advance-list.png",
+      "caption": "Danh sách Đề nghị tạm ứng",
+      "url": "https://dev-erp.smartr.co/app/employee-advance",
+      "focus": false,
+      "highlight": false
+    },
+    {
+      "id": "_open-advance",
+      "file": null,
+      "caption": "_open-advance",
+      "url": "https://dev-erp.smartr.co/app/employee-advance",
+      "skipped_screenshot": true
+    },
+    {
+      "id": "02-advance-form",
+      "file": "02-advance-form.png",
+      "caption": "Danh sách / form Đề nghị tạm ứng",
+      "url": "https://dev-erp.smartr.co/app/employee-advance",
+      "focus": false,
+      "highlight": false
+    }
+  ],
+  "timestamp": "2026-11-27T03:01:45.447Z",
+  "status": "error",
+  "error": "TimeoutError: page.waitForSelector: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('button.dropdown-toggle:has-text(\"Các thao tác\")') to be visible\n",
+  "debug_screenshot": "e:\\smartr-workspace\\imed-project\\serp-user-guide\\expense-claim-advance-payment\\images\\_error_1795748555623.png"
+}
