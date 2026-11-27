@@ -1,39 +1,24 @@
 {
-  "scenario": "E:\\smartr-workspace\\imed-project\\.cursor\\skills\\serp-create-user-guide\\scripts\\scenarios\\expense-claim-payment.yaml",
-  "title": "Chi sau khi duyệt — Kiểm Toán",
-  "output_dir": "e:\\smartr-workspace\\imed-project\\serp-user-guide\\expense-claim-payment\\images",
+  "title": "Quyết toán sau duyệt",
+  "claim": "HR-EXP-2026-00036",
+  "payment_entry": "ACC-PAY-2026-00031",
   "captured": [
     {
-      "id": "_open-approved",
-      "file": null,
-      "caption": "(nav) danh sách",
-      "url": "https://dev-erp.smartr.co/app/expense-claim",
-      "skipped_screenshot": true
+      "id": "01-settlement-panel",
+      "file": "01-settlement-panel.png",
+      "user": "demo4@smartr.co"
     },
     {
-      "id": "_pick-approved",
-      "file": null,
-      "caption": "_pick-approved",
-      "url": "https://dev-erp.smartr.co/app/expense-claim/HR-EXP-2026-00036",
-      "skipped_screenshot": true
+      "id": "02-settlement-table",
+      "file": "02-settlement-table.png",
+      "user": "demo4@smartr.co"
     },
     {
-      "id": "_goto-pe-list",
-      "file": null,
-      "caption": "(nav) Payment Entry list",
-      "url": "https://dev-erp.smartr.co/app/payment-entry",
-      "skipped_screenshot": true
-    },
-    {
-      "id": "02-assigned-payment",
-      "file": "02-assigned-payment.png",
-      "caption": "Payment Entry — mở bản nháp kiểu Pay từ danh sách",
-      "url": "https://dev-erp.smartr.co/app/payment-entry",
-      "focus": false,
-      "highlight": false
+      "id": "03-payment-entry-form",
+      "file": "03-payment-entry-form.png",
+      "user": "demo12@smartr.co"
     }
   ],
-  "timestamp": "2026-11-27T03:05:20.398Z",
-  "status": "success",
-  "summary": "Captured 4 screenshot(s)"
+  "timestamp": "2026-11-27T07:34:46.778Z",
+  "status": "success"
 }

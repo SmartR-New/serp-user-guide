@@ -23,7 +23,7 @@
             { href: "expense-claim-auditor/index.html", label: "Kiểm Toán" },
             { href: "expense-claim-controller/index.html", label: "Kiểm Soát Trưởng" },
             { href: "expense-claim-advance-payment/index.html", label: "Chi đề nghị tạm ứng" },
-            { href: "expense-claim-payment/index.html", label: "Chi sau khi duyệt" },
+            { href: "expense-claim-payment/index.html", label: "Quyết toán sau duyệt" },
           ],
         },
       ],

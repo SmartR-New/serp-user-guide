@@ -31,7 +31,7 @@
       <div class="content">
         <section id="purpose">
           <h2>Mục đích</h2>
-          <p>Bạn duyệt cuối sau khi Kiểm Toán đã chọn <span class="ui-label">Approve for Controller</span>. Bước <span class="ui-label">Controller Review</span> đang sáng thì phiếu đang chờ bạn. Đây là bản tóm tắt để ký, không sửa từng dòng chi phí.</p>
+          <p>Bạn duyệt cuối sau khi Kiểm Toán đã chuyển phiếu sang bạn. Bước <span class="ui-label">Kiểm soát viên duyệt</span> đang sáng thì phiếu đang chờ bạn. Đây là bản tóm tắt để ký, không sửa từng dòng chi phí.</p>
         </section>
 
         <section id="review">
@@ -46,13 +46,13 @@
           <p>Phiếu mở tab <span class="ui-label">Controller</span>. Xem:</p>
           <ul>
             <li><span class="ui-label">Claim summary for sign-off</span> — nhân viên, <span class="ui-label">Planned Budget (VND)</span>, <span class="ui-label">Total Sanctioned Amount</span> (Tổng số tiền được phê duyệt), <span class="ui-label">Transfer amount to employee</span></li>
-            <li><span class="ui-label">Approval trail</span> — người gửi, người duyệt và Kiểm Toán đã <span class="ui-label">Completed</span>. Kiểm Soát Trưởng đang <span class="ui-label">Pending</span></li>
+            <li>Dòng duyệt — người gửi, người duyệt và Kiểm Toán đã xong; lượt Kiểm Soát Trưởng đang chờ</li>
             <li><span class="ui-label">Budget summary chart</span> — so kế hoạch, số kê khai và số duyệt</li>
           </ul>
           <p>Chi tiết dòng nằm ở tab <span class="ui-label">Approvals</span> hoặc <span class="ui-label">Accounting</span>.</p>
           <figure>
             <img src="images/02-controller.png" alt="Tab Controller với tóm tắt ký duyệt và approval trail">
-            <figcaption>Bước 2 — Tab Controller, bước Controller Review</figcaption>
+            <figcaption>Bước 2 — Tab tóm tắt, chờ duyệt cuối</figcaption>
           </figure>
         </section>
 
@@ -60,14 +60,14 @@
           <h2>Duyệt cuối</h2>
           <p>Mở <span class="ui-label">Actions</span>:</p>
           <ul>
-            <li><span class="ui-label">Final Approve</span> — duyệt xong. Thanh quy trình tới <span class="ui-label">Approved</span></li>
+            <li><span class="ui-label">Final Approve</span> — duyệt xong. Thanh quy trình tới <span class="ui-label">Đã được phê duyệt</span></li>
             <li><span class="ui-label">Reject</span> — trả phiếu và ghi lý do</li>
           </ul>
           <figure>
             <img src="images/03-final-approve.png" alt="Menu Actions với Final Approve và Reject">
             <figcaption>Bước 3 — Actions → Final Approve</figcaption>
           </figure>
-          <div class="note"><strong>Sau Final Approve:</strong> Nếu còn số phải trả hoặc phải thu, mở tab <span class="ui-label">Tasks</span> để tạo việc cho Kiểm Toán. Kiểm Toán nộp <span class="ui-label">Payment Entry</span> theo <a href="../expense-claim-payment/index.html">hướng dẫn chi sau khi duyệt</a>.</div>
+          <div class="note"><strong>Sau Final Approve:</strong> Nếu còn số phải thu hoặc chi thêm, mở tab <span class="ui-label">Tasks</span> → <span class="ui-label">Tạo Task và Payment Entry</span>. <strong>Chuyên viên tài chính</strong> nộp chứng từ theo <a href="../expense-claim-payment/index.html">hướng dẫn quyết toán sau duyệt</a>.</div>
         </section>
         <footer>Updated: 2026-11-27 · Captured: 2026-11-27 · Environment: dev-erp.smartr.co · Viewport: 1440×900 · Role: Controller (demo4@smartr.co)</footer>
       </div>
